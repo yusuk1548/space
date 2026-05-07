@@ -1306,16 +1306,16 @@
 
                         {step === 1 && (
                             <div className="w-full">
-                                <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Icon name="search" size={32} />
                                 </div>
-                                <h3 className="text-2xl font-bold mb-4">Q1. 우리 사업장에 '밀폐공간'이 존재합니까?</h3>
-                                <p className="text-gray-500 mb-8">(※ 환기가 불충분하거나 유해가스가 정체될 수 있는 정화조, 맨홀, 탱크, 핑트 등)</p>
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                    <button onClick={() => { setHasSpace(true); setStep(2); }} className="px-8 py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                                <h3 className="text-xl md:text-2xl font-bold mb-3 leading-relaxed">Q1. 우리 사업장에 '밀폐공간'이 존재합니까?</h3>
+                                <p className="text-gray-500 text-sm md:text-base mb-6">(※ 환기가 불충분하거나 유해가스가 정체될 수 있는 정화조, 맨홀, 탱크, 핏트 등)</p>
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                    <button onClick={() => { setHasSpace(true); setStep(2); }} className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
                                         <Icon name="check-circle" /> 네, 존재합니다
                                     </button>
-                                    <button onClick={() => { setHasSpace(false); setStep(3); }} className="px-8 py-4 bg-gray-200 text-gray-700 rounded-xl font-bold text-lg hover:bg-gray-300 transition-all flex items-center justify-center gap-2">
+                                    <button onClick={() => { setHasSpace(false); setStep(3); }} className="px-8 py-3 bg-gray-200 text-gray-700 rounded-xl font-bold text-lg hover:bg-gray-300 transition-all flex items-center justify-center gap-2">
                                         <Icon name="x-circle" /> 아니요, 없습니다
                                     </button>
                                 </div>
@@ -1324,16 +1324,16 @@
 
                         {step === 2 && (
                             <div className="w-full">
-                                <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <div className="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <Icon name="users" size={32} />
                                 </div>
-                                <h3 className="text-2xl font-bold mb-4">Q2. 해당 밀폐공간 내부로 근로자가 출입하여 '작업'을 합니까?</h3>
-                                <p className="text-gray-500 mb-8">(※ 청소, 점검, 보수, 구출 등 일체의 출입 행위 포함)</p>
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                    <button onClick={() => { setHasWork(true); setStep(3); }} className="px-8 py-4 bg-orange-500 text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-all flex items-center justify-center gap-2">
+                                <h3 className="text-xl md:text-2xl font-bold mb-3 leading-relaxed">Q2. 해당 밀폐공간 내부로 근로자가 출입하여 '작업'을 합니까?</h3>
+                                <p className="text-gray-500 text-sm md:text-base mb-6">(※ 청소, 점검, 보수, 구출 등 일체의 출입 행위 포함)</p>
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                    <button onClick={() => { setHasWork(true); setStep(3); }} className="px-8 py-3 bg-orange-500 text-white rounded-xl font-bold text-lg hover:bg-orange-600 transition-all flex items-center justify-center gap-2">
                                         <Icon name="check-circle" /> 네, 출입하여 작업합니다
                                     </button>
-                                    <button onClick={() => { setHasWork(false); setStep(3); }} className="px-8 py-4 bg-gray-200 text-gray-700 rounded-xl font-bold text-lg hover:bg-gray-300 transition-all flex items-center justify-center gap-2">
+                                    <button onClick={() => { setHasWork(false); setStep(3); }} className="px-8 py-3 bg-gray-200 text-gray-700 rounded-xl font-bold text-lg hover:bg-gray-300 transition-all flex items-center justify-center gap-2">
                                         <Icon name="x-circle" /> 아니요, 출입하지 않습니다
                                     </button>
                                 </div>
@@ -1359,11 +1359,11 @@
                                         <ul className="space-y-4">
                                             <li className="bg-white p-4 rounded-lg border border-yellow-100 shadow-sm">
                                                 <strong className="text-gray-800 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">1</span>밀폐공간 파악 및 목록화 (안전보건규칙 제619조)</strong>
-                                                <p className="text-gray-600 mt-1 text-sm pl-8">밀폐공간의 위치, 종류, 수량, 위험 요인 등을 사전에 파악하여 목록화하고 해당 문서를 보존해야 합니다.</p>
+                                                <p className="text-gray-600 mt-1 text-sm pl-8">밀폐공간의 위치, 종류, 수량, 위험 요인 등을 사전에 파악하여 목록화하고 해당 문서를 보존해야 합니다. <span className="text-blue-600 font-medium">앱 하단의 [다운로드] 탭에서 '밀폐공간 보건작업 프로그램' 양식을 받아 쉽게 작성하고 관리할 수 있습니다.</span></p>
                                             </li>
                                             <li className="bg-white p-4 rounded-lg border border-yellow-100 shadow-sm">
                                                 <strong className="text-gray-800 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">2</span>출입금지 표지 부착 (안전보건규칙 제622조)</strong>
-                                                <p className="text-gray-600 mt-1 text-sm pl-8">누구나 쉽게 볼 수 있도록 밀폐공간 입구 근처에 법적 양식(별지 제4호서식)에 따른 '출입금지 표지'를 훼손되지 않게 게시해야 합니다.</p>
+                                                <p className="text-gray-600 mt-1 text-sm pl-8">누구나 쉽게 볼 수 있도록 밀폐공간 입구 근처에 법적 양식(별지 제4호서식)에 따른 '출입금지 표지'를 훼손되지 않게 게시해야 합니다. <span className="text-blue-600 font-medium">앱 하단의 [다운로드] 탭에서 법적 양식에 맞는 '출입금지 표지'를 즉시 출력하여 부착하십시오.</span></p>
                                             </li>
                                             <li className="bg-white p-4 rounded-lg border border-yellow-100 shadow-sm">
                                                 <strong className="text-gray-800 flex items-center gap-2"><span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">3</span>출입 통제 및 시건장치 설치 (안전보건규칙 제622조)</strong>
@@ -1375,9 +1375,9 @@
                                 {hasSpace === true && hasWork === true && (
                                     <div className="bg-red-50 border border-red-200 p-6 md:p-8 rounded-xl text-center">
                                         <div className="inline-block p-4 bg-red-100 text-red-600 rounded-full mb-4"><Icon name="alert-triangle" size={40} /></div>
-                                        <h3 className="text-2xl font-bold text-red-800 mb-2">고위험 밀폐공간 작업 대상</h3>
-                                        <p className="text-red-700 mb-6">사전 위험성평가, 작업허가서 발급, 산소/유해가스 측정, 환기 등 엄격한 절차가 필요합니다.</p>
-                                        <p className="text-gray-700 font-bold bg-white inline-block px-6 py-3 rounded-lg border border-red-100">👉 좌측 메뉴의 [1.보고서 표지] 탭을 눌러 즉시 위험성평가를 시작하십시오!</p>
+                                        <h3 className="text-xl md:text-2xl font-bold text-red-800 mb-2 leading-relaxed">고위험 밀폐공간 작업 대상</h3>
+                                        <p className="text-red-700 mb-6 text-sm md:text-base">사전 위험성평가, 작업허가서 발급, 산소/유해가스 측정, 환기 등 엄격한 절차가 필요합니다.</p>
+                                        <p className="text-gray-700 font-bold bg-white inline-block px-6 py-3 rounded-lg border border-red-100">👉 화면 하단(PC는 좌측)의 [표지] 탭을 눌러 즉시 위험성평가를 시작하십시오!</p>
                                     </div>
                                 )}
                                 <div className="mt-8 text-center">
