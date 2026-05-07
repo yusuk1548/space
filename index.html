@@ -390,12 +390,15 @@
             const [programInfo, setProgramInfo] = useState(() => {
                 const today = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0];
                 return {
+                    revisionType: '제정',
                     revisionDate: today,
-                    workType: '내부청소',
-                    workFreq: '비정기',
-                    workerCount: '2인 1조',
-                    managerName: '',
-                    emergencyTel: '',
+                    managers: [
+                        { role: '프로그램 총괄 책임자', name: '', tel: '' },
+                        { role: '프로그램 관리자', name: '', tel: '' },
+                        { role: '추진 팀원(외부업체)', name: '', tel: '' },
+                        { role: '추진 팀원(구매담당)', name: '', tel: '' },
+                        { role: '추진 팀원(정비보수담당)', name: '', tel: '' },
+                    ],
                     hasMeter: false,
                     meterModel: '',
                     meterCalDate: today,
@@ -614,7 +617,7 @@
                                     <MenuBtn active={activeTab === 'check'} onClick={() => setActiveTab('check')} icon="check-square" text="3. 체크리스트" />
                                     <MenuBtn active={activeTab === 'map'} onClick={() => setActiveTab('map')} icon="map-pin" text="4. 디지털 배치도" />
                                     <MenuBtn active={activeTab === 'conclusion'} onClick={() => setActiveTab('conclusion')} icon="pen-tool" text="5. 총평 및 의견" />
-                                    <MenuBtn active={activeTab === 'program'} onClick={() => setActiveTab('program')} icon="clipboard-list" text="보건작업 프로그램" />
+                                    <MenuBtn active={activeTab === 'program'} onClick={() => setActiveTab('program')} icon="clipboard-list" text="6. 작업 프로그램" />
                                     <div className="h-px bg-gray-100 my-2"></div>
                                     <MenuBtn active={activeTab === 'download'} onClick={() => setActiveTab('download')} icon="folder-down" text="자료 다운로드" />
                                 </nav>
@@ -641,7 +644,7 @@
                                     {activeTab === 'map' && <MapScreen spaces={spaces} mapImage={mapImage} setMapImage={setMapImage} setSpaces={setSpaces} />}
                                     {activeTab === 'conclusion' && <ConclusionScreen reportInfo={reportInfo} spaces={spaces} defectSummary={defectSummary} checklistResults={checklistResults} setFinalOpinion={setFinalOpinion} finalOpinion={finalOpinion} />}
                                     {activeTab === 'download' && <DownloadScreen />}
-                                    {activeTab === 'program' && <ProgramScreen info={programInfo} setInfo={setProgramInfo} />}
+                                    {activeTab === 'program' && <ProgramScreen info={programInfo} setInfo={setProgramInfo} spaces={spaces} setSpaces={setSpaces} />}
                                     {activeTab === 'guide' && <GuideScreen onSelect={setSelectedSpaceItem} />}
                                     {activeTab === 'diagnosis' && <DiagnosisScreen />}
                                 </div>
@@ -1612,66 +1615,151 @@
             );
         };
 
-        const ProgramScreen = ({ info, setInfo }) => {
+        const ProgramScreen = ({ info, setInfo, spaces, setSpaces }) => {
             const set = (key, val) => setInfo(prev => ({ ...prev, [key]: val }));
+            const setManager = (idx, field, val) => setInfo(prev => {
+                const managers = prev.managers.map((m, i) => i === idx ? { ...m, [field]: val } : m);
+                return { ...prev, managers };
+            });
+            const setSpaceField = (id, field, val) =>
+                setSpaces(prev => prev.map(s => s.id === id ? { ...s, [field]: val } : s));
+
+            const Toggle = ({ on, onToggle }) => (
+                <button type="button" onClick={onToggle}
+                    className={`w-12 h-6 rounded-full transition-colors shrink-0 ${on ? 'bg-teal-500' : 'bg-gray-300'}`}>
+                    <span className={`block w-5 h-5 bg-white rounded-full shadow transition-transform mx-0.5 ${on ? 'translate-x-6' : 'translate-x-0'}`} />
+                </button>
+            );
+
             return (
                 <div className="p-4 md:p-8 max-w-2xl mx-auto pb-24">
                     <h2 className="text-xl md:text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                        <Icon name="clipboard-list" className="text-teal-600" /> 밀폐공간 보건작업 프로그램 설정
+                        <Icon name="clipboard-list" className="text-teal-600" /> 밀폐공간 작업 프로그램
                     </h2>
                     <div className="space-y-4">
-                        {/* 제개정 일자 */}
+
+                        {/* 1. 제정/개정 일자 */}
                         <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-                            <label className="block text-sm font-bold text-gray-600 mb-2">프로그램 제개정일자</label>
-                            <input type="date" value={info.revisionDate} onChange={e => set('revisionDate', e.target.value)} className="w-full p-2 border rounded-lg text-sm" />
+                            <div className="text-sm font-bold text-gray-600 mb-3">제정 / 개정 일자</div>
+                            <div className="flex gap-3 mb-3">
+                                {['제정', '개정'].map(t => (
+                                    <button key={t} type="button"
+                                        onClick={() => set('revisionType', t)}
+                                        className={`flex-1 py-2 rounded-lg text-sm font-bold border-2 transition-colors ${
+                                            info.revisionType === t
+                                                ? 'bg-teal-600 text-white border-teal-600'
+                                                : 'bg-white text-gray-500 border-gray-200 hover:border-teal-400'
+                                        }`}>
+                                        {t}
+                                    </button>
+                                ))}
+                            </div>
+                            <label className="text-xs text-gray-500">{info.revisionType}일자</label>
+                            <input type="date" value={info.revisionDate}
+                                onChange={e => set('revisionDate', e.target.value)}
+                                className="w-full mt-1 p-2 border rounded-lg text-sm" />
                         </div>
-                        {/* 작업정보 */}
-                        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm space-y-3">
-                            <div className="text-sm font-bold text-gray-600 mb-1">작업 정보</div>
-                            <div>
-                                <label className="text-xs text-gray-500">작업내용</label>
-                                <select value={info.workType} onChange={e => set('workType', e.target.value)} className="w-full mt-1 p-2 border rounded-lg text-sm">
-                                    {['내부청소','설비점검','보수작업','용접','비파괴검사','배관작업','기타'].map(o => <option key={o}>{o}</option>)}
-                                </select>
+
+                        {/* 2. 밀폐공간 현황 연동 */}
+                        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                            <div className="text-sm font-bold text-gray-600 mb-3">밀폐공간별 작업정보 입력
+                                <span className="ml-2 text-xs font-normal text-gray-400">(현황 탭에서 등록한 데이터 자동 연동)</span>
                             </div>
-                            <div>
-                                <label className="text-xs text-gray-500">작업빈도</label>
-                                <select value={info.workFreq} onChange={e => set('workFreq', e.target.value)} className="w-full mt-1 p-2 border rounded-lg text-sm">
-                                    {['비정기','청소시(비정기)','점검시(비정기)','반기별 1회','분기별 1회'].map(o => <option key={o}>{o}</option>)}
-                                </select>
+                            {spaces.length === 0 ? (
+                                <p className="text-sm text-gray-400 text-center py-4">현황 탭에서 밀폐공간을 먼저 등록해 주세요.</p>
+                            ) : spaces.map(s => (
+                                <div key={s.id} className="mb-4 border border-gray-100 rounded-xl overflow-hidden">
+                                    {/* 상단: 읽기전용 */}
+                                    <div className="flex gap-3 p-3 bg-gray-50 items-start">
+                                        {s.photo
+                                            ? <img src={s.photo} className="w-14 h-14 object-cover rounded-lg shrink-0 border" />
+                                            : <div className="w-14 h-14 bg-gray-200 rounded-lg shrink-0 flex items-center justify-center text-gray-400"><Icon name="image" size={22} /></div>
+                                        }
+                                        <div className="min-w-0">
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                <span className="text-xs font-bold bg-slate-700 text-white px-2 py-0.5 rounded">{s.id}</span>
+                                                <span className={`text-xs font-bold px-2 py-0.5 rounded ${s.risk.color}`}>{s.risk.label}</span>
+                                            </div>
+                                            <p className="font-bold text-sm mt-1 truncate">{s.name}</p>
+                                            <p className="text-xs text-gray-500 truncate">{s.location}</p>
+                                            <p className="text-xs text-blue-600 mt-0.5">
+                                                O₂:{s.gas.o2} H₂S:{s.gas.h2s} CO:{s.gas.co} LEL:{s.gas.lel} CO₂:{s.gas.co2}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {/* 하단: 추가 입력 */}
+                                    <div className="p-3 space-y-2 bg-white">
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <div>
+                                                <label className="text-xs text-gray-500">작업내용</label>
+                                                <select value={s.progWorkType || ''}
+                                                    onChange={e => setSpaceField(s.id, 'progWorkType', e.target.value)}
+                                                    className="w-full mt-1 p-1.5 border rounded text-xs">
+                                                    <option value="">선택</option>
+                                                    {['내부청소','설비점검','보수작업','용접','비파괴검사','배관작업','기타'].map(o => <option key={o}>{o}</option>)}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-gray-500">작업빈도</label>
+                                                <select value={s.progWorkFreq || ''}
+                                                    onChange={e => setSpaceField(s.id, 'progWorkFreq', e.target.value)}
+                                                    className="w-full mt-1 p-1.5 border rounded text-xs">
+                                                    <option value="">선택</option>
+                                                    {['비정기','청소시(비정기)','점검시(비정기)','반기별 1회','분기별 1회'].map(o => <option key={o}>{o}</option>)}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-gray-500">근로자 수</label>
+                                                <select value={s.progWorkerCount || ''}
+                                                    onChange={e => setSpaceField(s.id, 'progWorkerCount', e.target.value)}
+                                                    className="w-full mt-1 p-1.5 border rounded text-xs">
+                                                    <option value="">선택</option>
+                                                    {['2인 1조','3인 1조','4인 1조'].map(o => <option key={o}>{o}</option>)}
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs text-gray-500 block mb-1">작업허가서</label>
+                                                <div className="flex items-center gap-2 mt-1.5">
+                                                    <Toggle on={!!s.progPermit} onToggle={() => setSpaceField(s.id, 'progPermit', !s.progPermit)} />
+                                                    <span className="text-xs font-bold">{s.progPermit ? '유' : '무'}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* 3. 관리책임자 5인 */}
+                        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+                            <div className="text-sm font-bold text-gray-600 mb-3">관리 책임자 및 연락망</div>
+                            <div className="space-y-3">
+                                {info.managers.map((m, i) => (
+                                    <div key={i} className="border border-gray-100 rounded-lg p-3 bg-gray-50">
+                                        <p className="text-xs font-bold text-teal-700 mb-2">[{i+1}] {m.role}</p>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <input type="text" value={m.name}
+                                                onChange={e => setManager(i, 'name', e.target.value)}
+                                                placeholder="성명" className="p-2 border rounded text-sm" />
+                                            <input type="tel" value={m.tel}
+                                                onChange={e => setManager(i, 'tel', e.target.value)}
+                                                placeholder="연락처" className="p-2 border rounded text-sm" />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div>
-                                <label className="text-xs text-gray-500">근로자 수</label>
-                                <select value={info.workerCount} onChange={e => set('workerCount', e.target.value)} className="w-full mt-1 p-2 border rounded-lg text-sm">
-                                    {['2인 1조','3인 1조','4인 1조'].map(o => <option key={o}>{o}</option>)}
-                                </select>
+                            <div className="mt-3 bg-blue-50 rounded-lg p-3 text-xs text-blue-700">
+                                💡 고정 비상망: <strong>119</strong>(소방/응급), <strong>1644-8595</strong>(안전보건공단 원콜서비스)
                             </div>
                         </div>
-                        {/* 관리책임자 */}
-                        <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm space-y-3">
-                            <div className="text-sm font-bold text-gray-600 mb-1">관리 책임자 및 연락망</div>
-                            <div>
-                                <label className="text-xs text-gray-500">총괄책임자 성명</label>
-                                <input type="text" value={info.managerName} onChange={e => set('managerName', e.target.value)} placeholder="예: 홍길동 과장" className="w-full mt-1 p-2 border rounded-lg text-sm" />
-                            </div>
-                            <div>
-                                <label className="text-xs text-gray-500">사내 비상연락처</label>
-                                <input type="tel" value={info.emergencyTel} onChange={e => set('emergencyTel', e.target.value)} placeholder="예: 010-0000-0000" className="w-full mt-1 p-2 border rounded-lg text-sm" />
-                            </div>
-                            <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-500">
-                                💡 고정 비상연락망: 119(소방서), 1644-8595(안전보건공단 원콜서비스), 1339(응급의료)
-                            </div>
-                        </div>
-                        {/* 장비 보유 */}
+
+                        {/* 4. 장비 보유 */}
                         <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm space-y-4">
                             <div className="text-sm font-bold text-gray-600">장비 보유 현황</div>
-                            {/* 가스측정기 */}
                             <div>
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium">가스측정기</span>
-                                    <button onClick={() => set('hasMeter', !info.hasMeter)} className={`w-12 h-6 rounded-full transition-colors ${info.hasMeter ? 'bg-teal-500' : 'bg-gray-300'}`}>
-                                        <span className={`block w-5 h-5 bg-white rounded-full shadow transition-transform mx-0.5 ${info.hasMeter ? 'translate-x-6' : 'translate-x-0'}`} />
-                                    </button>
+                                    <Toggle on={info.hasMeter} onToggle={() => set('hasMeter', !info.hasMeter)} />
                                 </div>
                                 {info.hasMeter && (
                                     <div className="space-y-2 pl-2">
@@ -1683,13 +1771,10 @@
                                     </div>
                                 )}
                             </div>
-                            {/* 환기팜 */}
                             <div>
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium">환기팜</span>
-                                    <button onClick={() => set('hasFan', !info.hasFan)} className={`w-12 h-6 rounded-full transition-colors ${info.hasFan ? 'bg-teal-500' : 'bg-gray-300'}`}>
-                                        <span className={`block w-5 h-5 bg-white rounded-full shadow transition-transform mx-0.5 ${info.hasFan ? 'translate-x-6' : 'translate-x-0'}`} />
-                                    </button>
+                                    <Toggle on={info.hasFan} onToggle={() => set('hasFan', !info.hasFan)} />
                                 </div>
                                 {info.hasFan && (
                                     <div className="space-y-2 pl-2">
@@ -1702,10 +1787,12 @@
                                 )}
                             </div>
                         </div>
+
                     </div>
                 </div>
             );
         };
+
 
         const DownloadScreen = () => {
             const files = [
