@@ -567,14 +567,30 @@
 
             const handleProgramDownload = async () => {
                 try {
+                    // 현재 시간값을 강제로 붙여 브라우저와 서비스워커의 캐시를 100% 무시
+                    const cacheBuster = '?v=' + new Date().getTime();
+
+                    const pdfRes  = await fetch('https://yusuk1548.github.io/space/program.pdf'  + cacheBuster);
+                    const pdfBytes  = await pdfRes.arrayBuffer();
+
+                    const fontRes = await fetch('https://yusuk1548.github.io/space/NanumGothic.ttf' + cacheBuster);
+                    const fontBytes = await fontRes.arrayBuffer();
+
+                    // 파일 용량 진단 (10KB 미만이면 HTML 에러페이지이거나 파일 손상)
+                    if (pdfBytes.byteLength < 10000) {
+                        throw new Error(`PDF 파일이 너무 작습니다. (용량: ${pdfBytes.byteLength} Byte)\n정상적인 PDF 파일이 아닙니다.`);
+                    }
+                    if (fontBytes.byteLength < 10000) {
+                        throw new Error(`폰트 파일이 너무 작습니다. (용량: ${fontBytes.byteLength} Byte)\n정상적인 TTF 폰트 파일이 아닙니다.`);
+                    }
+
                     const { PDFDocument, rgb } = window.PDFLib;
-
-                    // 1. 깃허브 라이브 절대 주소에서 파일 가져오기
-                    const pdfBytes  = await fetch('https://yusuk1548.github.io/space/program.pdf').then(r => r.arrayBuffer());
-                    const fontBytes = await fetch('https://yusuk1548.github.io/space/NanumGothic.ttf').then(r => r.arrayBuffer());
-
-                    // 2. 폰트 등록
                     const pdfDoc = await PDFDocument.load(pdfBytes);
+
+                    // 폰트킷 등록 확인
+                    if (!window.fontkit) {
+                        throw new Error("폰트킷(fontkit) 라이브러리가 로드되지 않았습니다. HTML의 <head>를 확인하세요.");
+                    }
                     pdfDoc.registerFontkit(window.fontkit);
                     const customFont = await pdfDoc.embedFont(fontBytes);
                     const pages = pdfDoc.getPages();
