@@ -1,9 +1,11 @@
-// 서비스 워커 빈 껍데기 (PWA 설치 요건 충족을 위해 필수)
-self.addEventListener('install', event => {
-    console.log('Service Worker Installed');
+self.addEventListener('install', (e) => {
+    self.skipWaiting();
 });
 
-self.addEventListener('fetch', event => {
-    // 앱이 오프라인에서도 열리게 하려면 여기에 캐싱 로직이 들어가야 합니다.
-    // 현재는 인터넷 배지 제거를 위해 등록만 합니다.
+self.addEventListener('activate', (e) => {
+    e.waitUntil(clients.claim());
+});
+
+self.addEventListener('fetch', (e) => {
+    e.respondWith(fetch(e.request).catch(() => new Response('오프라인 상태입니다.')));
 });
