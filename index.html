@@ -413,6 +413,8 @@
             });
             const [toastMsg, setToastMsg] = React.useState('');
             const [selectedSpaceItem, setSelectedSpaceItem] = React.useState(null);
+            const [deferredPrompt, setDeferredPrompt] = React.useState(null);
+            const [showIosPrompt, setShowIosPrompt] = React.useState(false);
 
             // ─── useRef ─────────────────────────────────────────────────
             const fileInputRef = useRef(null);
@@ -465,6 +467,12 @@
                             .catch(err => console.log('Service Worker Registration Failed:', err));
                     });
                 }
+            }, []);
+
+            useEffect(() => {
+                const handler = (e) => { e.preventDefault(); setDeferredPrompt(e); };
+                window.addEventListener('beforeinstallprompt', handler);
+                return () => window.removeEventListener('beforeinstallprompt', handler);
             }, []);
 
             // ─── useMemo ────────────────────────────────────────────────
@@ -541,6 +549,18 @@
                 }
             };
 
+            const handleInstallApp = () => {
+                const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (isIos) {
+                    setShowIosPrompt(true);
+                } else if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
+                } else {
+                    alert('이미 설치되어 있거나 현재 브라우저에서 지원하지 않습니다.');
+                }
+            };
+
             // ✅ [Fix] 모든 Hook 선언 완료. 이 아래에는 Hook이 전혀 없음.
             // 조건부 렌더링은 return() 내부 삼항 연산자로만 처리 (early return 완전 제거)
             return (
@@ -596,6 +616,12 @@
                                         >
                                             💾 <span>저장</span>
                                         </button>
+                                        <button
+                                            onClick={() => { handleInstallApp(); setIsMobileMenuOpen(false); }}
+                                            className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-teal-600 font-semibold hover:bg-teal-50 transition-colors"
+                                        >
+                                            📲 <span>앱 설치</span>
+                                        </button>
                                     </div>
                                 )}
                             </div>
@@ -634,7 +660,8 @@
                                     <button onClick={handleReset} className="w-full flex gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">🔄 초기화</button>
                                 </div>
                                 <div className="p-4 bg-gray-50 border-t border-gray-200 space-y-2">
-                                    <button onClick={() => window.print()} className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"><Icon name="printer" /> 출력</button>
+                                    <button onClick={handleInstallApp} className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">📲 앱 설치</button>
+                                    <button onClick={() => window.print()} className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"><Icon name="printer" /> 출력</button>
                                     <button onClick={() => firebase.auth().signOut()} className="w-full py-3 bg-white hover:bg-red-50 text-red-500 hover:text-red-600 border border-red-200 rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"><Icon name="log-out" /> 로그아웃</button>
                                 </div>
                             </aside>
@@ -747,6 +774,39 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        )}
+                        {/* iOS PWA 설치 안내 모달 */}
+                        {showIosPrompt && (
+                            <div className="fixed inset-0 bg-black bg-opacity-60 z-[300] flex items-end justify-center p-4 print:hidden"
+                                onClick={() => setShowIosPrompt(false)}>
+                                <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 mb-4" onClick={e => e.stopPropagation()}>
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className="text-3xl">📲</span>
+                                        <div>
+                                            <p className="font-bold text-slate-800 text-base">SafeSpace 앱 설치</p>
+                                            <p className="text-xs text-gray-500">iPhone / iPad</p>
+                                        </div>
+                                    </div>
+                                    <ol className="space-y-3 text-sm text-gray-700">
+                                        <li className="flex items-start gap-2">
+                                            <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">1</span>
+                                            <span>Safari 브라우저 하단의 <strong>공유 버튼(⬆)</strong>을 탭하세요.</span>
+                                        </li>
+                                        <li className="flex items-start gap-2">
+                                            <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">2</span>
+                                            <span>스크롤하여 <strong>'홈 화면에 추가'</strong>를 선택하세요.</span>
+                                        </li>
+                                        <li className="flex items-start gap-2">
+                                            <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">3</span>
+                                            <span>우측 상단의 <strong>'추가'</strong>를 누르면 설치 완료!</span>
+                                        </li>
+                                    </ol>
+                                    <button onClick={() => setShowIosPrompt(false)}
+                                        className="mt-5 w-full py-3 bg-slate-800 text-white rounded-xl font-semibold text-sm hover:bg-slate-900 transition-colors">
+                                        확인
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -1694,7 +1754,7 @@
                                     {/* 하단: 추가 입력 */}
                                     <div className="p-3 space-y-2 bg-white">
                                         <div className="grid grid-cols-2 gap-2">
-                                            <div>
+                                            <div className="col-span-2">
                                                 <label className="text-xs text-gray-500">작업내용</label>
                                                 <select value={s.progWorkType || ''}
                                                     onChange={e => setSpaceField(s.id, 'progWorkType', e.target.value)}
@@ -1702,6 +1762,15 @@
                                                     <option value="">선택</option>
                                                     {['내부청소', '설비점검', '보수작업', '용접', '비파괴검사', '배관작업', '기타'].map(o => <option key={o}>{o}</option>)}
                                                 </select>
+                                                {s.progWorkType === '기타' && (
+                                                    <input
+                                                        type="text"
+                                                        value={s.progWorkTypeDetail || ''}
+                                                        onChange={e => setSpaceField(s.id, 'progWorkTypeDetail', e.target.value)}
+                                                        placeholder="작업 내용을 직접 입력하세요"
+                                                        className="w-full mt-1 p-1.5 border border-teal-300 rounded text-xs focus:outline-none focus:ring-1 focus:ring-teal-400"
+                                                    />
+                                                )}
                                             </div>
                                             <div>
                                                 <label className="text-xs text-gray-500">작업빈도</label>
