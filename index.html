@@ -595,52 +595,40 @@
                     const customFont = await pdfDoc.embedFont(fontBytes);
                     const pages = pdfDoc.getPages();
 
+                    // 빈칸(null, undefined, "")일 경우 폰트 엔진이 터지는 버그 방지
+                    const safeDrawText = (page, text, x, y, size) => {
+                        if (text === undefined || text === null || String(text).trim() === '') return;
+                        page.drawText(String(text), { x, y, size, font: customFont, color: rgb(0,0,0) });
+                    };
+
                     // --- [1페이지: 표지 작성] ---
                     const firstPage = pages[0];
-                    const titleSize = 14;
-                    const textSize  = 10;
 
-                    // 제정/개정일자
-                    firstPage.drawText(programInfo.revisionDate || '2026.00.00', {
-                        x: 150, y: 650, size: titleSize, font: customFont, color: rgb(0,0,0)
-                    });
-                    // 사업장명
-                    firstPage.drawText(reportInfo.companyName || '(주)회사명', {
-                        x: 250, y: 400, size: 20, font: customFont, color: rgb(0,0,0)
-                    });
-                    // 평가 기관
-                    firstPage.drawText('(사)대한산업보건협회 ' + (reportInfo.agencyBranch || ''), {
-                        x: 150, y: 350, size: textSize, font: customFont, color: rgb(0,0,0)
-                    });
-                    // 제/개정 구분
-                    firstPage.drawText(programInfo.revisionType || '제정', {
-                        x: 150, y: 680, size: textSize, font: customFont, color: rgb(0,0,0)
-                    });
+                    safeDrawText(firstPage, programInfo.revisionType,  150, 680, 10);   // 제/개정 구분
+                    safeDrawText(firstPage, programInfo.revisionDate,  150, 650, 14);   // 제정/개정일자
+                    safeDrawText(firstPage, reportInfo.companyName,    250, 400, 20);   // 사업장명
+                    safeDrawText(firstPage, reportInfo.agencyBranch,   150, 350, 10);   // 평가기관 지부
 
                     // --- [2페이지: 밀폐공간 현황표 작성] ---
                     const secondPage = pages.length > 1 ? pages[1] : pages[0];
 
-                    spaces.forEach((space, index) => {
-                        // y좌표는 한 줄 내려갈 때마다 25px씩 감소
-                        const startY = 550 - (index * 25);
-                        if (startY < 50) return;  // 페이지 하단 초과 방지
+                    if (spaces && spaces.length > 0) {
+                        spaces.forEach((space, index) => {
+                            const startY = 550 - (index * 25);  // 간격은 추후 영점 조절 필요
+                            if (startY < 50) return;
 
-                        const draw = (text, x) => secondPage.drawText(
-                            String(text == null ? '' : text),
-                            { x, y: startY, size: textSize, font: customFont, color: rgb(0,0,0) }
-                        );
+                            safeDrawText(secondPage, index + 1,        50, startY, 10);  // 연번
+                            safeDrawText(secondPage, space.location,   90, startY, 10);  // 위치
+                            safeDrawText(secondPage, space.name,      160, startY, 10);  // 공간명
+                            safeDrawText(secondPage, space.workContent, 250, startY, 10); // 작업내용
+                            safeDrawText(secondPage, space.cycle,      340, startY, 10);  // 작업빈도
+                            safeDrawText(secondPage, space.personnel,  420, startY, 10);  // 근로자 수
+                            safeDrawText(secondPage, space.progPermit ? '유' : '무', 490, startY, 10); // 허가유무
+                            safeDrawText(secondPage, space.hazards,    530, startY, 10);  // 유해위험요인
+                        });
+                    }
 
-                        draw(index + 1,                  50);   // 연번
-                        draw(space.location,             90);   // 위치
-                        draw(space.name,                160);   // 공간명
-                        draw(space.workContent || '',   250);   // 작업내용
-                        draw(space.cycle,               340);   // 빈도
-                        draw(space.personnel,           420);   // 근로자 수
-                        draw(space.progPermit ? '유' : '무', 490);  // 허가유무
-                        draw(space.hazards,             530);   // 유해위험요인
-                    });
-
-                    // 다운로드 트리거 (기존 로직 유지)
+                    // 다운로드 트리거
                     const pdfBytesSaved = await pdfDoc.save();
                     const blob = new Blob([pdfBytesSaved], { type: 'application/pdf' });
                     const link = document.createElement('a');
