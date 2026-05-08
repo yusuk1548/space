@@ -10,10 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="SafeSpace">
-    <link rel="icon" type="image/png" sizes="192x192" href="/space/icon-192.png">
-    <link rel="shortcut icon" sizes="192x192" href="/space/icon-192.png">
+    <link rel="icon" type="image/png" href="/space/icon-512.png">
     <link rel="apple-touch-icon" href="/space/icon-512.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/space/icon-192.png">
     <link rel="manifest" href="/space/manifest.json">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,6 +19,8 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/@pdf-lib/fontkit/dist/fontkit.umd.min.js"></script>
 
     <style>
         /* 화면용 기본 스타일 */
@@ -565,6 +565,76 @@
                 }
             };
 
+            const handleProgramDownload = async () => {
+                try {
+                    const { PDFDocument, rgb } = window.PDFLib;
+
+                    // 원본 PDF와 한글 폰트 불러오기
+                    const [pdfBytes, fontBytes] = await Promise.all([
+                        fetch('/space/program.pdf').then(res => {
+                            if (!res.ok) throw new Error('program.pdf를 찾을 수 없습니다. /space/program.pdf 경로를 확인해 주세요.');
+                            return res.arrayBuffer();
+                        }),
+                        fetch('/space/NanumGothic.ttf').then(res => {
+                            if (!res.ok) throw new Error('NanumGothic.ttf를 찾을 수 없습니다. /space/NanumGothic.ttf 경로를 확인해 주세요.');
+                            return res.arrayBuffer();
+                        })
+                    ]);
+
+                    const pdfDoc = await PDFDocument.load(pdfBytes);
+                    pdfDoc.registerFontkit(window.fontkit);
+                    const customFont = await pdfDoc.embedFont(fontBytes);
+
+                    const pages = pdfDoc.getPages();
+                    const firstPage  = pages[0];
+                    const secondPage = pages.length > 1 ? pages[1] : pages[0];
+
+                    const textSize = 11;
+                    const black = rgb(0, 0, 0);
+
+                    // ── 1페이지 (표지) ──────────────────────────────────
+                    firstPage.drawText(programInfo.revisionType + '  ' + (programInfo.revisionDate || ''), {
+                        x: 200, y: 620, size: textSize, font: customFont, color: black
+                    });
+                    firstPage.drawText(reportInfo.companyName || '', {
+                        x: 200, y: 570, size: textSize, font: customFont, color: black
+                    });
+                    firstPage.drawText('(사)대한산업보건협회 ' + (reportInfo.agencyBranch || ''), {
+                        x: 200, y: 520, size: textSize, font: customFont, color: black
+                    });
+
+                    // ── 2페이지 (밀폐공간 현황표) ─────────────────────────
+                    spaces.forEach((space, index) => {
+                        const startY = 700 - (index * 22);
+                        if (startY < 50) return;
+
+                        const draw = (text, x) => secondPage.drawText(String(text == null ? '' : text), {
+                            x, y: startY, size: 10, font: customFont, color: black
+                        });
+
+                        draw(index + 1,          40);
+                        draw(space.location,     75);
+                        draw(space.name,        175);
+                        draw(space.legalBasis,  300);
+                        draw(space.hazards,     390);
+                        draw(space.cycle,       490);
+                        draw(space.personnel,   560);
+                    });
+
+                    // ── PDF 저장 및 다운로드 ──────────────────────────────
+                    const pdfBytesSaved = await pdfDoc.save();
+                    const blob = new Blob([pdfBytesSaved], { type: 'application/pdf' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = '밀폐공간_작업프로그램_' + (reportInfo.companyName || '무제') + '.pdf';
+                    link.click();
+                } catch (err) {
+                    console.error('PDF 생성 오류:', err);
+                    alert('PDF 생성 중 오류가 발생했습니다.\n\n' + err.message);
+                }
+            };
+
+
             // ✅ [Fix] 모든 Hook 선언 완료. 이 아래에는 Hook이 전혀 없음.
             // 조건부 렌더링은 return() 내부 삼항 연산자로만 처리 (early return 완전 제거)
             return (
@@ -677,8 +747,7 @@
                                     {activeTab === 'check' && <ChecklistScreen results={checklistResults} setResults={setChecklistResults} defectSummary={defectSummary} />}
                                     {activeTab === 'status' && <StatusScreen spaces={spaces} setSpaces={setSpaces} />}
                                     {activeTab === 'map' && <MapScreen spaces={spaces} mapImage={mapImage} setMapImage={setMapImage} setSpaces={setSpaces} />}
-                                    {activeTab === 'conclusion' && <ConclusionScreen reportInfo={reportInfo} spaces={spaces} defectSummary={defectSummary} checklistResults={checklistResults} setFinalOpinion={setFinalOpinion} finalOpinion={finalOpinion} />}
-                                    {activeTab === 'download' && <DownloadScreen />}
+                                    {activeTab === 'download' && <DownloadScreen onProgramDownload={handleProgramDownload} />}
                                     {activeTab === 'program' && <ProgramScreen info={programInfo} setInfo={setProgramInfo} spaces={spaces} setSpaces={setSpaces} />}
                                     {activeTab === 'guide' && <GuideScreen onSelect={setSelectedSpaceItem} />}
                                     {activeTab === 'diagnosis' && <DiagnosisScreen />}
@@ -750,7 +819,6 @@
                                     </button>
                                     {/* 번호 배지 */}
                                     <div className="flex items-center gap-3 mb-4">
-                                        <span className="text-sm font-bold bg-red-600 text-white px-3 py-1 rounded-full">NO.{selectedSpaceItem.id}</span>
                                         <h2 className="text-2xl font-bold text-gray-900">{selectedSpaceItem.name}</h2>
                                     </div>
                                     {/* 사진 */}
@@ -1865,7 +1933,7 @@
         };
 
 
-        const DownloadScreen = () => {
+        const DownloadScreen = ({ onProgramDownload }) => {
             const files = [
                 { title: "1. 밀폐공간 출입금지 표지 (별지 제4호서식)", pdf: "./downloads/sign.pdf" },
                 { title: "2. 밀폐공간 작업허가서", hwpx: "./downloads/ptw.hwpx", pdf: "./downloads/ptw.pdf" },
@@ -1884,7 +1952,7 @@
                         <button onClick={() => window.print()} className="flex items-center justify-center gap-3 p-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold text-lg shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                             <Icon name="file-text" size={28} /> <span>평가보고서 출력</span>
                         </button>
-                        <button onClick={() => alert('보건작업 프로그램 PDF 생성 기능이 곳 연결됩니다.')} className="flex items-center justify-center gap-3 p-5 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold text-lg shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                        <button onClick={() => onProgramDownload()} className="flex items-center justify-center gap-3 p-5 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl font-bold text-lg shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                             <Icon name="book-open" size={28} /> <span>보건작업 프로그램 다운로드</span>
                         </button>
                     </div>
