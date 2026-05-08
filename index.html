@@ -574,7 +574,7 @@
                 let text = "[밀폐공간 위험성평가 총평 및 종합의견]\n\n";
                 text += "당 사업장에는 현재 총 " + currentSpaces.length + "개의 밀폐공간이 존재하며, 확인된 주요 위험 공간 및 작업은 다음과 같습니다.\n\n";
                 currentSpaces.forEach((s, i) => {
-                    text += (i+1) + ". " + (s.location || "위치 미상") + " (" + (s.name || "공간명 미상") + "): " + (s.workContent || s.cycle || "작업") + " 수행 중 질식 및 가스 중독 위험\n";
+                    text += (i + 1) + ". " + (s.location || "위치 미상") + " (" + (s.name || "공간명 미상") + "): " + (s.workContent || s.cycle || "작업") + " 수행 중 질식 및 가스 중독 위험\n";
                 });
                 text += "\n이에 따라 작업 전 반드시 산소 및 유해가스 농도를 측정하고, 작업 중 지속적인 환기와 적절한 보호구(송기마스크 등) 착용을 엄격히 관리해야 합니다. 또한, 비상시를 대비한 구조 장비 비치와 모의 훈련을 정기적으로 실시하여 질식 사고를 원천적으로 예방할 것을 권고합니다.";
                 setSummary(text);
@@ -586,8 +586,8 @@
                     // 현재 시간값을 강제로 붙여 브라우저와 서비스워커의 캐시를 100% 무시
                     const cacheBuster = '?v=' + new Date().getTime();
 
-                    const pdfRes  = await fetch('https://yusuk1548.github.io/space/program.pdf'  + cacheBuster);
-                    const pdfBytes  = await pdfRes.arrayBuffer();
+                    const pdfRes = await fetch('https://yusuk1548.github.io/space/program.pdf' + cacheBuster);
+                    const pdfBytes = await pdfRes.arrayBuffer();
 
                     const fontRes = await fetch('https://yusuk1548.github.io/space/NanumGothic.ttf' + cacheBuster);
                     const fontBytes = await fontRes.arrayBuffer();
@@ -614,16 +614,16 @@
                     // 빈칸(null, undefined, "")일 경우 폰트 엔진이 터지는 버그 방지
                     const safeDrawText = (page, text, x, y, size) => {
                         if (text === undefined || text === null || String(text).trim() === '') return;
-                        page.drawText(String(text), { x, y, size, font: customFont, color: rgb(0,0,0) });
+                        page.drawText(String(text), { x, y, size, font: customFont, color: rgb(0, 0, 0) });
                     };
 
                     // --- [1페이지: 표지 작성] ---
                     const firstPage = pages[0];
 
-                    safeDrawText(firstPage, programInfo.revisionType,  150, 680, 10);   // 제/개정 구분
-                    safeDrawText(firstPage, programInfo.revisionDate,  150, 650, 14);   // 제정/개정일자
-                    safeDrawText(firstPage, reportInfo.companyName,    250, 400, 20);   // 사업장명
-                    safeDrawText(firstPage, reportInfo.agencyBranch,   150, 350, 10);   // 평가기관 지부
+                    safeDrawText(firstPage, programInfo.revisionType, 150, 680, 10);   // 제/개정 구분
+                    safeDrawText(firstPage, programInfo.revisionDate, 150, 650, 14);   // 제정/개정일자
+                    safeDrawText(firstPage, reportInfo.companyName, 250, 400, 20);   // 사업장명
+                    safeDrawText(firstPage, reportInfo.agencyBranch, 150, 350, 10);   // 평가기관 지부
 
                     // --- [2페이지: 밀폐공간 현황표 작성] ---
                     const secondPage = pages.length > 1 ? pages[1] : pages[0];
@@ -633,14 +633,14 @@
                             const startY = 550 - (index * 25);  // 간격은 추후 영점 조절 필요
                             if (startY < 50) return;
 
-                            safeDrawText(secondPage, index + 1,        50, startY, 10);  // 연번
-                            safeDrawText(secondPage, space.location,   90, startY, 10);  // 위치
-                            safeDrawText(secondPage, space.name,      160, startY, 10);  // 공간명
+                            safeDrawText(secondPage, index + 1, 50, startY, 10);  // 연번
+                            safeDrawText(secondPage, space.location, 90, startY, 10);  // 위치
+                            safeDrawText(secondPage, space.name, 160, startY, 10);  // 공간명
                             safeDrawText(secondPage, space.workContent, 250, startY, 10); // 작업내용
-                            safeDrawText(secondPage, space.cycle,      340, startY, 10);  // 작업빈도
-                            safeDrawText(secondPage, space.personnel,  420, startY, 10);  // 근로자 수
+                            safeDrawText(secondPage, space.cycle, 340, startY, 10);  // 작업빈도
+                            safeDrawText(secondPage, space.personnel, 420, startY, 10);  // 근로자 수
                             safeDrawText(secondPage, space.progPermit ? '유' : '무', 490, startY, 10); // 허가유무
-                            safeDrawText(secondPage, space.hazards,    530, startY, 10);  // 유해위험요인
+                            safeDrawText(secondPage, space.hazards, 530, startY, 10);  // 유해위험요인
                         });
                     }
 
@@ -1319,9 +1319,9 @@
                 const safeSpaces = spaces || [];
                 if (safeSpaces.length === 0) { setFinalOpinion(""); return; }
                 const total = safeSpaces.length;
-                const high   = safeSpaces.filter(s => s.risk && s.risk.level === "HIGH").length;
+                const high = safeSpaces.filter(s => s.risk && s.risk.level === "HIGH").length;
                 const medium = safeSpaces.filter(s => s.risk && s.risk.level === "MEDIUM").length;
-                const low    = safeSpaces.filter(s => s.risk && s.risk.level === "LOW").length;
+                const low = safeSpaces.filter(s => s.risk && s.risk.level === "LOW").length;
 
                 // 설비 명칭별 개수 카운트
                 const spaceCounts = safeSpaces.reduce((acc, s) => {
@@ -1381,7 +1381,7 @@
                     t += `평가 결과, 유해가스 농도가 기준치 이내로 유지되는 등 전반적인 가스 농도 상태는 양호한 것으로 판단됩니다. 그러나 밀폐공간 특성상 작업 시 언제든 급격한 환경 변화가 발생할 수 있으므로 철저한 대비가 필요합니다.\n`;
                 }
 
-                t += `이에 따라 관련 법령 및 KOSHA 가이드라인(KOSHA CODE H-63)에 의거하여, 사업장에서는 다음의 <질식재해 예방 조치사항>을 반드시 이행할 것을 권고 드립니다.\n\n`;
+                t += `이에 따라 관련 법령 및 KOSHA 가이드라인(H-80-2021)에 의거하여, 사업장에서는 다음의 <질식재해 예방 조치사항>을 반드시 이행할 것을 권고 드립니다.\n\n`;
                 t += `<질식재해 예방 조치사항>\n`;
                 t += `(1) 밀폐공간의 확인과 출입금지 조치\n`;
                 t += `(2) 밀폐공간 작업허가서(PTW) 발급 및 준수\n`;
@@ -1395,7 +1395,7 @@
             };
             return (
                 <div className="p-4 md:p-8 h-full flex flex-col overflow-auto">
-                    <div className="mb-4 flex flex-wrap gap-3 items-center"><button onClick={generate} className="px-4 py-3 md:py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-base transition">📊 분석 자동 작성</button><button onClick={onAutoGenerate} className="px-4 py-3 md:py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-base transition flex items-center gap-1"><span>✨</span><span>AI 자동 작성</span></button></div>
+                    <div className="mb-4 flex flex-wrap gap-3 items-center"><button onClick={generate} className="px-4 py-3 md:py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-base transition">📊 초안 자동 작성</button><button onClick={onAutoGenerate} className="px-4 py-3 md:py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-base transition flex items-center gap-1"><span>✨</span><span>AI 자동 작성</span></button></div>
 
                     {/* [인쇄 전용] 1-1. 종합 평가 결과표 */}
                     <div className="hidden print:!block w-full mb-8 page-break-inside-avoid">
