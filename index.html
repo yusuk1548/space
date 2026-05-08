@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -557,7 +557,7 @@
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
                 } else {
-                    alert('이미 설치되어 있거나 현재 브라우저에서 지원하지 않습니다.');
+                    alert('설치 팝업이 차단되었습니다.\n\n브라우저 메뉴(⋮ 또는 ≡)를 누른 후, [홈 화면에 추가] 또는 [앱 설치]를 직접 선택하시면 앱을 설치할 수 있습니다.');
                 }
             };
 
@@ -660,7 +660,7 @@
                                     <button onClick={handleReset} className="w-full flex gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">🔄 초기화</button>
                                 </div>
                                 <div className="p-4 bg-gray-50 border-t border-gray-200 space-y-2">
-                                    <button onClick={handleInstallApp} className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">📲 앱 설치</button>
+
                                     <button onClick={() => window.print()} className="w-full py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"><Icon name="printer" /> 출력</button>
                                     <button onClick={() => firebase.auth().signOut()} className="w-full py-3 bg-white hover:bg-red-50 text-red-500 hover:text-red-600 border border-red-200 rounded-lg font-semibold flex justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"><Icon name="log-out" /> 로그아웃</button>
                                 </div>
@@ -2405,6 +2405,14 @@
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js');
+            });
+        }
     </script>
 </body>
 
