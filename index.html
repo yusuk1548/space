@@ -662,7 +662,8 @@
                             drawCenteredText(page2, space.workFrequency,         330, y, 60,  10); // 작업빈도
                             drawCenteredText(page2, space.workers,               400, y, 50,  10); // 근로자수
                             drawCenteredText(page2, space.permitRequired ? '유' : '무', 460, y, 40, 10); // 작업허가 유/무
-                            drawCenteredText(page2, space.hazards?.join(', '),   510, y, 50,  10); // 위험요인
+                            const safeHazardsText = Array.isArray(space.hazards) ? space.hazards.join(', ') : (space.hazards || '');
+                            drawCenteredText(page2, safeHazardsText,             510, y, 50,  10); // 위험요인
                         });
                     }
 
