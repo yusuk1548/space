@@ -427,6 +427,10 @@
             const [deferredPrompt, setDeferredPrompt] = React.useState(null);
             const [showIosPrompt, setShowIosPrompt] = React.useState(false);
             const [summary, setSummary] = React.useState('');
+            const [showFastTrackModal, setShowFastTrackModal] = React.useState(false);
+            const [companyName, setCompanyName] = React.useState('');
+            const [programDate, setProgramDate] = React.useState(() => new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]);
+            const [revisionDate, setRevisionDate] = React.useState('');
 
             // ─── useRef ─────────────────────────────────────────────────
             const fileInputRef = useRef(null);
@@ -629,9 +633,7 @@
                     };
 
                     // 상태값 변수 추출 (가독성 향상)
-                    const companyName = reportInfo.companyName || '';
-                    const programDate = programInfo.revisionDate || '';
-                    const revisionDate = programInfo.revisionDate || '';
+                    // companyName / programDate / revisionDate 는 App 레벨 state에서 직접 참조
                     const managers = programInfo.managers || [];
                     const programDirector = managers[0]?.name || '';  // 프로그램 총괄 책임자
                     const programManager  = managers[1]?.name || '';  // 프로그램 관리자
@@ -816,7 +818,7 @@
                                     {activeTab === 'download' && <DownloadScreen onProgramDownload={handleProgramDownload} />}
                                     {activeTab === 'program' && <ProgramScreen info={programInfo} setInfo={setProgramInfo} spaces={spaces} setSpaces={setSpaces} onProgramDownload={handleProgramDownload} />}
                                     {activeTab === 'guide' && <GuideScreen onSelect={setSelectedSpaceItem} />}
-                                    {activeTab === 'diagnosis' && <DiagnosisScreen />}
+                                    {activeTab === 'diagnosis' && <DiagnosisScreen onFastTrack={() => setShowFastTrackModal(true)} />}
                                 </div>
                                 {/* 꼬리말 — mt-auto로 스크롤 끝에 자연스럽게 위치 */}
                                 <footer className="mt-auto py-5 border-t border-gray-200 text-center text-xs md:text-sm text-gray-500 print:hidden bg-gray-50 shrink-0">
@@ -945,6 +947,40 @@
                                         className="mt-5 w-full py-3 bg-slate-800 text-white rounded-xl font-semibold text-sm hover:bg-slate-900 transition-colors">
                                         확인
                                     </button>
+                                </div>
+                            </div>
+                        )}
+                        {/* Fast-Track 모달 */}
+                        {showFastTrackModal && (
+                            <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[350] animate-fade-in p-4 print:hidden">
+                                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6">
+                                    <h2 className="text-2xl font-bold text-gray-800 mb-2">🚀 프로그램 초간편 완성</h2>
+                                    <p className="text-sm text-gray-500 mb-6">최소한의 필수 정보만 입력하면 법정 양식이 즉시 완성됩니다.</p>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">사업장명</label>
+                                            <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" placeholder="예: (주)한성산업" />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-700 mb-1">제정일자</label>
+                                                <input type="date" value={programDate} onChange={(e) => setProgramDate(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-sm font-semibold text-gray-700 mb-1">개정일자 (선택)</label>
+                                                <input type="date" value={revisionDate || ''} onChange={(e) => setRevisionDate(e.target.value)} className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" />
+                                            </div>
+                                        </div>
+                                        <div className="bg-blue-50 p-4 rounded-lg mt-4 border border-blue-100">
+                                            <p className="text-xs text-blue-800 mb-2">💡 밀폐공간 현황 및 책임자 정보 등은 좌측 탭에서 더 상세히 입력할 수 있습니다.</p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-8 flex justify-end gap-3">
+                                        <button onClick={() => setShowFastTrackModal(false)} className="px-5 py-2.5 text-gray-600 bg-gray-100 font-semibold rounded-lg hover:bg-gray-200 transition">취소</button>
+                                        <button onClick={() => { handleProgramDownload(); setShowFastTrackModal(false); }} className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-700 transition flex items-center gap-2">
+                                            📄 PDF 다운로드
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -1483,7 +1519,7 @@
             );
         }
 
-        const DiagnosisScreen = () => {
+        const DiagnosisScreen = (props) => {
             const [step, setStep] = useState(1);
             const [hasSpace, setHasSpace] = useState(null);
             const [hasWork, setHasWork] = useState(null);
@@ -1597,6 +1633,12 @@
                                                 <p className="text-gray-600 mt-1 text-sm pl-8">비인가자의 호기심이나 실수로 인한 출입을 원천 통제하기 위해, 해당 밀폐공간 출입구에 자물쇠 등 시건장치를 설치하고 관리자가 열쇠를 통제해야 합니다.</p>
                                             </li>
                                         </ul>
+                                        <button
+                                            onClick={() => props.onFastTrack && props.onFastTrack()}
+                                            className="mt-6 w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-lg font-bold rounded-xl shadow-lg hover:from-blue-700 hover:to-indigo-700 transition transform hover:-translate-y-1 flex justify-center items-center gap-2"
+                                        >
+                                            🚀 밀폐공간 프로그램(법정 양식) 1분 만에 자동 완성하기
+                                        </button>
                                     </div>
                                 )}
                                 {hasSpace === true && hasWork === true && (
