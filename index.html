@@ -610,8 +610,8 @@
                     }
                     pdfDoc.registerFontkit(window.fontkit);
                     const customFont = await pdfDoc.embedFont(fontBytes);
-                    // 텍스트 가운데 정렬 및 폰트 자동 축소 함수
-                    const drawCenteredText = (page, text, boxX, boxY, boxWidth, defaultSize = 10) => {
+                    // 텍스트 가운데 정렬 및 폰트 자동 축소 함수 (색상 옵션 지원)
+                    const drawCenteredText = (page, text, boxX, boxY, boxWidth, defaultSize = 10, textColor = rgb(0, 0, 0)) => {
                         if (text === undefined || text === null || String(text).trim() === '') return;
                         const str = String(text).trim();
                         let size = defaultSize;
@@ -625,7 +625,7 @@
 
                         // 가운데 정렬을 위한 시작 X좌표 계산
                         const startX = boxX + (boxWidth - textWidth) / 2;
-                        page.drawText(str, { x: startX, y: boxY, size: size, font: customFont, color: rgb(0, 0, 0) });
+                        page.drawText(str, { x: startX, y: boxY, size: size, font: customFont, color: textColor });
                     };
 
                     // 상태값 변수 추출 (가독성 향상)
@@ -643,10 +643,18 @@
 
                     // --- [1페이지: 표지] ---
                     const page1 = pages[0];
-                    // 제정일자, 개정일자, 사업장명 (상태값 연동)
-                    drawCenteredText(page1, programDate,   400, 680, 100, 12); // 제정일자 (예상 위치)
-                    drawCenteredText(page1, revisionDate,  400, 650, 100, 12); // 개정일자 (예상 위치)
-                    drawCenteredText(page1, companyName,   200, 150, 200, 24); // 사업장명 (예상 위치)
+
+                    // 1. 기존 '(주)0000' 글자 지우기 (하얀색 네모로 덮어쓰기)
+                    // 위치: 하단 중앙 (영점 조절: x, y, width, height)
+                    page1.drawRectangle({ x: 150, y: 120, width: 300, height: 40, color: rgb(1, 1, 1) });
+
+                    // 2. 사업장명 합성 (파란색 글씨, 지운 자리 바로 위에 작성)
+                    drawCenteredText(page1, companyName, 150, 130, 300, 24, rgb(0.1, 0.4, 0.8));
+
+                    // 3. 제정일자 및 개정일자 (중앙 표 위치로 분리 이동)
+                    // 영점 조절: x, y값 조절 필요
+                    drawCenteredText(page1, programDate,  120, 480, 120, 12); // 제정일자 빈칸 추정 위치
+                    drawCenteredText(page1, revisionDate, 120, 420, 120, 12); // 개정일자 빈칸 추정 위치
 
                     // --- [2페이지: 밀폐공간 현황표] ---
                     const page2 = pages.length > 1 ? pages[1] : pages[0];
