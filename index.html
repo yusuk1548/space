@@ -410,7 +410,7 @@
                     managers: [
                         { role: '프로그램 총괄 책임자', name: '', tel: '' },
                         { role: '프로그램 관리자', name: '', tel: '' },
-                        { role: '추진 팀원(외부업체)', name: '', tel: '' },
+                        { role: '추진 팀원(외주업체)', name: '', tel: '' },
                         { role: '추진 팀원(구매담당)', name: '', tel: '' },
                         { role: '추진 팀원(정비보수담당)', name: '', tel: '' },
                     ],
@@ -610,39 +610,71 @@
                     }
                     pdfDoc.registerFontkit(window.fontkit);
                     const customFont = await pdfDoc.embedFont(fontBytes);
-                    const pages = pdfDoc.getPages();
-
-                    // 빈칸(null, undefined, "")일 경우 폰트 엔진이 터지는 버그 방지
-                    const safeDrawText = (page, text, x, y, size) => {
+                    // 텍스트 가운데 정렬 및 폰트 자동 축소 함수
+                    const drawCenteredText = (page, text, boxX, boxY, boxWidth, defaultSize = 10) => {
                         if (text === undefined || text === null || String(text).trim() === '') return;
-                        page.drawText(String(text), { x, y, size, font: customFont, color: rgb(0, 0, 0) });
+                        const str = String(text).trim();
+                        let size = defaultSize;
+                        let textWidth = customFont.widthOfTextAtSize(str, size);
+
+                        // 글자가 박스 너비보다 크면 폰트 사이즈를 최소 6pt까지 0.5씩 줄임 (Auto-scaling)
+                        while (textWidth > boxWidth && size > 6) {
+                            size -= 0.5;
+                            textWidth = customFont.widthOfTextAtSize(str, size);
+                        }
+
+                        // 가운데 정렬을 위한 시작 X좌표 계산
+                        const startX = boxX + (boxWidth - textWidth) / 2;
+                        page.drawText(str, { x: startX, y: boxY, size: size, font: customFont, color: rgb(0, 0, 0) });
                     };
 
-                    // --- [1페이지: 표지 작성] ---
-                    const firstPage = pages[0];
+                    // 상태값 변수 추출 (가독성 향상)
+                    const companyName = reportInfo.companyName || '';
+                    const programDate = programInfo.revisionDate || '';
+                    const revisionDate = programInfo.revisionDate || '';
+                    const managers = programInfo.managers || [];
+                    const programDirector = managers[0]?.name || '';  // 프로그램 총괄 책임자
+                    const programManager  = managers[1]?.name || '';  // 프로그램 관리자
+                    const teamMemberExt   = managers[2]?.name || '';  // 추진 팀원(외주업체)
+                    const teamMemberPur   = managers[3]?.name || '';  // 추진 팀원(구매담당)
+                    const teamMemberMaint = managers[4]?.name || '';  // 추진 팀원(정비보수담당)
 
-                    safeDrawText(firstPage, programInfo.revisionType, 150, 680, 10);   // 제/개정 구분
-                    safeDrawText(firstPage, programInfo.revisionDate, 150, 650, 14);   // 제정/개정일자
-                    safeDrawText(firstPage, reportInfo.companyName, 250, 400, 20);   // 사업장명
-                    safeDrawText(firstPage, reportInfo.agencyBranch, 150, 350, 10);   // 평가기관 지부
+                    const pages = pdfDoc.getPages();
 
-                    // --- [2페이지: 밀폐공간 현황표 작성] ---
-                    const secondPage = pages.length > 1 ? pages[1] : pages[0];
+                    // --- [1페이지: 표지] ---
+                    const page1 = pages[0];
+                    // 제정일자, 개정일자, 사업장명 (상태값 연동)
+                    drawCenteredText(page1, programDate,   400, 680, 100, 12); // 제정일자 (예상 위치)
+                    drawCenteredText(page1, revisionDate,  400, 650, 100, 12); // 개정일자 (예상 위치)
+                    drawCenteredText(page1, companyName,   200, 150, 200, 24); // 사업장명 (예상 위치)
 
+                    // --- [2페이지: 밀폐공간 현황표] ---
+                    const page2 = pages.length > 1 ? pages[1] : pages[0];
                     if (spaces && spaces.length > 0) {
                         spaces.forEach((space, index) => {
-                            const startY = 550 - (index * 25);  // 간격은 추후 영점 조절 필요
-                            if (startY < 50) return;
+                            const y = 600 - (index * 30); // 한 줄 내려갈 때마다 Y좌표 30씩 감소 (영점조절 필요)
+                            if (y < 50) return;
 
-                            safeDrawText(secondPage, index + 1, 50, startY, 10);  // 연번
-                            safeDrawText(secondPage, space.location, 90, startY, 10);  // 위치
-                            safeDrawText(secondPage, space.name, 160, startY, 10);  // 공간명
-                            safeDrawText(secondPage, space.workContent, 250, startY, 10); // 작업내용
-                            safeDrawText(secondPage, space.cycle, 340, startY, 10);  // 작업빈도
-                            safeDrawText(secondPage, space.personnel, 420, startY, 10);  // 근로자 수
-                            safeDrawText(secondPage, space.progPermit ? '유' : '무', 490, startY, 10); // 허가유무
-                            safeDrawText(secondPage, space.hazards, 530, startY, 10);  // 유해위험요인
+                            drawCenteredText(page2, index + 1,                   40,  y, 30,  10); // 연번
+                            drawCenteredText(page2, space.location,              80,  y, 60,  10); // 위치
+                            drawCenteredText(page2, space.name,                  150, y, 80,  10); // 공간명
+                            drawCenteredText(page2, space.workContent,           240, y, 80,  10); // 작업내용
+                            drawCenteredText(page2, space.workFrequency,         330, y, 60,  10); // 작업빈도
+                            drawCenteredText(page2, space.workers,               400, y, 50,  10); // 근로자수
+                            drawCenteredText(page2, space.permitRequired ? '유' : '무', 460, y, 40, 10); // 작업허가 유/무
+                            drawCenteredText(page2, space.hazards?.join(', '),   510, y, 50,  10); // 위험요인
                         });
+                    }
+
+                    // --- [4페이지: 프로그램 조직도] ---
+                    if (pages.length > 3) {
+                        const page4 = pages[3];
+                        // 프로그램 탭에서 입력한 담당자 이름 매핑
+                        drawCenteredText(page4, programDirector, 250, 700, 100, 12); // 총괄책임자
+                        drawCenteredText(page4, programManager,  250, 600, 100, 12); // 관리자
+                        drawCenteredText(page4, teamMemberExt,   100, 450,  80, 12); // 추진팀원(외주)
+                        drawCenteredText(page4, teamMemberPur,   250, 450,  80, 12); // 추진팀원(구매)
+                        drawCenteredText(page4, teamMemberMaint, 400, 450,  80, 12); // 추진팀원(정비)
                     }
 
                     // 다운로드 트리거
