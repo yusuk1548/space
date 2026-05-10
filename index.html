@@ -1334,6 +1334,9 @@
                               </div>
                             </div>
 
+                            {/* 별첨 4~10 양식 */}
+                            <AppendixSection />
+
                           </div> {/* id="pdf-print-template" 닫기 */}
                         </div> {/* position:fixed 오프스크린 래퍼 닫기 */}
 
@@ -1416,6 +1419,68 @@
                     </div>
                 </div>
             </div>
+        );
+
+        const AppendixSection = () => (
+            <>
+                {/* 【별첨 4】 프로그램 평가표 */}
+                <div style={{ pageBreakBefore: 'always' }}>
+                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 4】 밀폐공간 작업 프로그램 평가표</h2>
+                    <table className="w-full border-collapse border border-black text-xs text-center">
+                        <thead className="bg-gray-100 font-bold">
+                            <tr><th className="border border-black py-2">평가항목</th><th className="border border-black py-2">평가내용</th><th className="border border-black py-2 w-16">결과</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td className="border border-black py-2" rowSpan="2">현황파악</td><td className="border border-black py-2 text-left px-2">사업장 내 밀폐공간이 빠짐없이 파악되었는가?</td><td className="border border-black"></td></tr>
+                            <tr><td className="border border-black py-2 text-left px-2">밀폐공간별 위험요인이 정확히 파악되었는가?</td><td className="border border-black"></td></tr>
+                            <tr><td className="border border-black py-2" rowSpan="2">장비관리</td><td className="border border-black py-2 text-left px-2">측정기, 환기팬 등 필요한 장비가 구비되어 있는가?</td><td className="border border-black"></td></tr>
+                            <tr><td className="border border-black py-2 text-left px-2">장비의 교정 및 유지관리가 정상적인가?</td><td className="border border-black"></td></tr>
+                            <tr><td className="border border-black py-2" rowSpan="2">교육·훈련</td><td className="border border-black py-2 text-left px-2">종사근로자 교육 및 비상구조 훈련을 실시했는가?</td><td className="border border-black"></td></tr>
+                            <tr><td className="border border-black py-2 text-left px-2">교육 내용 및 결과가 기록·보존되고 있는가?</td><td className="border border-black"></td></tr>
+                        </tbody>
+                    </table>
+                    <p className="text-right mt-4 text-sm font-bold">평가일자: 202 &nbsp; . &nbsp; . &nbsp; . &nbsp; &nbsp; 평가자: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (인)</p>
+                </div>
+
+                {/* 【별첨 5】 교육일지 & 【별첨 6】 장비점검표 */}
+                <div style={{ pageBreakBefore: 'always' }}>
+                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 5】 밀폐공간 작업 근로자 교육일지</h2>
+                    <table className="w-full border-collapse border border-black text-sm mb-10">
+                        <tbody>
+                            <tr><th className="border border-black bg-gray-100 p-2 w-24">교육일시</th><td className="border border-black p-2"></td><th className="border border-black bg-gray-100 p-2 w-24">교육장소</th><td className="border border-black p-2"></td></tr>
+                            <tr><th className="border border-black bg-gray-100 p-2">교육내용</th><td colSpan="3" className="border border-black p-2 h-20 text-xs">1. 밀폐공간의 위험성 및 안전작업방법<br/>2. 보호구 착용 및 장비 사용법<br/>3. 사고 발생 시 비상조치 및 구조요령</td></tr>
+                            <tr><th className="border border-black bg-gray-100 p-2">참석자</th><td colSpan="3" className="border border-black p-2 h-16"></td></tr>
+                        </tbody>
+                    </table>
+                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 6】 밀폐공간 작업용 장비 점검표</h2>
+                    <table className="w-full border-collapse border border-black text-xs text-center">
+                        <thead className="bg-gray-100 font-bold">
+                            <tr><th className="border border-black py-2">점검장비</th><th className="border border-black py-2">점검사항</th><th className="border border-black py-2">상태</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td className="border border-black py-2">가스측정기</td><td className="border border-black py-2 text-left px-2">전원 상태 및 센서 교정 유효기간 확인</td><td className="border border-black">양호/불량</td></tr>
+                            <tr><td className="border border-black py-2">송풍기</td><td className="border border-black py-2 text-left px-2">팬 회전 상태 및 덕트 파손 여부 확인</td><td className="border border-black">양호/불량</td></tr>
+                            <tr><td className="border border-black py-2">공기호흡기</td><td className="border border-black py-2 text-left px-2">용기 압력 확인 및 면체 청결 상태 점검</td><td className="border border-black">양호/불량</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* 【별첨 8】 구조훈련 기록부 & 【별첨 10】 보호구 대장 */}
+                <div style={{ pageBreakBefore: 'always' }}>
+                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 8】 질식재해 구조·훈련 기록부</h2>
+                    <div className="border border-black p-4 h-48 mb-10 text-sm text-gray-400">※ 훈련 사진 및 세부 시나리오 내용을 기록하십시오.</div>
+                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 10】 개인보호구 지급·관리 대장</h2>
+                    <table className="w-full border-collapse border border-black text-xs text-center">
+                        <thead className="bg-gray-100">
+                            <tr><th className="border border-black py-2">성명</th><th className="border border-black py-2">지급보호구명</th><th className="border border-black py-2">지급일자</th><th className="border border-black py-2">서명</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td className="border border-black h-8"></td><td className="border border-black"></td><td className="border border-black"></td><td className="border border-black"></td></tr>
+                            <tr><td className="border border-black h-8"></td><td className="border border-black"></td><td className="border border-black"></td><td className="border border-black"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </>
         );
 
         function ChecklistScreen({ results, setResults, defectSummary }) {
