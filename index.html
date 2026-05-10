@@ -153,11 +153,10 @@
         const MenuBtn = ({ active, onClick, icon, text }) => (
             <button
                 onClick={onClick}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
-                    active 
-                    ? 'bg-blue-50 text-blue-700 shadow-sm' 
-                    : 'text-slate-600 hover:bg-gray-50 hover:text-slate-900'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${active
+                        ? 'bg-blue-50 text-blue-700 shadow-sm'
+                        : 'text-slate-600 hover:bg-gray-50 hover:text-slate-900'
+                    }`}
             >
                 <Icon name={icon} size={18} className={active ? 'text-blue-600' : 'text-slate-400'} />
                 {text}
@@ -621,13 +620,13 @@
                     return;
                 }
                 const opt = {
-                    margin:       0,
-                    filename:     `밀페공간작업프로그램_${companyName}.pdf`,
-                    image:        { type: 'jpeg', quality: 1.0 },
+                    margin: 0,
+                    filename: `밀페공간작업프로그램_${companyName}.pdf`,
+                    image: { type: 'jpeg', quality: 1.0 },
                     // scrollX: 0, scrollY: 0 옵션을 주어야 좌표가 틀어져서 짤리는 현상이 사라짐
-                    html2canvas:  { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
-                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                  };
+                    html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
                 html2pdf().set(opt).from(element).save().then(() => {
                     setToastMsg('');
                 });
@@ -910,26 +909,26 @@
                                         <section>
                                             <h3 className="font-bold text-lg border-b pb-2 mb-3">2. 비상연락망 (조직도 연동)</h3>
                                             <div className="space-y-3">
-                                              <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">프로그램 총괄 책임자</span>
-                                                <input type="text" value={emerContacts.director} onChange={(e) => setEmerContacts({...emerContacts, director: e.target.value})} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
-                                                <input type="text" value={emerContacts.dirPhone} onChange={(e) => setEmerContacts({...emerContacts, dirPhone: e.target.value})} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
-                                              </div>
-                                              <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">프로그램 관리자</span>
-                                                <input type="text" value={emerContacts.manager} onChange={(e) => setEmerContacts({...emerContacts, manager: e.target.value})} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
-                                                <input type="text" value={emerContacts.manPhone} onChange={(e) => setEmerContacts({...emerContacts, manPhone: e.target.value})} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
-                                              </div>
-                                              <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">추진 팀원(외주업체)</span>
-                                                <input type="text" value={emerContacts.teamExt} onChange={(e) => setEmerContacts({...emerContacts, teamExt: e.target.value})} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
-                                                <input type="text" value={emerContacts.teamExtPhone} onChange={(e) => setEmerContacts({...emerContacts, teamExtPhone: e.target.value})} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
-                                              </div>
-                                              <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">추진 팀원(구매담당)</span>
-                                                <input type="text" value={emerContacts.teamPur} onChange={(e) => setEmerContacts({...emerContacts, teamPur: e.target.value})} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
-                                                <input type="text" value={emerContacts.teamPurPhone} onChange={(e) => setEmerContacts({...emerContacts, teamPurPhone: e.target.value})} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
-                                              </div>
-                                              <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">추진 팀원(정비보수)</span>
-                                                <input type="text" value={emerContacts.teamMaint} onChange={(e) => setEmerContacts({...emerContacts, teamMaint: e.target.value})} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
-                                                <input type="text" value={emerContacts.teamMaintPhone} onChange={(e) => setEmerContacts({...emerContacts, teamMaintPhone: e.target.value})} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
-                                              </div>
+                                                <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">프로그램 총괄 책임자</span>
+                                                    <input type="text" value={emerContacts.director} onChange={(e) => setEmerContacts({ ...emerContacts, director: e.target.value })} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
+                                                    <input type="text" value={emerContacts.dirPhone} onChange={(e) => setEmerContacts({ ...emerContacts, dirPhone: e.target.value })} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
+                                                </div>
+                                                <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">프로그램 관리자</span>
+                                                    <input type="text" value={emerContacts.manager} onChange={(e) => setEmerContacts({ ...emerContacts, manager: e.target.value })} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
+                                                    <input type="text" value={emerContacts.manPhone} onChange={(e) => setEmerContacts({ ...emerContacts, manPhone: e.target.value })} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
+                                                </div>
+                                                <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">추진 팀원(외주업체)</span>
+                                                    <input type="text" value={emerContacts.teamExt} onChange={(e) => setEmerContacts({ ...emerContacts, teamExt: e.target.value })} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
+                                                    <input type="text" value={emerContacts.teamExtPhone} onChange={(e) => setEmerContacts({ ...emerContacts, teamExtPhone: e.target.value })} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
+                                                </div>
+                                                <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">추진 팀원(구매담당)</span>
+                                                    <input type="text" value={emerContacts.teamPur} onChange={(e) => setEmerContacts({ ...emerContacts, teamPur: e.target.value })} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
+                                                    <input type="text" value={emerContacts.teamPurPhone} onChange={(e) => setEmerContacts({ ...emerContacts, teamPurPhone: e.target.value })} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
+                                                </div>
+                                                <div className="flex gap-2 items-center"><span className="w-32 text-xs font-bold bg-gray-100 p-2 rounded text-center">추진 팀원(정비보수)</span>
+                                                    <input type="text" value={emerContacts.teamMaint} onChange={(e) => setEmerContacts({ ...emerContacts, teamMaint: e.target.value })} className="w-24 p-2 border rounded text-sm" placeholder="성명" />
+                                                    <input type="text" value={emerContacts.teamMaintPhone} onChange={(e) => setEmerContacts({ ...emerContacts, teamMaintPhone: e.target.value })} className="flex-1 p-2 border rounded text-sm" placeholder="연락처" />
+                                                </div>
                                             </div>
                                         </section>
                                         {/* 3. 안전장비 */}
@@ -939,7 +938,7 @@
                                                 {Object.entries({ oxygen: '산소측정기', gas: '유해가스측정기', vent: '환기팬', mask: '송기마스크', tripod: '삼각대/안전대', rescue: '무전기/구조장비' }).map(([key, label]) => (
                                                     <div key={key} className="flex justify-between items-center text-sm">
                                                         <span className="font-medium">{label}</span>
-                                                        <select value={equipment[key]} onChange={(e) => setEquipment({...equipment, [key]: e.target.value})} className="p-1 border rounded bg-white">
+                                                        <select value={equipment[key]} onChange={(e) => setEquipment({ ...equipment, [key]: e.target.value })} className="p-1 border rounded bg-white">
                                                             <option>보유</option><option>위탁</option><option>대여</option><option>해당없음</option>
                                                         </select>
                                                     </div>
@@ -970,7 +969,7 @@
 
                                     {/* 우측 상단 결재란 */}
                                     <div style={{ position: 'absolute', top: 0, right: 0, display: 'flex', fontSize: '11px', textAlign: 'center', border: '1px solid black' }}>
-                                        <div style={{ width: '32px', borderRight: '1px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f4f6' }}>결<br/>재</div>
+                                        <div style={{ width: '32px', borderRight: '1px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f4f6' }}>결<br />재</div>
                                         <div>
                                             <div style={{ display: 'flex', borderBottom: '1px solid black', background: '#f3f4f6' }}>
                                                 <div style={{ width: '64px', borderRight: '1px solid black', padding: '4px' }}>작성</div>
@@ -1007,7 +1006,7 @@
                                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11px', textAlign: 'center', marginBottom: '32px' }}>
                                         <thead style={{ background: '#f3f4f6' }}>
                                             <tr>
-                                                {['연번','위치','밀폐공간명','작업내용','작업빈도','근로자수','위험요인'].map(h => (
+                                                {['연번', '위치', '밀폐공간명', '작업내용', '작업빈도', '근로자수', '위험요인'].map(h => (
                                                     <th key={h} style={{ border: '1px solid black', padding: '6px' }}>{h}</th>
                                                 ))}
                                             </tr>
@@ -1036,22 +1035,22 @@
                                     <p style={{ marginBottom: '24px' }}>프로그램 수립·수행을 위한 추진팀은 아래 조직도와 같이 구성하여 운영한다.</p>
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
                                         <div style={{ border: '2px solid black', width: '192px', textAlign: 'center', background: '#f3f4f6', padding: '8px', fontWeight: 'bold' }}>
-                                            프로그램 총괄 책임자<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{programDirector || '성명'}</span>
+                                            프로그램 총괄 책임자<br /><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{programDirector || '성명'}</span>
                                         </div>
                                         <div style={{ height: '16px', borderLeft: '2px solid black' }}></div>
                                         <div style={{ border: '2px solid black', width: '192px', textAlign: 'center', background: '#f3f4f6', padding: '8px', fontWeight: 'bold' }}>
-                                            프로그램 관리자<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{programManager || '성명'}</span>
+                                            프로그램 관리자<br /><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{programManager || '성명'}</span>
                                         </div>
                                         <div style={{ height: '16px', borderLeft: '2px solid black' }}></div>
                                         <div style={{ width: '100%', maxWidth: '480px', borderTop: '2px solid black', display: 'flex', justifyContent: 'space-between', paddingTop: '16px' }}>
                                             <div style={{ border: '2px solid black', width: '128px', textAlign: 'center', background: '#f3f4f6', padding: '8px', fontWeight: 'bold' }}>
-                                                추진팀원<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{teamMemberExt || '성명'}</span>
+                                                추진팀원<br /><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{teamMemberExt || '성명'}</span>
                                             </div>
                                             <div style={{ border: '2px solid black', width: '128px', textAlign: 'center', background: '#f3f4f6', padding: '8px', fontWeight: 'bold' }}>
-                                                추진팀원<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{teamMemberPur || '성명'}</span>
+                                                추진팀원<br /><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{teamMemberPur || '성명'}</span>
                                             </div>
                                             <div style={{ border: '2px solid black', width: '128px', textAlign: 'center', background: '#f3f4f6', padding: '8px', fontWeight: 'bold' }}>
-                                                추진팀원<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{teamMemberMaint || '성명'}</span>
+                                                추진팀원<br /><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{teamMemberMaint || '성명'}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1061,283 +1060,288 @@
                         </div>
                         {/* PDF 출력용 오프스크린 템플릿 (화면 짤림 방지 및 정중앙 정렬) */}
                         <div style={{ position: 'fixed', top: 0, left: 0, zIndex: -9999, opacity: 0, pointerEvents: 'none' }}>
-                          <div id="pdf-print-template" className="bg-white text-black" style={{ width: '210mm', boxSizing: 'border-box', padding: '15mm 20mm', fontFamily: "'Malgun Gothic', '맑은 고딕', sans-serif", fontSize: '11pt', lineHeight: '1.6' }}>
-                            
-                            {/* ─── [1페이지] 표지 ─── */}
-                            <div style={{ height: '260mm', display: 'flex', flexDirection: 'column', pageBreakAfter: 'always' }}>
-                              <div className="flex justify-end">
-                                <table className="border-collapse border border-black text-center text-sm" style={{ width: '200px' }}>
-                                  <tbody>
-                                    <tr>
-                                      <td rowSpan="2" className="border border-black bg-gray-100 w-8 font-bold">결<br/>재</td>
-                                      <td className="border border-black bg-gray-100 py-1">작성</td>
-                                      <td className="border border-black bg-gray-100 py-1">검토</td>
-                                      <td className="border border-black bg-gray-100 py-1">승인</td>
-                                    </tr>
-                                    <tr>
-                                      <td className="border border-black h-20"></td>
-                                      <td className="border border-black h-20"></td>
-                                      <td className="border border-black h-20"></td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
+                            <div id="pdf-print-template" className="bg-white text-black" style={{ width: '210mm', boxSizing: 'border-box', padding: '15mm 20mm', fontFamily: "'Malgun Gothic', '맑은 고딕', sans-serif", fontSize: '11pt', lineHeight: '1.6' }}>
 
-                              <div className="flex-1 flex flex-col items-center justify-center -mt-20">
-                                <h1 className="text-4xl font-extrabold tracking-widest mb-16">밀폐공간작업프로그램</h1>
-                                <div className="text-xl font-bold text-center space-y-4">
-                                  <p>제정일자 : {programDate || '20  .  .  .'}</p>
-                                  {revisionDate && <p>개정일자 : {revisionDate}</p>}
-                                </div>
-                              </div>
-
-                              <div className="w-full text-center pb-10">
-                                <h2 className="text-4xl font-extrabold tracking-wide">{companyName || '사업장명 입력'}</h2>
-                              </div>
-                            </div>
-
-                            {/* ─── [2페이지] 목적 및 현황 ─── */}
-                            <div style={{ pageBreakAfter: 'always' }}>
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">1. 목적</h2>
-                              <p className="mb-10 text-justify leading-relaxed">
-                                산업안전보건기준에 관한 규칙 제619조 규정에 의한 밀폐공간 작업 프로그램으로서, 해당 사업장내 정규직과 비정규직, 같은 사업장에서 밀폐공간작업을 수행하는 원청, 협력업체 및 사외 작업자 등 모든 근로자에게 밀폐공간 작업 시 산소결핍 또는 유해가스로 인한 질식재해를 예방하는데 그 목적을 두고 있다.
-                              </p>
-
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-8">2. 밀폐공간 작업장소 보유현황</h2>
-                              <table className="w-full border-collapse border border-black text-center text-sm mb-8 break-inside-avoid">
-                                <thead>
-                                  <tr className="bg-gray-100 font-bold">
-                                    <th className="border border-black py-3 px-1">연번</th>
-                                    <th className="border border-black py-3 px-1">위치</th>
-                                    <th className="border border-black py-3 px-1">밀폐공간명</th>
-                                    <th className="border border-black py-3 px-1">작업내용</th>
-                                    <th className="border border-black py-3 px-1">작업빈도</th>
-                                    <th className="border border-black py-3 px-1">근로자수</th>
-                                    <th className="border border-black py-3 px-1">위험요인</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {spaces && spaces.length > 0 ? spaces.map((space, idx) => (
-                                    <tr key={idx}>
-                                      <td className="border border-black py-3 px-1">{idx + 1}</td>
-                                      <td className="border border-black py-3 px-1">{space.location}</td>
-                                      <td className="border border-black py-3 px-1 font-bold">{space.name}</td>
-                                      <td className="border border-black py-3 px-1">{space.workContent}</td>
-                                      <td className="border border-black py-3 px-1">{space.workFrequency}</td>
-                                      <td className="border border-black py-3 px-1">{space.workers}</td>
-                                      <td className="border border-black py-3 px-1 text-xs">{Array.isArray(space.hazards) ? space.hazards.join(', ') : space.hazards}</td>
-                                    </tr>
-                                  )) : (
-                                    <tr><td colSpan="7" className="border border-black p-6 text-gray-500">등록된 밀폐공간이 없습니다.</td></tr>
-                                  )}
-                                </tbody>
-                              </table>
-                            </div>
-
-                            {/* ─── [3페이지] 조직도 및 현장 사진 ─── */}
-                            <div style={{ pageBreakAfter: 'always' }}>
-                              <h2 className="text-xl font-bold mb-6 border-b-2 border-black pb-2">3. 밀폐공간 조직 및 운영</h2>
-                              
-                              <div className="flex flex-col items-center mb-12 relative">
-                                <div className="border-2 border-black bg-gray-100 px-6 py-3 text-center font-bold w-64 shadow-sm z-10">
-                                  프로그램 총괄 책임자<br/><span className="text-blue-700 font-normal text-lg">{emerContacts?.director || '성명'}</span>
-                                </div>
-                                <div className="h-6 border-l-2 border-black"></div>
-                                <div className="border-2 border-black bg-gray-100 px-6 py-3 text-center font-bold w-64 shadow-sm z-10">
-                                  프로그램 관리자<br/><span className="text-blue-700 font-normal text-lg">{emerContacts?.manager || '성명'}</span>
-                                </div>
-                                <div className="h-6 border-l-2 border-black"></div>
-                                <div className="w-[420px] border-t-2 border-black h-4"></div>
-                                <div className="flex justify-between w-[520px] -mt-4">
-                                  <div className="border-2 border-black bg-gray-100 px-2 py-3 text-center font-bold w-40 shadow-sm text-sm z-10">
-                                    추진 팀원(외주업체)<br/><span className="text-blue-700 font-normal">{emerContacts?.teamExt || '성명'}</span>
-                                  </div>
-                                  <div className="border-2 border-black bg-gray-100 px-2 py-3 text-center font-bold w-40 shadow-sm text-sm z-10">
-                                    추진 팀원(구매담당)<br/><span className="text-blue-700 font-normal">{emerContacts?.teamPur || '성명'}</span>
-                                  </div>
-                                  <div className="border-2 border-black bg-gray-100 px-2 py-3 text-center font-bold w-40 shadow-sm text-sm z-10">
-                                    추진 팀원(정비보수)<br/><span className="text-blue-700 font-normal">{emerContacts?.teamMaint || '성명'}</span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <h3 className="font-bold text-lg mb-4">▶ 보유장소별 사진 및 위험요인</h3>
-                              <div className="grid grid-cols-2 gap-6">
-                                {spaces && spaces.map((space, idx) => (
-                                  <div key={idx} className="border-2 border-black p-3 flex flex-col items-center break-inside-avoid shadow-sm">
-                                    <div className="font-bold bg-gray-100 w-full text-center border-b-2 border-black pb-2 mb-3 text-base">
-                                      {idx + 1}. {space.name}
+                                {/* ─── [1페이지] 표지 ─── */}
+                                <div style={{ height: '260mm', display: 'flex', flexDirection: 'column', pageBreakAfter: 'always' }}>
+                                    <div className="flex justify-end">
+                                        <table className="border-collapse border border-black text-center text-sm" style={{ width: '200px' }}>
+                                            <tbody>
+                                                <tr>
+                                                    <td rowSpan="2" className="border border-black bg-gray-100 w-8 font-bold">결<br />재</td>
+                                                    <td className="border border-black bg-gray-100 py-1">작성</td>
+                                                    <td className="border border-black bg-gray-100 py-1">검토</td>
+                                                    <td className="border border-black bg-gray-100 py-1">승인</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="border border-black h-20"></td>
+                                                    <td className="border border-black h-20"></td>
+                                                    <td className="border border-black h-20"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    {space.imgSrc && space.imgSrc.startsWith('data:image') ? (
-                                      <img src={space.imgSrc} alt={space.name} className="h-40 object-contain mb-3" />
-                                    ) : (
-                                      <div className="h-40 flex items-center justify-center text-gray-400 bg-gray-50 w-full mb-3 border border-dashed">사진 미등록</div>
-                                    )}
-                                    <div className="text-sm text-left w-full bg-gray-50 p-2 rounded">
-                                      <span className="font-bold">위치:</span> {space.location}<br/>
-                                      <span className="font-bold">위험요인:</span> {Array.isArray(space.hazards) ? space.hazards.join(', ') : space.hazards}
+
+                                    <div className="flex-1 flex flex-col items-center justify-center -mt-20">
+                                        <h1 className="text-4xl font-extrabold tracking-widest mb-16">밀폐공간작업프로그램</h1>
+                                        <div className="text-xl font-bold text-center space-y-4">
+                                            <p>제정일자 : {programDate || '20  .  .  .'}</p>
+                                            {revisionDate && <p>개정일자 : {revisionDate}</p>}
+                                        </div>
                                     </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
 
-                            {/* ─── [4페이지] 장비 현황, 연락망 ─── */}
-                            <div style={{ pageBreakAfter: 'always' }}>
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">4. 안전장비 구비 현황</h2>
-                              <table className="w-full border-collapse border border-black text-center mb-8">
-                                <thead>
-                                  <tr className="bg-gray-100 font-bold">
-                                    <th className="border border-black py-2">구분</th>
-                                    <th className="border border-black py-2">장비명</th>
-                                    <th className="border border-black py-2 w-16">보유</th>
-                                    <th className="border border-black py-2 w-16">위탁</th>
-                                    <th className="border border-black py-2 w-16">대여</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {[
-                                    { key: 'oxygen', name: '산소농도측정기', type: '측정기구' },
-                                    { key: 'gas', name: '유해가스농도측정기', type: '측정기구' },
-                                    { key: 'vent', name: '환기팬 / 배풍기', type: '환기기구' },
-                                    { key: 'mask', name: '송기마스크 / 공기호흡기', type: '보호구' },
-                                    { key: 'tripod', name: '구조용 삼각대 / 안전대', type: '구조장비' }
-                                  ].map((item, idx) => (
-                                    <tr key={idx}>
-                                      {idx === 0 && <td rowSpan="2" className="border border-black font-bold bg-gray-50">측정기구</td>}
-                                      {idx === 2 && <td className="border border-black font-bold bg-gray-50">환기기구</td>}
-                                      {idx === 3 && <td className="border border-black font-bold bg-gray-50">보호구</td>}
-                                      {idx === 4 && <td className="border border-black font-bold bg-gray-50">구조장비</td>}
-                                      <td className="border border-black py-2 text-left px-4">{item.name}</td>
-                                      <td className="border border-black py-2 font-bold text-xl text-blue-600">{equipment && equipment[item.key] === '보유' ? 'O' : ''}</td>
-                                      <td className="border border-black py-2 font-bold text-xl text-blue-600">{equipment && equipment[item.key] === '위탁' ? 'O' : ''}</td>
-                                      <td className="border border-black py-2 font-bold text-xl text-blue-600">{equipment && equipment[item.key] === '대여' ? 'O' : ''}</td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
+                                    <div className="w-full text-center pb-10">
+                                        <h2 className="text-4xl font-extrabold tracking-wide">{companyName || '사업장명 입력'}</h2>
+                                    </div>
+                                </div>
 
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-8">5. 비상연락 체계 구축</h2>
-                              <table className="w-full border-collapse border border-black text-center mb-10">
-                                <thead>
-                                  <tr className="bg-gray-100 font-bold">
-                                    <th className="border border-black py-2">구분</th>
-                                    <th className="border border-black py-2">성명 / 직위</th>
-                                    <th className="border border-black py-2">연락처 (사내/휴대폰)</th>
-                                   </tr>
-                                 </thead>
-                                 <tbody>
-                                   <tr><td className="border border-black py-3 font-bold bg-gray-50">프로그램 총괄 책임자</td><td className="border border-black py-3 text-lg">{emerContacts?.director || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.dirPhone || ''}</td></tr>
-                                   <tr><td className="border border-black py-3 font-bold bg-gray-50">프로그램 관리자</td><td className="border border-black py-3 text-lg">{emerContacts?.manager || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.manPhone || ''}</td></tr>
-                                   <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(외주업체)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamExt || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamExtPhone || ''}</td></tr>
-                                   <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(구매담당)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamPur || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamPurPhone || ''}</td></tr>
-                                   <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(정비보수)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamMaint || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamMaintPhone || ''}</td></tr>
-                                 </tbody>
-                               </table>
-                             </div>
-                                                        {/* ─── [5페이지] 제6장 ~ 7장 KOSHA 원문 ─── */}
-                            <div style={{ pageBreakAfter: 'always', textAlign: 'justify' }}>
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">6. 밀폐공간 보건작업 관리</h2>
-                              <h3 className="font-bold text-lg mt-4 mb-2 bg-gray-100 p-2 border-l-4 border-blue-600">가. 출입금지 및 표지판 설치</h3>
-                              <p className="mb-4 ml-2">사업주는 밀폐공간에 근로자가 출입하지 않도록 잠금장치를 하고, 출입구에 관계자 외 출입금지 표지를 보기 쉬운 장소에 부착하여야 한다. 작업 시에는 안전작업허가서를 발급받고 출입구에 게시한다.</p>
+                                {/* ─── [2페이지] 목적 및 현황 ─── */}
+                                <div style={{ pageBreakAfter: 'always' }}>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">1. 목적</h2>
+                                    <p className="mb-10 text-justify leading-relaxed">
+                                        산업안전보건기준에 관한 규칙(이하 “안전보건규칙”이라 한다) 제619조 규정에 의한 밀폐공간 작업 프로그램(매뉴얼)으로서, 해당 사업장내 정규직과 비정규직, 같은 사업장에서 밀폐공간작업을 수행하는 원청, 협력업체 및 사외 작업자 등 모든 근로자에게 밀폐공간 작업 시 산소결핍 또는 유해가스로 인한 질식재해를 예방하는데 그 목적을 두고 있다.
+                                    </p>
 
-                              <h3 className="font-bold text-lg mt-6 mb-2 bg-gray-100 p-2 border-l-4 border-blue-600">나. 산소 및 유해가스 농도 측정</h3>
-                              <p className="mb-2 ml-2">측정자는 산소 및 유해가스 농도 측정기를 사용하여 작업 개시 전, 교대 시, 작업 중 수시로 농도를 측정하여 적정공기 여부를 확인해야 한다.</p>
-                              <ul className="list-disc ml-8 mb-6 space-y-1 bg-gray-50 p-4 border rounded">
-                                <li><strong>적정공기 기준:</strong> 산소 18%~23.5%, 탄산가스 1.5% 미만, 일산화탄소 30ppm 미만, 황화수소 10ppm 미만</li>
-                                <li><strong>측정기록 보존:</strong> 측정 결과는 서면 또는 전자문서로 기록하여 3년간 보존한다.</li>
-                              </ul>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-8">2. 밀폐공간 작업장소 보유현황</h2>
+                                    <h3 className="font-bold text-lg mt-4 mb-2">가. 정의</h3>
+                                    <p className="mb-6 ml-2 text-justify leading-relaxed">
+                                        밀폐공간이란 산소결핍, 유해가스로 인한 질식·화재·폭발 등의 위험이 있는 장소로서 안전보건규칙 별표18에서 정한 장소를 말하며 [별첨 1]과 같다.
+                                    </p>
+                                    <h3 className="font-bold text-lg mt-4 mb-2">나. 보유현황</h3>
+                                    <table className="w-full border-collapse border border-black text-center text-sm mb-8 break-inside-avoid">
+                                        <thead>
+                                            <tr className="bg-gray-100 font-bold">
+                                                <th className="border border-black py-3 px-1">연번</th>
+                                                <th className="border border-black py-3 px-1">위치</th>
+                                                <th className="border border-black py-3 px-1">밀폐공간명</th>
+                                                <th className="border border-black py-3 px-1">작업내용</th>
+                                                <th className="border border-black py-3 px-1">출입 주기</th>
+                                                <th className="border border-black py-3 px-1">출입 인원</th>
+                                                <th className="border border-black py-3 px-1">위험요인</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {spaces && spaces.length > 0 ? spaces.map((space, idx) => (
+                                                <tr key={idx}>
+                                                    <td className="border border-black py-3 px-1">{idx + 1}</td>
+                                                    <td className="border border-black py-3 px-1">{space.location}</td>
+                                                    <td className="border border-black py-3 px-1 font-bold">{space.name}</td>
+                                                    <td className="border border-black py-3 px-1">{space.workContent}</td>
+                                                    <td className="border border-black py-3 px-1">{space.workFrequency}</td>
+                                                    <td className="border border-black py-3 px-1">{space.workers}</td>
+                                                    <td className="border border-black py-3 px-1 text-xs">{Array.isArray(space.hazards) ? space.hazards.join(', ') : space.hazards}</td>
+                                                </tr>
+                                            )) : (
+                                                <tr><td colSpan="7" className="border border-black p-6 text-gray-500">등록된 밀폐공간이 없습니다.</td></tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-10">7. 환기 및 보호구 착용</h2>
-                              <h3 className="font-bold text-lg mt-4 mb-2">가. 환기 기준</h3>
-                              <p className="mb-4 ml-2">작업 전 밀폐공간 체적의 10배 이상 외부의 신선한 공기로 환기하며, 작업 중에는 시간당 20회 이상 지속적으로 환기 설비를 가동하여야 한다. <strong>순수 산소를 환기용으로 사용하는 것은 화재폭발 위험이 있으므로 절대 금지한다.</strong></p>
+                                {/* ─── [3페이지] 조직도 및 현장 사진 ─── */}
+                                <div style={{ pageBreakAfter: 'always' }}>
+                                    <h2 className="text-xl font-bold mb-6 border-b-2 border-black pb-2">3. 밀폐공간 조직 및 운영</h2>
 
-                              <h3 className="font-bold text-lg mt-4 mb-2">나. 보호구 지급 및 착용</h3>
-                              <p className="mb-4 ml-2">환기만으로 적정공기 유지가 곤란하거나 피난, 구출 작업을 수행할 경우 사업주는 근로자에게 <strong>송기마스크 또는 공기호흡기</strong>를 반드시 지급하고 착용하도록 지도하여야 한다. (일반 방독마스크 착용 절대 금지)</p>
-                            </div>
+                                    <div className="flex flex-col items-center mb-12 relative">
+                                        <div className="border-2 border-black bg-gray-100 px-6 py-3 text-center font-bold w-64 shadow-sm z-10">
+                                            프로그램 총괄 책임자<br /><span className="text-blue-700 font-normal text-lg">{emerContacts?.director || '성명'}</span>
+                                        </div>
+                                        <div className="h-6 border-l-2 border-black"></div>
+                                        <div className="border-2 border-black bg-gray-100 px-6 py-3 text-center font-bold w-64 shadow-sm z-10">
+                                            프로그램 관리자<br /><span className="text-blue-700 font-normal text-lg">{emerContacts?.manager || '성명'}</span>
+                                        </div>
+                                        <div className="h-6 border-l-2 border-black"></div>
+                                        <div className="w-[420px] border-t-2 border-black h-4"></div>
+                                        <div className="flex justify-between w-[520px] -mt-4">
+                                            <div className="border-2 border-black bg-gray-100 px-2 py-3 text-center font-bold w-40 shadow-sm text-sm z-10">
+                                                추진 팀원(외주업체)<br /><span className="text-blue-700 font-normal">{emerContacts?.teamExt || '성명'}</span>
+                                            </div>
+                                            <div className="border-2 border-black bg-gray-100 px-2 py-3 text-center font-bold w-40 shadow-sm text-sm z-10">
+                                                추진 팀원(구매담당)<br /><span className="text-blue-700 font-normal">{emerContacts?.teamPur || '성명'}</span>
+                                            </div>
+                                            <div className="border-2 border-black bg-gray-100 px-2 py-3 text-center font-bold w-40 shadow-sm text-sm z-10">
+                                                추진 팀원(정비보수)<br /><span className="text-blue-700 font-normal">{emerContacts?.teamMaint || '성명'}</span>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            {/* ─── [6페이지] 제8장 ~ 9장 KOSHA 원문 ─── */}
-                            <div style={{ pageBreakAfter: 'always', textAlign: 'justify' }}>
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">8. 비상시 구출 및 응급처치</h2>
-                              <ol className="list-decimal ml-8 mb-6 space-y-4 font-bold text-red-700">
-                                <li>사고 인지 및 전파: 감시인은 즉시 큰 소리로 사고를 알리고, 119 및 사내 비상연락망에 구조를 요청한다.</li>
-                                <li>직접 구조 금지: 감시인이나 동료 작업자는 공기호흡기 등 보호구 없이 맨몸으로 구조하러 들어가는 것을 절대 금지한다. (구조자 동반 질식 위험)</li>
-                                <li>구조 장비 활용: 비치된 구조용 삼각대와 윈치를 이용하여 작업자를 외부로 구출한다.</li>
-                                <li>응급 처치: 구출된 재해자는 신선한 공기가 있는 곳으로 옮기고 119 도착 전까지 심폐소생술을 실시한다.</li>
-                              </ol>
+                                    <h3 className="font-bold text-lg mb-4">▶ 보유장소별 사진 및 위험요인</h3>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        {spaces && spaces.map((space, idx) => (
+                                            <div key={idx} className="border-2 border-black p-3 flex flex-col items-center break-inside-avoid shadow-sm">
+                                                <div className="font-bold bg-gray-100 w-full text-center border-b-2 border-black pb-2 mb-3 text-base">
+                                                    {idx + 1}. {space.name}
+                                                </div>
+                                                {space.imgSrc && space.imgSrc.startsWith('data:image') ? (
+                                                    <img src={space.imgSrc} alt={space.name} className="h-40 object-contain mb-3" />
+                                                ) : (
+                                                    <div className="h-40 flex items-center justify-center text-gray-400 bg-gray-50 w-full mb-3 border border-dashed">사진 미등록</div>
+                                                )}
+                                                <div className="text-sm text-left w-full bg-gray-50 p-2 rounded">
+                                                    <span className="font-bold">위치:</span> {space.location}<br />
+                                                    <span className="font-bold">위험요인:</span> {Array.isArray(space.hazards) ? space.hazards.join(', ') : space.hazards}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
 
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-10">9. 도급 시 안전보건조치</h2>
-                              <p className="mb-4 ml-2">사업주는 밀폐공간 작업을 수급인에게 도급하는 경우, 수급인 근로자의 질식재해 예방을 위해 밀폐공간의 위치, 위험성, 작업상 주의사항을 작업 시작 전 서면으로 고지하고, 수급인이 작업 프로그램에 따라 안전하게 작업하는지 확인해야 한다.</p>
-                            </div>
+                                {/* ─── [4페이지] 장비 현황, 연락망 ─── */}
+                                <div style={{ pageBreakAfter: 'always' }}>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">4. 안전장비 구비 현황</h2>
+                                    <table className="w-full border-collapse border border-black text-center mb-8">
+                                        <thead>
+                                            <tr className="bg-gray-100 font-bold">
+                                                <th className="border border-black py-2">구분</th>
+                                                <th className="border border-black py-2">장비명</th>
+                                                <th className="border border-black py-2 w-16">보유</th>
+                                                <th className="border border-black py-2 w-16">위탁</th>
+                                                <th className="border border-black py-2 w-16">대여</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {[
+                                                { key: 'oxygen', name: '산소농도측정기', type: '측정기구' },
+                                                { key: 'gas', name: '유해가스농도측정기', type: '측정기구' },
+                                                { key: 'vent', name: '환기팬 / 배풍기', type: '환기기구' },
+                                                { key: 'mask', name: '송기마스크 / 공기호흡기', type: '보호구' },
+                                                { key: 'tripod', name: '구조용 삼각대 / 안전대', type: '구조장비' }
+                                            ].map((item, idx) => (
+                                                <tr key={idx}>
+                                                    {idx === 0 && <td rowSpan="2" className="border border-black font-bold bg-gray-50">측정기구</td>}
+                                                    {idx === 2 && <td className="border border-black font-bold bg-gray-50">환기기구</td>}
+                                                    {idx === 3 && <td className="border border-black font-bold bg-gray-50">보호구</td>}
+                                                    {idx === 4 && <td className="border border-black font-bold bg-gray-50">구조장비</td>}
+                                                    <td className="border border-black py-2 text-left px-4">{item.name}</td>
+                                                    <td className="border border-black py-2 font-bold text-xl text-blue-600">{equipment && equipment[item.key] === '보유' ? 'O' : ''}</td>
+                                                    <td className="border border-black py-2 font-bold text-xl text-blue-600">{equipment && equipment[item.key] === '위탁' ? 'O' : ''}</td>
+                                                    <td className="border border-black py-2 font-bold text-xl text-blue-600">{equipment && equipment[item.key] === '대여' ? 'O' : ''}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
 
-                            {/* ─── [7페이지] 별첨 1 & 별첨 2 ─── */}
-                            <div style={{ pageBreakAfter: 'always' }}>
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 1】 밀폐공간 (제618조제1호 관련)</h2>
-                              <ul className="list-decimal ml-6 mb-10 space-y-1 text-sm bg-gray-50 p-4 border rounded">
-                                <li>우물·수직갱·터널·잠함·피트 또는 그밖에 이와 유사한 것의 내부</li>
-                                <li>케이블·가스관 등을 수용하기 위하여 지하에 부설한 암거·맨홀 또는 피트의 내부</li>
-                                <li>빗물·하천의 유수 또는 용수가 있거나 있었던 통·암거·맨홀 또는 피트의 내부</li>
-                                <li>석탄·아탄·황화광 등 산소를 흡수하는 물질이 들어 있는 창고나 선창의 내부</li>
-                                <li>분뇨, 오염된 흙, 폐수, 오수 등 부패하기 쉬운 물질이 들어있는 정화조·침전조·집수조·탱크의 내부</li>
-                                <li>산소농도 18% 미만 23.5% 이상, 황화수소 10ppm 이상, 일산화탄소 30ppm 이상인 장소</li>
-                                <li>화학물질이 들어있던 반응기 및 탱크의 내부</li>
-                                <li>근로자가 상주하지 않는 공간으로서 출입이 제한되어 있는 장소의 내부 등 18개 항목</li>
-                              </ul>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-8">5. 비상연락 체계 구축</h2>
+                                    <table className="w-full border-collapse border border-black text-center mb-10">
+                                        <thead>
+                                            <tr className="bg-gray-100 font-bold">
+                                                <th className="border border-black py-2">구분</th>
+                                                <th className="border border-black py-2">성명 / 직위</th>
+                                                <th className="border border-black py-2">연락처 (사내/휴대폰)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td className="border border-black py-3 font-bold bg-gray-50">프로그램 총괄 책임자</td><td className="border border-black py-3 text-lg">{emerContacts?.director || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.dirPhone || ''}</td></tr>
+                                            <tr><td className="border border-black py-3 font-bold bg-gray-50">프로그램 관리자</td><td className="border border-black py-3 text-lg">{emerContacts?.manager || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.manPhone || ''}</td></tr>
+                                            <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(외주업체)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamExt || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamExtPhone || ''}</td></tr>
+                                            <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(구매담당)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamPur || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamPurPhone || ''}</td></tr>
+                                            <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(정비보수)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamMaint || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamMaintPhone || ''}</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {/* ─── [5페이지] 제6장 ~ 7장 KOSHA 원문 ─── */}
+                                <div style={{ pageBreakAfter: 'always', textAlign: 'justify' }}>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">6. 밀폐공간 보건작업 관리</h2>
+                                    <h3 className="font-bold text-lg mt-4 mb-2 bg-gray-100 p-2 border-l-4 border-blue-600">가. 출입금지 및 표지판 설치</h3>
+                                    <p className="mb-4 ml-2">사업주는 밀폐공간에 근로자가 출입하지 않도록 잠금장치를 하고, 출입구에 관계자 외 출입금지 표지를 보기 쉬운 장소에 부착하여야 한다. 작업 시에는 안전작업허가서를 발급받고 출입구에 게시한다.</p>
 
-                              <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 2】 밀폐공간 출입금지 표지</h2>
-                              <div className="border-4 border-red-600 p-4 text-center w-3/4 mx-auto bg-white mt-6">
-                                <h3 className="text-3xl font-black text-black tracking-widest">질식 위험공간</h3>
-                                <p className="text-xl font-bold my-4">"관계자외 출입금지"</p>
-                                <div className="bg-red-600 text-yellow-300 font-black text-5xl py-6 rounded-full border-4 border-red-800 shadow-inner w-2/3 mx-auto my-6 tracking-widest">위 험</div>
-                                <ul className="text-left font-bold text-green-800 space-y-2 w-4/5 mx-auto mb-4 text-sm">
-                                  <li>출입 전 산소 및 유해가스 농도 측정</li>
-                                  <li>작업 전·작업 중 지속적인 환기</li>
-                                  <li>구조작업 시 공기호흡기 또는 송기마스크 착용</li>
-                                </ul>
-                                <p className="font-bold text-red-600 text-lg bg-red-100 py-2">☎ 1644-8595 로 장비대여 신청하세요</p>
-                              </div>
-                            </div>
+                                    <h3 className="font-bold text-lg mt-6 mb-2 bg-gray-100 p-2 border-l-4 border-blue-600">나. 산소 및 유해가스 농도 측정</h3>
+                                    <p className="mb-2 ml-2">측정자는 산소 및 유해가스 농도 측정기를 사용하여 작업 개시 전, 교대 시, 작업 중 수시로 농도를 측정하여 적정공기 여부를 확인해야 한다.</p>
+                                    <ul className="list-disc ml-8 mb-6 space-y-1 bg-gray-50 p-4 border rounded">
+                                        <li><strong>적정공기 기준:</strong> 산소 18%~23.5%, 탄산가스 1.5% 미만, 일산화탄소 30ppm 미만, 황화수소 10ppm 미만</li>
+                                        <li><strong>측정기록 보존:</strong> 측정 결과는 서면 또는 전자문서로 기록하여 3년간 보존한다.</li>
+                                    </ul>
 
-                            {/* ─── [8페이지] 별첨 3 작업허가서 ─── */}
-                            <div style={{ pageBreakAfter: 'always' }}>
-                              <h2 className="text-xl font-bold mb-6 text-center text-2xl tracking-wide">밀폐공간 안전보건작업 허가서</h2>
-                              <table className="w-full border-collapse border-2 border-black text-sm text-center mb-8">
-                                <tbody>
-                                  <tr>
-                                    <th className="border border-black py-3 bg-gray-100 w-1/4 font-bold">작업장소</th>
-                                    <td className="border border-black py-3">( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; )</td>
-                                    <th className="border border-black py-3 bg-gray-100 w-1/4 font-bold">작업일시</th>
-                                    <td className="border border-black py-3">202 &nbsp; . &nbsp; &nbsp; . &nbsp; &nbsp; . ( : ~ : )</td>
-                                  </tr>
-                                  <tr>
-                                    <th className="border border-black py-4 bg-gray-100 font-bold">작업내용</th>
-                                    <td colSpan="3" className="border border-black py-4"></td>
-                                  </tr>
-                                  <tr>
-                                    <th className="border border-black py-6 bg-gray-100 font-bold">가스측정 결과</th>
-                                    <td colSpan="3" className="border border-black py-6 text-left px-6 leading-loose">
-                                      산소: &nbsp; &nbsp; &nbsp; &nbsp; %, &nbsp; &nbsp; 황화수소: &nbsp; &nbsp; &nbsp; &nbsp; ppm, &nbsp; &nbsp; 일산화탄소: &nbsp; &nbsp; &nbsp; &nbsp; ppm<br/>
-                                      측정자: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (서명)
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <th className="border border-black py-6 bg-gray-100 font-bold">안전조치 확인</th>
-                                    <td colSpan="3" className="border border-black py-6 text-left px-6 font-bold space-y-2">
-                                      <p>☐ 환기 실시 &nbsp; &nbsp; &nbsp; ☐ 보호구 지급</p>
-                                      <p>☐ 감시인 배치 &nbsp; &nbsp; &nbsp; ☐ 표지판 설치</p>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <div className="flex justify-end mt-10 mr-10 text-lg font-bold">
-                                <p>허가권자: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (서명)</p>
-                              </div>
-                            </div>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-10">7. 환기 및 보호구 착용</h2>
+                                    <h3 className="font-bold text-lg mt-4 mb-2">가. 환기 기준</h3>
+                                    <p className="mb-4 ml-2">작업 전 밀폐공간 체적의 10배 이상 외부의 신선한 공기로 환기하며, 작업 중에는 시간당 20회 이상 지속적으로 환기 설비를 가동하여야 한다. <strong>순수 산소를 환기용으로 사용하는 것은 화재폭발 위험이 있으므로 절대 금지한다.</strong></p>
 
-                            {/* 별첨 4~10 양식 */}
-                            <AppendixSection />
+                                    <h3 className="font-bold text-lg mt-4 mb-2">나. 보호구 지급 및 착용</h3>
+                                    <p className="mb-4 ml-2">환기만으로 적정공기 유지가 곤란하거나 피난, 구출 작업을 수행할 경우 사업주는 근로자에게 <strong>송기마스크 또는 공기호흡기</strong>를 반드시 지급하고 착용하도록 지도하여야 한다. (일반 방독마스크 착용 절대 금지)</p>
+                                </div>
 
-                          </div> {/* id="pdf-print-template" 닫기 */}
+                                {/* ─── [6페이지] 제8장 ~ 9장 KOSHA 원문 ─── */}
+                                <div style={{ pageBreakAfter: 'always', textAlign: 'justify' }}>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">8. 비상시 구출 및 응급처치</h2>
+                                    <ol className="list-decimal ml-8 mb-6 space-y-4 font-bold text-red-700">
+                                        <li>사고 인지 및 전파: 감시인은 즉시 큰 소리로 사고를 알리고, 119 및 사내 비상연락망에 구조를 요청한다.</li>
+                                        <li>직접 구조 금지: 감시인이나 동료 작업자는 공기호흡기 등 보호구 없이 맨몸으로 구조하러 들어가는 것을 절대 금지한다. (구조자 동반 질식 위험)</li>
+                                        <li>구조 장비 활용: 비치된 구조용 삼각대와 윈치를 이용하여 작업자를 외부로 구출한다.</li>
+                                        <li>응급 처치: 구출된 재해자는 신선한 공기가 있는 곳으로 옮기고 119 도착 전까지 심폐소생술을 실시한다.</li>
+                                    </ol>
+
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2 mt-10">9. 도급 시 안전보건조치</h2>
+                                    <p className="mb-4 ml-2">사업주는 밀폐공간 작업을 수급인에게 도급하는 경우, 수급인 근로자의 질식재해 예방을 위해 밀폐공간의 위치, 위험성, 작업상 주의사항을 작업 시작 전 서면으로 고지하고, 수급인이 작업 프로그램에 따라 안전하게 작업하는지 확인해야 한다.</p>
+                                </div>
+
+                                {/* ─── [7페이지] 별첨 1 & 별첨 2 ─── */}
+                                <div style={{ pageBreakAfter: 'always' }}>
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 1】 밀폐공간 (제618조제1호 관련)</h2>
+                                    <ul className="list-decimal ml-6 mb-10 space-y-1 text-sm bg-gray-50 p-4 border rounded">
+                                        <li>우물·수직갱·터널·잠함·피트 또는 그밖에 이와 유사한 것의 내부</li>
+                                        <li>케이블·가스관 등을 수용하기 위하여 지하에 부설한 암거·맨홀 또는 피트의 내부</li>
+                                        <li>빗물·하천의 유수 또는 용수가 있거나 있었던 통·암거·맨홀 또는 피트의 내부</li>
+                                        <li>석탄·아탄·황화광 등 산소를 흡수하는 물질이 들어 있는 창고나 선창의 내부</li>
+                                        <li>분뇨, 오염된 흙, 폐수, 오수 등 부패하기 쉬운 물질이 들어있는 정화조·침전조·집수조·탱크의 내부</li>
+                                        <li>산소농도 18% 미만 23.5% 이상, 황화수소 10ppm 이상, 일산화탄소 30ppm 이상인 장소</li>
+                                        <li>화학물질이 들어있던 반응기 및 탱크의 내부</li>
+                                        <li>근로자가 상주하지 않는 공간으로서 출입이 제한되어 있는 장소의 내부 등 18개 항목</li>
+                                    </ul>
+
+                                    <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">【별첨 2】 밀폐공간 출입금지 표지</h2>
+                                    <div className="border-4 border-red-600 p-4 text-center w-3/4 mx-auto bg-white mt-6">
+                                        <h3 className="text-3xl font-black text-black tracking-widest">질식 위험공간</h3>
+                                        <p className="text-xl font-bold my-4">"관계자외 출입금지"</p>
+                                        <div className="bg-red-600 text-yellow-300 font-black text-5xl py-6 rounded-full border-4 border-red-800 shadow-inner w-2/3 mx-auto my-6 tracking-widest">위 험</div>
+                                        <ul className="text-left font-bold text-green-800 space-y-2 w-4/5 mx-auto mb-4 text-sm">
+                                            <li>출입 전 산소 및 유해가스 농도 측정</li>
+                                            <li>작업 전·작업 중 지속적인 환기</li>
+                                            <li>구조작업 시 공기호흡기 또는 송기마스크 착용</li>
+                                        </ul>
+                                        <p className="font-bold text-red-600 text-lg bg-red-100 py-2">☎ 1644-8595 로 장비대여 신청하세요</p>
+                                    </div>
+                                </div>
+
+                                {/* ─── [8페이지] 별첨 3 작업허가서 ─── */}
+                                <div style={{ pageBreakAfter: 'always' }}>
+                                    <h2 className="text-xl font-bold mb-6 text-center text-2xl tracking-wide">밀폐공간 안전보건작업 허가서</h2>
+                                    <table className="w-full border-collapse border-2 border-black text-sm text-center mb-8">
+                                        <tbody>
+                                            <tr>
+                                                <th className="border border-black py-3 bg-gray-100 w-1/4 font-bold">작업장소</th>
+                                                <td className="border border-black py-3">( &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; )</td>
+                                                <th className="border border-black py-3 bg-gray-100 w-1/4 font-bold">작업일시</th>
+                                                <td className="border border-black py-3">202 &nbsp; . &nbsp; &nbsp; . &nbsp; &nbsp; . ( : ~ : )</td>
+                                            </tr>
+                                            <tr>
+                                                <th className="border border-black py-4 bg-gray-100 font-bold">작업내용</th>
+                                                <td colSpan="3" className="border border-black py-4"></td>
+                                            </tr>
+                                            <tr>
+                                                <th className="border border-black py-6 bg-gray-100 font-bold">가스측정 결과</th>
+                                                <td colSpan="3" className="border border-black py-6 text-left px-6 leading-loose">
+                                                    산소: &nbsp; &nbsp; &nbsp; &nbsp; %, &nbsp; &nbsp; 황화수소: &nbsp; &nbsp; &nbsp; &nbsp; ppm, &nbsp; &nbsp; 일산화탄소: &nbsp; &nbsp; &nbsp; &nbsp; ppm<br />
+                                                    측정자: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (서명)
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="border border-black py-6 bg-gray-100 font-bold">안전조치 확인</th>
+                                                <td colSpan="3" className="border border-black py-6 text-left px-6 font-bold space-y-2">
+                                                    <p>☐ 환기 실시 &nbsp; &nbsp; &nbsp; ☐ 보호구 지급</p>
+                                                    <p>☐ 감시인 배치 &nbsp; &nbsp; &nbsp; ☐ 표지판 설치</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div className="flex justify-end mt-10 mr-10 text-lg font-bold">
+                                        <p>허가권자: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (서명)</p>
+                                    </div>
+                                </div>
+
+                                {/* 별첨 4~10 양식 */}
+                                <AppendixSection />
+
+                            </div> {/* id="pdf-print-template" 닫기 */}
                         </div> {/* position:fixed 오프스크린 래퍼 닫기 */}
 
                     </React.Fragment>
@@ -1362,7 +1366,7 @@
                             <input
                                 type="text"
                                 value={data.companyName || ""}
-                                onChange={e => setData({...data, companyName: e.target.value})}
+                                onChange={e => setData({ ...data, companyName: e.target.value })}
                                 className="w-full p-3.5 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="사업장명을 입력하세요"
                             />
@@ -1372,7 +1376,7 @@
                             <input
                                 type="text"
                                 value={data.period || ""}
-                                onChange={e => setData({...data, period: e.target.value})}
+                                onChange={e => setData({ ...data, period: e.target.value })}
                                 className="w-full p-3.5 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                 placeholder="예: 2026-05-11"
                             />
@@ -1400,7 +1404,7 @@
                                 <label className="block text-sm font-bold text-gray-700 mb-2">소속 본부/지사</label>
                                 <select
                                     value={data.agencyBranch || ""}
-                                    onChange={e => setData({...data, agencyBranch: e.target.value})}
+                                    onChange={e => setData({ ...data, agencyBranch: e.target.value })}
                                     className="w-full p-3.5 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all cursor-pointer"
                                 >
                                     {(data.agencyType === "center" ? KIHA_CENTERS : KIHA_REGIONS).map(branch => (
@@ -1448,7 +1452,7 @@
                     <table className="w-full border-collapse border border-black text-sm mb-10">
                         <tbody>
                             <tr><th className="border border-black bg-gray-100 p-2 w-24">교육일시</th><td className="border border-black p-2"></td><th className="border border-black bg-gray-100 p-2 w-24">교육장소</th><td className="border border-black p-2"></td></tr>
-                            <tr><th className="border border-black bg-gray-100 p-2">교육내용</th><td colSpan="3" className="border border-black p-2 h-20 text-xs">1. 밀폐공간의 위험성 및 안전작업방법<br/>2. 보호구 착용 및 장비 사용법<br/>3. 사고 발생 시 비상조치 및 구조요령</td></tr>
+                            <tr><th className="border border-black bg-gray-100 p-2">교육내용</th><td colSpan="3" className="border border-black p-2 h-20 text-xs">1. 밀폐공간의 위험성 및 안전작업방법<br />2. 보호구 착용 및 장비 사용법<br />3. 사고 발생 시 비상조치 및 구조요령</td></tr>
                             <tr><th className="border border-black bg-gray-100 p-2">참석자</th><td colSpan="3" className="border border-black p-2 h-16"></td></tr>
                         </tbody>
                     </table>
@@ -1518,7 +1522,7 @@
         }
         function StatusScreen({ spaces, setSpaces }) {
             const [form, setForm] = useState({
-                name: '', location: '', area: '',
+                name: '', location: '', area: '', workContent: '',
                 gas: { o2: 20.9, co: 0, h2s: 0, lel: 0, co2: 0.03 }, photo: null,
                 cycle: '청소시(비정기)', cycleDirect: '',
                 personnel: '2인 1조', personnelDirect: '',
@@ -1559,6 +1563,9 @@
                     ...form, id: newId,
                     name: form.name.trim(), risk, hazards: finalHazards,
                     legalBasis: finalLaw, locationMap: null,
+                    workContent: form.workContent || '',
+                    workFrequency: finalCycle,
+                    workers: finalPersonnel,
                     cycle: finalCycle, personnel: finalPersonnel, measureTime: finalTime,
                     riskSolution,
                     matrixA: form.matrixA, matrixB: form.matrixB, matrixC: form.matrixC,
@@ -1568,7 +1575,7 @@
                 }]);
 
                 setForm({
-                    name: '', location: '', area: '',
+                    name: '', location: '', area: '', workContent: '',
                     gas: { o2: 20.9, co: 0, h2s: 0, lel: 0, co2: 0.03 }, photo: null,
                     cycle: '청소시(비정기)', cycleDirect: '',
                     personnel: '2인 1조', personnelDirect: '',
@@ -1629,6 +1636,12 @@
                                 <input type="text" placeholder="설비 명칭 직접 입력" className="w-full p-3 md:p-2 border border-gray-300 rounded-md mt-2 focus:ring-2 focus:ring-blue-500 bg-blue-50 text-base"
                                     value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                             )}
+                        </div>
+
+                        {/* 작업내용 */}
+                        <div>
+                            <label className="text-sm font-bold text-gray-600">작업내용</label>
+                            <input type="text" className="w-full p-3 md:p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 text-base" placeholder="예: 내부 청소 및 점검" value={form.workContent} onChange={e => setForm({ ...form, workContent: e.target.value })} />
                         </div>
 
                         {/* 위치·면적 */}
@@ -2215,7 +2228,7 @@
                                             <p className="text-gray-700 text-base leading-relaxed">{selectedItem.desc}</p>
                                         </div>
                                     </div>
-                                 </div>
+                                </div>
                             </div>
                         </div>
                     )}
