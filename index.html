@@ -1226,18 +1226,6 @@
                                     <th className="border border-black py-2">구분</th>
                                     <th className="border border-black py-2">성명 / 직위</th>
                                     <th className="border border-black py-2">연락처 (사내/휴대폰)</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr><td className="border border-black py-3 font-bold bg-gray-50">프로그램 총괄 책임자</td><td className="border border-black py-3 text-lg">{emerContacts?.director || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.dirPhone || ''}</td></tr>
-                                  <tr><td className="border border-black py-3 font-bold bg-gray-50">프로그램 관리자</td><td className="border border-black py-3 text-lg">{emerContacts?.manager || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.manPhone || ''}</td></tr>
-                                  <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(외주업체)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamExt || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamExtPhone || ''}</td></tr>
-                                  <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(구매담당)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamPur || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamPurPhone || ''}</td></tr>
-                                  <tr><td className="border border-black py-3 font-bold bg-gray-50">추진 팀원(정비보수)</td><td className="border border-black py-3 text-lg">{emerContacts?.teamMaint || ''}</td><td className="border border-black py-3 font-bold">{emerContacts?.teamMaintPhone || ''}</td></tr>
-                                </tbody>
-                              </table>
-                            </div>
-
                                                         {/* ─── [5페이지] 제6장 ~ 7장 KOSHA 원문 ─── */}
                             <div style={{ pageBreakAfter: 'always', textAlign: 'justify' }}>
                               <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">6. 밀폐공간 보건작업 관리</h2>
@@ -1344,88 +1332,66 @@
             );
         }
 
-        function CoverScreen({ data, setData }) {
-            return (
-                <div className="w-full h-full overflow-y-auto bg-gray-50 p-4 md:p-8">
-                    <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow p-6 md:p-10 space-y-6">
-                        <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-2">
-                            <Icon name="file-text" size={22} className="text-blue-600" /> 보고서 표지 정보
-                        </h2>
-
-                        <div className="grid grid-cols-1 gap-4">
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">사업장명</span>
-                                <input
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.companyName || ''}
-                                    onChange={e => setData(d => ({ ...d, companyName: e.target.value }))}
-                                    placeholder="사업장명을 입력하세요"
-                                />
-                            </label>
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">사업장 주소</span>
-                                <input
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.companyAddress || ''}
-                                    onChange={e => setData(d => ({ ...d, companyAddress: e.target.value }))}
-                                    placeholder="주소를 입력하세요"
-                                />
-                            </label>
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">대표자명</span>
-                                <input
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.representative || ''}
-                                    onChange={e => setData(d => ({ ...d, representative: e.target.value }))}
-                                    placeholder="대표자명을 입력하세요"
-                                />
-                            </label>
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">업종</span>
-                                <input
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.industry || ''}
-                                    onChange={e => setData(d => ({ ...d, industry: e.target.value }))}
-                                    placeholder="업종을 입력하세요 (예: 제조업)"
-                                />
-                            </label>
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">근로자 수</span>
-                                <input
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.workerCount || ''}
-                                    onChange={e => setData(d => ({ ...d, workerCount: e.target.value }))}
-                                    placeholder="근로자 수를 입력하세요"
-                                />
-                            </label>
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">평가일자</span>
-                                <input
-                                    type="date"
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.evaluationDate || ''}
-                                    onChange={e => setData(d => ({ ...d, evaluationDate: e.target.value }))}
-                                />
-                            </label>
-                            <label className="flex flex-col gap-1">
-                                <span className="text-sm font-bold text-slate-600">평가자 (기관명)</span>
-                                <input
-                                    className="border rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    value={data.evaluator || ''}
-                                    onChange={e => setData(d => ({ ...d, evaluator: e.target.value }))}
-                                    placeholder="평가자 또는 기관명을 입력하세요"
-                                />
-                            </label>
+        const CoverScreen = ({ data, setData }) => (
+            <div className="p-6 max-w-3xl mx-auto">
+                <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+                    <Icon name="file-text" className="text-blue-500" /> 1. 보고서 표지
+                </h2>
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 space-y-6">
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">사업장명</label>
+                        <input
+                            type="text"
+                            value={data.companyName || ''}
+                            onChange={e => setData({...data, companyName: e.target.value})}
+                            className="w-full p-3 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white transition-colors"
+                            placeholder="사업장명을 입력하세요"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">평가기간 및 일자</label>
+                        <input
+                            type="text"
+                            value={data.period || ''}
+                            onChange={e => setData({...data, period: e.target.value})}
+                            className="w-full p-3 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white transition-colors"
+                        />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">기관 구분</label>
+                            <select
+                                value={data.agencyType || 'region'}
+                                onChange={e => {
+                                    const newType = e.target.value;
+                                    setData({
+                                        ...data,
+                                        agencyType: newType,
+                                        agencyBranch: newType === 'region' ? KIHA_REGIONS[0] : KIHA_CENTERS[0]
+                                    });
+                                }}
+                                className="w-full p-3 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white transition-colors"
+                            >
+                                <option value="region">지역본부</option>
+                                <option value="center">산업보건센터</option>
+                            </select>
                         </div>
-
-                        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-700">
-                            <Icon name="info" size={16} className="inline mr-1 text-blue-500" />
-                            입력하신 정보는 PDF 보고서 표지에 자동으로 반영됩니다.
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">소속 본부/지사</label>
+                            <select
+                                value={data.agencyBranch || ''}
+                                onChange={e => setData({...data, agencyBranch: e.target.value})}
+                                className="w-full p-3 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white transition-colors"
+                            >
+                                {(data.agencyType === 'center' ? KIHA_CENTERS : KIHA_REGIONS).map(branch => (
+                                    <option key={branch} value={branch}>{branch}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                 </div>
-            );
-        }
+            </div>
+        );
         function ChecklistScreen({ results, setResults, defectSummary }) {
             const [expanded, setExpanded] = useState("1. 관리 및 장비 지급");
             return (
