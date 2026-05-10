@@ -656,17 +656,17 @@
                     // 영점 조절: x, y값 조절 필요 (추정치: y 680 부근)
                     drawCenteredText(page1, programDate, 110, 390, 150, 12);
                     if (revisionDate) {
-                        drawCenteredText(page1, revisionDate, 110, 310, 150, 12);
+                        drawCenteredText(page1, revisionDate, 110, 300, 150, 12);
                     }
 
                     // --- [2페이지: 밀폐공간 현황표] ---
                     const page2 = pages.length > 1 ? pages[1] : pages[0];
                     if (spaces && spaces.length > 0) {
                         spaces.forEach((space, index) => {
-                            const y = 600 - (index * 30); // 한 줄 내려갈 때마다 Y좌표 30씩 감소 (영점조절 필요)
+                            const y = 400 - (index * 30); // 한 줄 내려갈 때마다 Y좌표 30씩 감소 (영점조절 필요)
                             if (y < 50) return;
 
-                            drawCenteredText(page2, index + 1, 40, y, 30, 10); // 연번
+                            drawCenteredText(page2, index + 1, 50, y, 30, 10); // 연번
                             drawCenteredText(page2, space.location, 80, y, 60, 10); // 위치
                             drawCenteredText(page2, space.name, 150, y, 80, 10); // 공간명
                             drawCenteredText(page2, space.workContent, 240, y, 80, 10); // 작업내용
