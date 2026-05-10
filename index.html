@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -654,7 +654,7 @@
 
                     // 3. 제정일자 및 개정일자 (상단 표 위치로 Y좌표 대폭 상향 이동)
                     // 영점 조절: x, y값 조절 필요 (추정치: y 680 부근)
-                    drawCenteredText(page1, programDate, 100, 680, 150, 12);
+                    drawCenteredText(page1, programDate, 100, 280, 150, 12);
                     if (revisionDate) {
                         drawCenteredText(page1, revisionDate, 100, 615, 150, 12);
                     }
@@ -666,15 +666,15 @@
                             const y = 600 - (index * 30); // 한 줄 내려갈 때마다 Y좌표 30씩 감소 (영점조절 필요)
                             if (y < 50) return;
 
-                            drawCenteredText(page2, index + 1,                   40,  y, 30,  10); // 연번
-                            drawCenteredText(page2, space.location,              80,  y, 60,  10); // 위치
-                            drawCenteredText(page2, space.name,                  150, y, 80,  10); // 공간명
-                            drawCenteredText(page2, space.workContent,           240, y, 80,  10); // 작업내용
-                            drawCenteredText(page2, space.workFrequency,         330, y, 60,  10); // 작업빈도
-                            drawCenteredText(page2, space.workers,               400, y, 50,  10); // 근로자수
+                            drawCenteredText(page2, index + 1, 40, y, 30, 10); // 연번
+                            drawCenteredText(page2, space.location, 80, y, 60, 10); // 위치
+                            drawCenteredText(page2, space.name, 150, y, 80, 10); // 공간명
+                            drawCenteredText(page2, space.workContent, 240, y, 80, 10); // 작업내용
+                            drawCenteredText(page2, space.workFrequency, 330, y, 60, 10); // 작업빈도
+                            drawCenteredText(page2, space.workers, 400, y, 50, 10); // 근로자수
                             drawCenteredText(page2, space.permitRequired ? '유' : '무', 460, y, 40, 10); // 작업허가 유/무
                             const safeHazardsText = Array.isArray(space.hazards) ? space.hazards.join(', ') : (space.hazards || '');
-                            drawCenteredText(page2, safeHazardsText,             510, y, 50,  10); // 위험요인
+                            drawCenteredText(page2, safeHazardsText, 510, y, 50, 10); // 위험요인
                         });
                     }
 
@@ -683,10 +683,10 @@
                         const page4 = pages[3];
                         // 프로그램 탭에서 입력한 담당자 이름 매핑
                         drawCenteredText(page4, programDirector, 250, 700, 100, 12); // 총괄책임자
-                        drawCenteredText(page4, programManager,  250, 600, 100, 12); // 관리자
-                        drawCenteredText(page4, teamMemberExt,   100, 450,  80, 12); // 추진팀원(외주)
-                        drawCenteredText(page4, teamMemberPur,   250, 450,  80, 12); // 추진팀원(구매)
-                        drawCenteredText(page4, teamMemberMaint, 400, 450,  80, 12); // 추진팀원(정비)
+                        drawCenteredText(page4, programManager, 250, 600, 100, 12); // 관리자
+                        drawCenteredText(page4, teamMemberExt, 100, 450, 80, 12); // 추진팀원(외주)
+                        drawCenteredText(page4, teamMemberPur, 250, 450, 80, 12); // 추진팀원(구매)
+                        drawCenteredText(page4, teamMemberMaint, 400, 450, 80, 12); // 추진팀원(정비)
                     }
 
                     // 다운로드 트리거
