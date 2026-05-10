@@ -1035,200 +1035,195 @@
                         </div>
                         {/* PDF 오프스크린 템플릿 */}
                         <div style={{ position: 'absolute', top: '-20000px', left: '-20000px' }}>
-                            <div id="pdf-print-template" className="bg-white text-black" style={{ width: '190mm', padding: '10mm 5mm', fontFamily: "'Malgun Gothic', '맑은 고딕', sans-serif", fontSize: '11pt', lineHeight: '1.6' }}>
+                          <div id="pdf-print-template" className="bg-white text-black" style={{ width: '210mm', padding: '15mm 20mm', fontFamily: "'Malgun Gothic', '맑은 고딕', sans-serif", fontSize: '11pt', lineHeight: '1.6' }}>
 
-                                {/* [1페이지] 표지 */}
-                                <div style={{ height: '260mm', position: 'relative' }}>
-                                    <div style={{ position: 'absolute', top: 0, right: 0 }}>
-                                        <table style={{ borderCollapse: 'collapse', width: '180px', textAlign: 'center', fontSize: '12px' }}>
-                                            <tbody>
-                                                <tr>
-                                                    <td rowSpan="2" style={{ border: '1px solid black', background: '#f3f4f6', width: '24px', writingMode: 'vertical-rl', textAlign: 'center', padding: '4px' }}>결재</td>
-                                                    <td style={{ border: '1px solid black', background: '#f3f4f6', padding: '4px 8px' }}>작성</td>
-                                                    <td style={{ border: '1px solid black', background: '#f3f4f6', padding: '4px 8px' }}>검토</td>
-                                                    <td style={{ border: '1px solid black', background: '#f3f4f6', padding: '4px 8px' }}>승인</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style={{ border: '1px solid black', height: '60px' }}></td>
-                                                    <td style={{ border: '1px solid black', height: '60px' }}></td>
-                                                    <td style={{ border: '1px solid black', height: '60px' }}></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '120mm' }}>
-                                        <h1 style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '4px', marginBottom: '40px' }}>밀폐공간작업프로그램</h1>
-                                        <div style={{ fontSize: '16px', fontWeight: 'bold', textAlign: 'center', lineHeight: '2.2' }}>
-                                            <p>제정일자 : {programDate || '20  .  .  .'}</p>
-                                            {revisionDate && <p>개정일자 : {revisionDate}</p>}
-                                        </div>
-                                    </div>
-                                    <div style={{ position: 'absolute', bottom: '40px', width: '100%', textAlign: 'center' }}>
-                                        <h2 style={{ fontSize: '28px', fontWeight: '900', letterSpacing: '2px' }}>{companyName || '사업장명 입력'}</h2>
-                                    </div>
+                            {/* [1페이지] 표지 */}
+                            <div style={{ height: '260mm', display: 'flex', flexDirection: 'column', pageBreakAfter: 'always' }}>
+                              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <table style={{ borderCollapse: 'collapse', width: '200px', textAlign: 'center', fontSize: '12px' }}>
+                                  <tbody>
+                                    <tr>
+                                      <td rowSpan="2" style={{ border: '1px solid black', background: '#f3f4f6', width: '28px', fontWeight: 'bold', writingMode: 'vertical-rl', textAlign: 'center', padding: '4px' }}>결재</td>
+                                      <td style={{ border: '1px solid black', background: '#f3f4f6', padding: '6px' }}>작성</td>
+                                      <td style={{ border: '1px solid black', background: '#f3f4f6', padding: '6px' }}>검토</td>
+                                      <td style={{ border: '1px solid black', background: '#f3f4f6', padding: '6px' }}>승인</td>
+                                    </tr>
+                                    <tr>
+                                      <td style={{ border: '1px solid black', height: '72px' }}></td>
+                                      <td style={{ border: '1px solid black', height: '72px' }}></td>
+                                      <td style={{ border: '1px solid black', height: '72px' }}></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '-60px' }}>
+                                <h1 style={{ fontSize: '36px', fontWeight: '900', letterSpacing: '6px', marginBottom: '48px' }}>밀폐공간작업프로그램</h1>
+                                <div style={{ fontSize: '18px', fontWeight: 'bold', textAlign: 'center', lineHeight: '2.4' }}>
+                                  <p>제정일자 : {programDate || '20  .  .  .'}</p>
+                                  {revisionDate && <p>개정일자 : {revisionDate}</p>}
                                 </div>
-
-                                {/* [2페이지] 목적 및 현황 */}
-                                <div style={{ pageBreakBefore: 'always' }}>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>1. 목적</h2>
-                                    <p style={{ marginBottom: '28px', textAlign: 'justify' }}>산업안전보건기준에 관한 규칙 제619조 규정에 의한 밀폐공간 작업 프로그램으로서, 해당 사업장내 정규직과 비정규직, 같은 사업장에서 밀폐공간작업을 수행하는 원청, 협력업체 및 사외 작업자 등 모든 근로자에게 밀폐공간 작업 시 산소결푝 또는 유해가스로 인한 질식재해를 예방하는데 그 목적을 두고 있다.</p>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>2. 밀폐공간 작업장소 보유현황</h2>
-                                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '11px', marginBottom: '24px' }}>
-                                        <thead>
-                                            <tr style={{ background: '#f3f4f6' }}>
-                                                {['연번','위치','밀폐공간명','작업내용','작업빈도','근로자수','위험요인'].map(h => <th key={h} style={{ border: '1px solid black', padding: '6px 4px' }}>{h}</th>)}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {spaces && spaces.length > 0 ? spaces.map((s, i) => (
-                                                <tr key={i}>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px' }}>{i + 1}</td>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px' }}>{s.location}</td>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px', fontWeight: 'bold' }}>{s.name}</td>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px' }}>{s.workContent}</td>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px' }}>{s.workFrequency}</td>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px' }}>{s.workers}</td>
-                                                    <td style={{ border: '1px solid black', padding: '6px 4px', fontSize: '10px' }}>{Array.isArray(s.hazards) ? s.hazards.join(', ') : (s.hazards || '')}</td>
-                                                </tr>
-                                            )) : <tr><td colSpan="7" style={{ border: '1px solid black', padding: '16px', color: '#6b7280' }}>등록된 밀폐공간이 없습니다.</td></tr>}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                {/* [3페이지] 조직도 및 현장 사진 */}
-                                <div style={{ pageBreakBefore: 'always' }}>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>3. 밀폐공간 조직 및 운영</h2>
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '32px', gap: '4px' }}>
-                                        <div style={{ border: '1px solid black', background: '#f3f4f6', padding: '8px 24px', textAlign: 'center', fontWeight: 'bold', minWidth: '160px' }}>총괄책임자<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{emerContacts.director || '성명'}</span></div>
-                                        <div style={{ height: '20px', borderLeft: '1px solid black' }}></div>
-                                        <div style={{ border: '1px solid black', background: '#f3f4f6', padding: '8px 24px', textAlign: 'center', fontWeight: 'bold', minWidth: '160px' }}>프로그램 관리자<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{emerContacts.manager || '성명'}</span></div>
-                                    </div>
-                                    <h3 style={{ fontWeight: 'bold', marginBottom: '12px' }}>▶ 보유장소별 사진 및 위험요인</h3>
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                                        {spaces && spaces.map((sp, i) => (
-                                            <div key={i} style={{ border: '1px solid black', padding: '8px', breakInside: 'avoid' }}>
-                                                <div style={{ fontWeight: 'bold', background: '#f3f4f6', textAlign: 'center', borderBottom: '1px solid black', paddingBottom: '4px', marginBottom: '8px' }}>{i + 1}. {sp.name}</div>
-                                                {sp.imgSrc && sp.imgSrc.startsWith('data:image') ? <img src={sp.imgSrc} alt={sp.name} style={{ maxHeight: '120px', objectFit: 'contain', display: 'block', margin: '0 auto 8px' }} /> : <div style={{ height: '96px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', background: '#f9fafb', marginBottom: '8px' }}>사진 미등록</div>}
-                                                <div style={{ fontSize: '10px' }}>• 위치: {sp.location}<br/>• 위험: {Array.isArray(sp.hazards) ? sp.hazards.join(', ') : (sp.hazards || '')}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* [4페이지] 안전장비 및 비상연락망 */}
-                                <div style={{ pageBreakBefore: 'always' }}>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>4. 안전장비 구비 현황</h2>
-                                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '12px', marginBottom: '32px' }}>
-                                        <thead>
-                                            <tr style={{ background: '#f3f4f6' }}>
-                                                {['구분','장비명','보유','위탁','대여'].map(h => <th key={h} style={{ border: '1px solid black', padding: '8px 4px' }}>{h}</th>)}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {[{key:'oxygen',name:'산소농도측정기',type:'측정기구'},{key:'gas',name:'유해가스농도측정기',type:'측정기구'},{key:'vent',name:'환기팬/배풍기',type:'환기기구'},{key:'mask',name:'송기마스크/공기호흡기',type:'보호구'},{key:'tripod',name:'구조용 삼각대/안전대',type:'구조장비'}].map((item, i, arr) => (
-                                                <tr key={item.key}>
-                                                    <td style={{ border: '1px solid black', padding: '8px 4px' }}>{item.type}</td>
-                                                    <td style={{ border: '1px solid black', padding: '8px 4px' }}>{item.name}</td>
-                                                    <td style={{ border: '1px solid black', padding: '8px 4px', fontWeight: 'bold', fontSize: '16px' }}>{equipment && equipment[item.key] === '보유' ? 'O' : ''}</td>
-                                                    <td style={{ border: '1px solid black', padding: '8px 4px', fontWeight: 'bold', fontSize: '16px' }}>{equipment && equipment[item.key] === '위탁' ? 'O' : ''}</td>
-                                                    <td style={{ border: '1px solid black', padding: '8px 4px', fontWeight: 'bold', fontSize: '16px' }}>{equipment && equipment[item.key] === '대여' ? 'O' : ''}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>5. 비상연락 체계 구축</h2>
-                                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '12px' }}>
-                                        <thead>
-                                            <tr style={{ background: '#f3f4f6' }}>
-                                                {['구분','성명 / 직위','연락체 (사내/휴대폰)'].map(h => <th key={h} style={{ border: '1px solid black', padding: '8px' }}>{h}</th>)}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {[['관리책임자','director','dirPhone'],['관리감독자','manager','manPhone'],['안전보건관리','safety','safPhone']].map(([label,nk,pk]) => (
-                                                <tr key={nk}>
-                                                    <td style={{ border: '1px solid black', padding: '10px 8px', fontWeight: 'bold', background: '#f9fafb' }}>{label}</td>
-                                                    <td style={{ border: '1px solid black', padding: '10px 8px' }}>{emerContacts[nk] || ''}</td>
-                                                    <td style={{ border: '1px solid black', padding: '10px 8px' }}>{emerContacts[pk] || ''}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                {/* ─── [5페이지] 법정 매뉴얼 원문 ─── */}
-                                <div style={{ pageBreakBefore: 'always', textAlign: 'justify', fontSize: '10.5pt' }}>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>6. 관리책임자 등의 직무</h2>
-                                    <h3 style={{ fontWeight: 'bold', marginTop: '16px', marginBottom: '8px' }}>가. 사업주 (총괄책임자)</h3>
-                                    <ul style={{ listStyleType: 'disc', marginLeft: '24px', marginBottom: '16px' }}>
-                                        <li style={{ marginBottom: '4px' }}>밀폐공간 작업 프로그램의 수립 및 시행에 관한 총괄적 책임</li>
-                                        <li style={{ marginBottom: '4px' }}>프로그램 운영에 필요한 인력, 장비 및 예산의 지원</li>
-                                        <li style={{ marginBottom: '4px' }}>밀폐공간 작업에 대한 연간 평가 및 프로그램 개선</li>
-                                    </ul>
-                                    <h3 style={{ fontWeight: 'bold', marginTop: '16px', marginBottom: '8px' }}>나. 관리감독자 (프로그램 관리자)</h3>
-                                    <ul style={{ listStyleType: 'disc', marginLeft: '24px', marginBottom: '16px' }}>
-                                        <li style={{ marginBottom: '4px' }}>작업 전 산소농도 및 유해가스 농도 측정 결과 확인</li>
-                                        <li style={{ marginBottom: '4px' }}>환기설비 가동 상태 및 근로자 보호구 착용 여부 점검</li>
-                                        <li style={{ marginBottom: '4px' }}>안전작업허가서 발급 및 작업 중 상시 감시체계 유지 확인</li>
-                                    </ul>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px', marginTop: '32px' }}>7. 밀폐공간 보건작업 관리</h2>
-                                    <h3 style={{ fontWeight: 'bold', marginTop: '16px', marginBottom: '8px' }}>가. 출입금지 및 표지판 설치</h3>
-                                    <p style={{ marginBottom: '16px' }}>사업주는 밀폐공간에 근로자가 출입하지 않도록 잠금장치를 하고, 출입구에 관계자 외 출입금지 표지(안전보건규칙 별지 제4호서식)를 보기 쉬운 장소에 부착하여야 한다.</p>
-                                    <h3 style={{ fontWeight: 'bold', marginTop: '16px', marginBottom: '8px' }}>나. 산소 및 유해가스 농도 측정</h3>
-                                    <ul style={{ listStyleType: 'disc', marginLeft: '24px', marginBottom: '16px' }}>
-                                        <li style={{ marginBottom: '4px' }}>측정 시기: 작업 개시 전, 교대 시, 휴식 후 재개 시, 기타 이상 발견 시</li>
-                                        <li style={{ marginBottom: '4px' }}>판정 기준: 산소 농도 18% 이상 23.5% 미만, 탄산가스 1.5% 미만, 황화수소 10ppm 미만, 일산화탄소 30ppm 미만</li>
-                                        <li style={{ marginBottom: '4px' }}>기록 보존: 측정 결과는 서면으로 기록하여 3년간 보존한다.</li>
-                                    </ul>
-                                    <h3 style={{ fontWeight: 'bold', marginTop: '16px', marginBottom: '8px' }}>다. 환기 및 적정공기 유지</h3>
-                                    <p style={{ marginBottom: '16px' }}>작업 전 밀폐공간 체적의 10배 이상 외부의 신선한 공기로 환기하며, 작업 중에는 시간당 20회 이상 지속적으로 환기 설비를 가동하여야 한다. 순수 산소를 환기용으로 사용하는 것은 화재폭발 위험이 있으므로 절대 금지한다.</p>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px', marginTop: '32px' }}>8. 보호구의 지급 및 착용</h2>
-                                    <p style={{ marginBottom: '16px' }}>환기만으로 적정공기 유지가 곤란하거나 피난, 구출 작업을 수행할 경우 사업주는 근로자에게 송기마스크 또는 공기호흡기를 반드시 지급하고 착용하도록 지도하여야 한다. (일반 방독마스크 착용 절대 금지)</p>
-                                </div>
-
-                                {/* ─── [6페이지] 비상조치 및 별첨 양식 ─── */}
-                                <div style={{ pageBreakBefore: 'always' }}>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px' }}>9. 비상시 구출 및 응급처치</h2>
-                                    <ol style={{ listStyleType: 'decimal', marginLeft: '24px', marginBottom: '24px' }}>
-                                        <li style={{ marginBottom: '8px' }}><strong>사고 인지 및 전파:</strong> 감시인은 즉시 큰 소리로 사고를 알리고, 사내 비상연락망 및 119에 구조를 요청한다.</li>
-                                        <li style={{ marginBottom: '8px' }}><strong>직접 구조 금지:</strong> 감시인이나 동료 작업자는 공기호흡기 등 보호구 없이 맨몸으로 구조하러 들어가는 것을 절대 금지한다.</li>
-                                        <li style={{ marginBottom: '8px' }}><strong>구조 장비 활용:</strong> 비치된 구조용 삼각대와 윈치를 이용하여 작업자를 외부로 구출한다.</li>
-                                        <li style={{ marginBottom: '8px' }}><strong>응급 처치:</strong> 구출된 재해자는 신선한 공기가 있는 곳으로 옮기고 즉시 심폐소생술 등 응급처치를 실시한다.</li>
-                                    </ol>
-                                    <h2 style={{ fontSize: '16px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '4px', marginBottom: '16px', marginTop: '40px' }}>【별표 1】 밀폐공간 안전보건작업 허가서</h2>
-                                    <div style={{ border: '1px solid black', padding: '16px', marginBottom: '32px' }}>
-                                        <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '18px', marginBottom: '16px' }}>밀폐공간 안전보건작업 허가서</h3>
-                                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'center', marginBottom: '16px' }}>
-                                            <tbody>
-                                                <tr>
-                                                    <th style={{ border: '1px solid black', padding: '8px', background: '#f3f4f6', width: '25%' }}>작업장소</th>
-                                                    <td style={{ border: '1px solid black', padding: '8px' }}>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</td>
-                                                    <th style={{ border: '1px solid black', padding: '8px', background: '#f3f4f6', width: '25%' }}>작업일시</th>
-                                                    <td style={{ border: '1px solid black', padding: '8px' }}>20 &nbsp;. &nbsp;. &nbsp;( &nbsp;: &nbsp;~ &nbsp;: &nbsp;)</td>
-                                                </tr>
-                                                <tr>
-                                                    <th style={{ border: '1px solid black', padding: '8px', background: '#f3f4f6' }}>작업내용</th>
-                                                    <td colSpan="3" style={{ border: '1px solid black', padding: '8px', height: '40px' }}></td>
-                                                </tr>
-                                                <tr>
-                                                    <th style={{ border: '1px solid black', padding: '8px', background: '#f3f4f6' }}>가스측정 결과</th>
-                                                    <td colSpan="3" style={{ border: '1px solid black', padding: '8px', textAlign: 'left' }}>
-                                                        산소: &nbsp;&nbsp; %, &nbsp;황화수소: &nbsp;&nbsp; ppm, &nbsp;일산화탄소: &nbsp;&nbsp; ppm<br/>
-                                                        측정자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (서명)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th style={{ border: '1px solid black', padding: '8px', background: '#f3f4f6' }}>안전조치 확인</th>
-                                                    <td colSpan="3" style={{ border: '1px solid black', padding: '8px', height: '40px', textAlign: 'left' }}>
-                                                        □ 환기 실시 &nbsp;&nbsp; □ 보호구 지급 &nbsp;&nbsp; □ 감시인 배치 &nbsp;&nbsp; □ 표지판 설치
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <p style={{ textAlign: 'right', marginTop: '32px', fontWeight: 'bold' }}>허가권자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (서명)</p>
-                                    </div>
-                                </div>
-
+                              </div>
+                              <div style={{ width: '100%', textAlign: 'center', paddingBottom: '40px' }}>
+                                <h2 style={{ fontSize: '36px', fontWeight: '900', letterSpacing: '4px' }}>{companyName || '사업장명 입력'}</h2>
+                              </div>
                             </div>
+
+                            {/* [2페이지] 목적 및 현황 */}
+                            <div style={{ pageBreakAfter: 'always' }}>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px' }}>1. 목적</h2>
+                              <p style={{ marginBottom: '32px', textAlign: 'justify', lineHeight: '1.8' }}>산업안전보건기준에 관한 규칙 제619조 규정에 의한 밀폐공간 작업 프로그램으로서, 해당 사업장내 정규직과 비정규직, 같은 사업장에서 밀폐공간작업을 수행하는 원청, 협력업체 및 사외 작업자 등 모든 근로자에게 밀폐공간 작업 시 산소결핍 또는 유해가스로 인한 질식재해를 예방하는데 그 목적을 두고 있다.</p>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px', marginTop: '24px' }}>2. 밀폐공간 작업장소 보유현황</h2>
+                              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '11px' }}>
+                                <thead>
+                                  <tr style={{ background: '#f3f4f6', fontWeight: 'bold' }}>
+                                    {['연번','위치','밀폐공간명','작업내용','작업빈도','근로자수','위험요인'].map(h => <th key={h} style={{ border: '1px solid black', padding: '10px 4px' }}>{h}</th>)}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {spaces && spaces.length > 0 ? spaces.map((s, i) => (
+                                    <tr key={i}>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px' }}>{i + 1}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px' }}>{s.location}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px', fontWeight: 'bold' }}>{s.name}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px' }}>{s.workContent}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px' }}>{s.workFrequency}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px' }}>{s.workers}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px', fontSize: '10px' }}>{Array.isArray(s.hazards) ? s.hazards.join(', ') : (s.hazards || '')}</td>
+                                    </tr>
+                                  )) : <tr><td colSpan="7" style={{ border: '1px solid black', padding: '20px', color: '#6b7280' }}>등록된 밀폐공간이 없습니다.</td></tr>}
+                                </tbody>
+                              </table>
+                            </div>
+
+                            {/* [3페이지] 조직도 및 현장 사진 */}
+                            <div style={{ pageBreakAfter: 'always' }}>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '24px' }}>3. 밀폐공간 조직 및 운영</h2>
+                              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }}>
+                                <div style={{ border: '2px solid black', background: '#f3f4f6', padding: '10px 24px', textAlign: 'center', fontWeight: 'bold', minWidth: '200px' }}>총괄책임자<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal', fontSize: '16px' }}>{emerContacts.director || '성명'}</span></div>
+                                <div style={{ height: '24px', borderLeft: '2px solid black' }}></div>
+                                <div style={{ border: '2px solid black', background: '#f3f4f6', padding: '10px 24px', textAlign: 'center', fontWeight: 'bold', minWidth: '200px' }}>프로그램 관리자<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal', fontSize: '16px' }}>{emerContacts.manager || '성명'}</span></div>
+                                <div style={{ height: '24px', borderLeft: '2px solid black' }}></div>
+                                <div style={{ display: 'flex', gap: '40px' }}>
+                                  <div style={{ border: '2px solid black', background: '#f3f4f6', padding: '8px 16px', textAlign: 'center', fontWeight: 'bold', minWidth: '140px' }}>안전보건관리<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{emerContacts.safety || '성명'}</span></div>
+                                  <div style={{ border: '2px solid black', background: '#f3f4f6', padding: '8px 16px', textAlign: 'center', fontWeight: 'bold', minWidth: '140px' }}>현장감독<br/><span style={{ color: '#1d4ed8', fontWeight: 'normal' }}>{emerContacts.manager || '성명'}</span></div>
+                                </div>
+                              </div>
+                              <h3 style={{ fontWeight: 'bold', fontSize: '16px', marginBottom: '16px' }}>▶ 보유장소별 사진 및 위험요인</h3>
+                              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                                {spaces && spaces.map((sp, i) => (
+                                  <div key={i} style={{ border: '2px solid black', padding: '10px', breakInside: 'avoid' }}>
+                                    <div style={{ fontWeight: 'bold', background: '#f3f4f6', textAlign: 'center', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '10px', fontSize: '14px' }}>{i + 1}. {sp.name}</div>
+                                    {sp.imgSrc && sp.imgSrc.startsWith('data:image') ? <img src={sp.imgSrc} alt={sp.name} style={{ height: '120px', objectFit: 'contain', display: 'block', margin: '0 auto 10px' }} /> : <div style={{ height: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', background: '#f9fafb', marginBottom: '10px', border: '1px dashed #d1d5db' }}>사진 미등록</div>}
+                                    <div style={{ fontSize: '11px', background: '#f9fafb', padding: '8px', borderRadius: '4px' }}><strong>위치:</strong> {sp.location}<br/><strong>위험요인:</strong> {Array.isArray(sp.hazards) ? sp.hazards.join(', ') : (sp.hazards || '')}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* [4페이지] 장비 현황 및 비상연락망 */}
+                            <div style={{ pageBreakAfter: 'always' }}>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px' }}>4. 안전장비 구비 현황</h2>
+                              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '12px', marginBottom: '32px' }}>
+                                <thead>
+                                  <tr style={{ background: '#f3f4f6', fontWeight: 'bold' }}>
+                                    {['구분','장비명','보유','위탁','대여'].map(h => <th key={h} style={{ border: '1px solid black', padding: '10px 4px' }}>{h}</th>)}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {[{key:'oxygen',name:'산소농도측정기',type:'측정기구'},{key:'gas',name:'유해가스농도측정기',type:'측정기구'},{key:'vent',name:'환기팬 / 배풍기',type:'환기기구'},{key:'mask',name:'송기마스크 / 공기호흡기',type:'보호구'},{key:'tripod',name:'구조용 삼각대 / 안전대',type:'구조장비'}].map((item, i) => (
+                                    <tr key={item.key}>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px', fontWeight: 'bold', background: '#f9fafb' }}>{item.type}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 8px', textAlign: 'left' }}>{item.name}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px', fontWeight: 'bold', fontSize: '18px', color: '#1d4ed8' }}>{equipment && equipment[item.key] === '보유' ? 'O' : ''}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px', fontWeight: 'bold', fontSize: '18px', color: '#1d4ed8' }}>{equipment && equipment[item.key] === '위탁' ? 'O' : ''}</td>
+                                      <td style={{ border: '1px solid black', padding: '10px 4px', fontWeight: 'bold', fontSize: '18px', color: '#1d4ed8' }}>{equipment && equipment[item.key] === '대여' ? 'O' : ''}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px' }}>5. 비상연락 체계 구축</h2>
+                              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center', fontSize: '12px' }}>
+                                <thead>
+                                  <tr style={{ background: '#f3f4f6', fontWeight: 'bold' }}>
+                                    {['구분','성명 / 직위','연락처 (사내/휴대폰)'].map(h => <th key={h} style={{ border: '1px solid black', padding: '10px 8px' }}>{h}</th>)}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {[['관리책임자','director','dirPhone'],['관리감독자','manager','manPhone'],['안전보건관리','safety','safPhone']].map(([label,nk,pk]) => (
+                                    <tr key={nk}>
+                                      <td style={{ border: '1px solid black', padding: '12px 8px', fontWeight: 'bold', background: '#f9fafb' }}>{label}</td>
+                                      <td style={{ border: '1px solid black', padding: '12px 8px', fontSize: '14px' }}>{emerContacts[nk] || ''}</td>
+                                      <td style={{ border: '1px solid black', padding: '12px 8px', fontWeight: 'bold' }}>{emerContacts[pk] || ''}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+
+                            {/* [5페이지~] KOSHA 매뉴얼 본문 */}
+                            <div style={{ textAlign: 'justify' }}>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px' }}>6. 밀폐공간 보건작업 관리</h2>
+                              <h3 style={{ fontWeight: 'bold', fontSize: '15px', marginTop: '16px', marginBottom: '8px', background: '#f3f4f6', padding: '8px', borderLeft: '4px solid #2563eb' }}>가. 출입금지 및 표지판 설치</h3>
+                              <p style={{ marginBottom: '16px', marginLeft: '8px' }}>사업주는 밀폐공간에 근로자가 출입하지 않도록 잠금장치를 하고, 출입구에 관계자 외 출입금지 표지를 보기 쉬운 장소에 부착하여야 한다. 작업 시에는 안전작업허가서를 발급받고 출입구에 게시한다.</p>
+                              <h3 style={{ fontWeight: 'bold', fontSize: '15px', marginTop: '24px', marginBottom: '8px', background: '#f3f4f6', padding: '8px', borderLeft: '4px solid #2563eb' }}>나. 산소 및 유해가스 농도 측정</h3>
+                              <p style={{ marginBottom: '8px', marginLeft: '8px' }}>측정자는 산소 및 유해가스 농도 측정기를 사용하여 작업 개시 전, 교대 시, 작업 중 수시로 농도를 측정하여 적정공기 여부를 확인해야 한다.</p>
+                              <ul style={{ listStyleType: 'disc', marginLeft: '32px', marginBottom: '24px', background: '#f9fafb', padding: '16px', borderRadius: '4px', border: '1px solid #e5e7eb' }}>
+                                <li style={{ marginBottom: '8px' }}><strong>적정공기 기준:</strong> 산소 18%~23.5%, 탄산가스 1.5% 미만, 일산화탄소 30ppm 미만, 황화수소 10ppm 미만</li>
+                                <li><strong>측정기록 보존:</strong> 측정 결과는 서면 또는 전자문서로 기록하여 3년간 보존한다.</li>
+                              </ul>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px', marginTop: '32px' }}>7. 환기 및 보호구 착용</h2>
+                              <h3 style={{ fontWeight: 'bold', fontSize: '15px', marginTop: '16px', marginBottom: '8px' }}>가. 환기 기준</h3>
+                              <p style={{ marginBottom: '16px', marginLeft: '8px' }}>작업 전 밀폐공간 체적의 10배 이상 외부의 신선한 공기로 환기하며, 작업 중에는 시간당 20회 이상 지속적으로 환기 설비를 가동하여야 한다. <strong>순수 산소를 환기용으로 사용하는 것은 화재폭발 위험이 있으므로 절대 금지한다.</strong></p>
+                              <h3 style={{ fontWeight: 'bold', fontSize: '15px', marginTop: '16px', marginBottom: '8px' }}>나. 보호구 지급 및 착용</h3>
+                              <p style={{ marginBottom: '16px', marginLeft: '8px' }}>환기만으로 적정공기 유지가 곤란하거나 피난, 구출 작업을 수행할 경우 사업주는 근로자에게 <strong>송기마스크 또는 공기호흡기</strong>를 반드시 지급하고 착용하도록 지도하여야 한다. (일반 방독마스크 착용 절대 금지)</p>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px', marginTop: '32px' }}>8. 비상시 구출 및 응급처치</h2>
+                              <ol style={{ listStyleType: 'decimal', marginLeft: '32px', marginBottom: '24px', color: '#b91c1c', fontWeight: 'bold' }}>
+                                <li style={{ marginBottom: '10px' }}>사고 인지 및 전파: 감시인은 즉시 큰 소리로 사고를 알리고, 119 및 사내 비상연락망에 구조를 요청한다.</li>
+                                <li style={{ marginBottom: '10px' }}>직접 구조 금지: 감시인이나 동료 작업자는 공기호흡기 등 보호구 없이 맨몸으로 구조하러 들어가는 것을 절대 금지한다. (구조자 동반 질식 위험)</li>
+                                <li style={{ marginBottom: '10px' }}>구조 장비 활용: 비치된 구조용 삼각대와 윈치를 이용하여 작업자를 외부로 구출한다.</li>
+                                <li style={{ marginBottom: '10px' }}>응급 처치: 구출된 재해자는 신선한 공기가 있는 곳으로 옮기고 119 도착 전까지 심폐소생술을 실시한다.</li>
+                              </ol>
+                              <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px', marginTop: '32px' }}>9. 도급 시 안전보건조치</h2>
+                              <p style={{ marginBottom: '16px', marginLeft: '8px' }}>사업주는 밀폐공간 작업을 수급인에게 도급하는 경우, 수급인 근로자의 질식재해 예방을 위해 밀폐공간의 위치, 위험성, 작업상 주의사항을 작업 시작 전 서면으로 고지하고, 수급인이 작업 프로그램에 따라 안전하게 작업하는지 확인해야 한다.</p>
+
+                              {/* 별표 1: 작업허가서 양식 */}
+                              <div style={{ pageBreakBefore: 'always' }}>
+                                <h2 style={{ fontSize: '18px', fontWeight: 'bold', borderBottom: '2px solid black', paddingBottom: '8px', marginBottom: '16px' }}>【별표 1】 밀폐공간 안전보건작업 허가서</h2>
+                                <div style={{ border: '1px solid black', padding: '16px' }}>
+                                  <h3 style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '18px', marginBottom: '16px' }}>밀폐공간 안전보건작업 허가서</h3>
+                                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'center', marginBottom: '16px' }}>
+                                    <tbody>
+                                      <tr>
+                                        <th style={{ border: '1px solid black', padding: '10px', background: '#f3f4f6', width: '25%' }}>작업장소</th>
+                                        <td style={{ border: '1px solid black', padding: '10px' }}>( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</td>
+                                        <th style={{ border: '1px solid black', padding: '10px', background: '#f3f4f6', width: '25%' }}>작업일시</th>
+                                        <td style={{ border: '1px solid black', padding: '10px' }}>20 &nbsp;. &nbsp;. &nbsp;( &nbsp;: &nbsp;~ &nbsp;: &nbsp;)</td>
+                                      </tr>
+                                      <tr>
+                                        <th style={{ border: '1px solid black', padding: '10px', background: '#f3f4f6' }}>작업내용</th>
+                                        <td colSpan="3" style={{ border: '1px solid black', padding: '10px', height: '48px' }}></td>
+                                      </tr>
+                                      <tr>
+                                        <th style={{ border: '1px solid black', padding: '10px', background: '#f3f4f6' }}>가스측정 결과</th>
+                                        <td colSpan="3" style={{ border: '1px solid black', padding: '10px', textAlign: 'left' }}>
+                                          산소: &nbsp;&nbsp; %, &nbsp;황화수소: &nbsp;&nbsp; ppm, &nbsp;일산화탄소: &nbsp;&nbsp; ppm<br/>
+                                          측정자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (서명)
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <th style={{ border: '1px solid black', padding: '10px', background: '#f3f4f6' }}>안전조치 확인</th>
+                                        <td colSpan="3" style={{ border: '1px solid black', padding: '10px', height: '48px', textAlign: 'left' }}>
+                                          □ 환기 실시 &nbsp;&nbsp; □ 보호구 지급 &nbsp;&nbsp; □ 감시인 배치 &nbsp;&nbsp; □ 표지판 설치
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <p style={{ textAlign: 'right', marginTop: '32px', fontWeight: 'bold' }}>허가권자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (서명)</p>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
                         </div>
                     </React.Fragment>
                 )
