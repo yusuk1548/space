@@ -451,7 +451,7 @@
             const [teamMemberPur, setTeamMemberPur] = React.useState('');
             const [teamMemberMaint, setTeamMemberMaint] = React.useState('');
             const [emerContacts, setEmerContacts] = React.useState({ director: '', dirPhone: '', manager: '', manPhone: '', teamExt: '', teamExtPhone: '', teamPur: '', teamPurPhone: '', teamMaint: '', teamMaintPhone: '' });
-            const [equipment, setEquipment] = React.useState({ oxygen: '보유', gas: '보유', vent: '보유', mask: '보유', tripod: '보유', rescue: '보유' });
+            const [equipment, setEquipment] = React.useState({ oxygen: '위탁', gas: '위탁', vent: '위탁', mask: '위탁', tripod: '위탁', rescue: '위탁' });
 
             // ─── useRef ─────────────────────────────────────────────────
             const printRef = React.useRef();
@@ -1166,51 +1166,43 @@
                                     </div>
 
                                     {/* ─── [3페이지 이후] 밀폐공간별 사진 및 세부 위험요인 ─── */}
-                                    {spaces && spaces.length > 0 ? spaces.map((space, idx) => (
-                                        <div key={idx} style={{ pageBreakBefore: 'always', padding: '10mm 0' }}>
-                                            <h2 className="text-xl font-bold mb-4 border-b-2 border-black pb-2">▶ 보유장소별 사진 및 위험요인 (No.{idx + 1})</h2>
-                                            <div className="grid grid-cols-1 gap-6" style={{ pageBreakInside: 'avoid' }}>
-                                                <div className="border-2 border-gray-200 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center" style={{ height: '120mm' }}>
-                                                    {(space.photo && space.photo.startsWith('data:image')) ? (
-                                                        <img
-                                                            src={space.photo}
-                                                            alt={space.name}
-                                                            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                                                        />
-                                                    ) : (space.imgSrc && space.imgSrc.startsWith('data:image')) ? (
-                                                        <img
-                                                            src={space.imgSrc}
-                                                            alt={space.name}
-                                                            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                                                        />
-                                                    ) : (
-                                                        <div className="text-gray-400 flex flex-col items-center">
-                                                            <Icon name="image" size={48} className="mb-2" />
-                                                            <p className="font-bold">사진 미등록</p>
-                                                        </div>
-                                                    )}
+                                    <div style={{ pageBreakBefore: 'always', paddingTop: '10mm' }}>
+                                        <h2 className="text-xl font-bold mb-6 border-b-2 border-black pb-2">3. 보유장소별 사진 및 위험요인</h2>
+                                        <div className="grid grid-cols-2 gap-8">
+                                            {spaces && spaces.length > 0 ? spaces.map((space, idx) => (
+                                                <div key={idx} style={{ pageBreakInside: 'avoid' }}>
+                                                    <div className="border-2 border-gray-200 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center mb-3" style={{ height: '70mm' }}>
+                                                        {(space.photo && space.photo.startsWith('data:image')) ? (
+                                                            <img src={space.photo} alt={space.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                                        ) : (space.imgSrc && space.imgSrc.startsWith('data:image')) ? (
+                                                            <img src={space.imgSrc} alt={space.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                                        ) : (
+                                                            <div className="text-gray-400 flex flex-col items-center">
+                                                                <Icon name="image" size={32} className="mb-2" />
+                                                                <p className="font-bold text-sm">사진 미등록</p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <table className="w-full border-collapse border border-black text-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th className="border border-black bg-gray-100 p-2 w-1/3 text-center">No.{idx + 1}</th>
+                                                                <td className="border border-black p-2 font-bold text-center">{space.name}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th className="border border-black bg-gray-100 p-2 text-center">위험요인</th>
+                                                                <td className="border border-black p-2 text-red-600 font-bold text-xs text-center">
+                                                                    {Array.isArray(space.hazards) ? space.hazards.join(', ') : space.hazards}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
-                                                <table className="w-full border-collapse border border-black text-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th className="border border-black bg-gray-100 p-3 w-1/4">밀폐공간명</th>
-                                                            <td className="border border-black p-3 font-bold text-lg">{space.name}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th className="border border-black bg-gray-100 p-3">위치</th>
-                                                            <td className="border border-black p-3">{space.location}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th className="border border-black bg-gray-100 p-3">위험요인</th>
-                                                            <td className="border border-black p-3 text-red-600 font-bold">
-                                                                {Array.isArray(space.hazards) ? space.hazards.join(', ') : space.hazards}
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                            )) : (
+                                                <div className="col-span-2 text-center text-gray-500 py-10 border-2 border-dashed border-gray-300 rounded-lg">등록된 밀폐공간이 없습니다.</div>
+                                            )}
                                         </div>
-                                    )) : null}
+                                    </div>
                                 </div>
 
                                 {/* ─── [4페이지] 장비 현황, 연락망 ─── */}
