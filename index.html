@@ -647,14 +647,14 @@
                     const page1 = pages[0];
 
                     // 1. 기존 '(주)0000' 완벽하게 지우기 (하얀색 네모 영역 대폭 확장)
-                    page1.drawRectangle({ x: 100, y: 80, width: 400, height: 90, color: rgb(1, 1, 1) });
+                    page1.drawRectangle({ x: 100, y: 90, width: 400, height: 90, color: rgb(1, 1, 1) });
 
                     // 2. 사업장명 합성 (파란색 글씨, 지운 자리 정중앙 배치)
                     drawCenteredText(page1, companyName, 100, 110, 400, 24, rgb(0.1, 0.4, 0.8));
 
                     // 3. 제정일자 및 개정일자 (상단 표 위치로 Y좌표 대폭 상향 이동)
                     // 영점 조절: x, y값 조절 필요 (추정치: y 680 부근)
-                    drawCenteredText(page1, programDate, 110, 350, 150, 12);
+                    drawCenteredText(page1, programDate, 120, 400, 150, 12);
                     if (revisionDate) {
                         drawCenteredText(page1, revisionDate, 110, 315, 150, 12);
                     }
