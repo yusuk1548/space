@@ -2284,12 +2284,12 @@
                                 <div className="relative inline-block w-full h-full flex justify-center items-center">
                                     <img src={mapImage} className="max-w-full max-h-full object-contain" />
                                     {spaces.filter(s => s.locationMap).map(s => {
-                                        // 1단계 가스 적합성 판정
-                                        const o2 = Number(s.o2) || 0;
-                                        const h2s = Number(s.h2s) || 0;
-                                        const co = Number(s.co) || 0;
-                                        const lel = Number(s.lel) || 0;
-                                        const co2 = Number(s.co2) || 0;
+                                        // 1단계 가스 적합성 판정 (s.gas 객체 참조)
+                                        const o2 = Number(s.gas && s.gas.o2) || 0;
+                                        const h2s = Number(s.gas && s.gas.h2s) || 0;
+                                        const co = Number(s.gas && s.gas.co) || 0;
+                                        const lel = Number(s.gas && s.gas.lel) || 0;
+                                        const co2 = Number(s.gas && s.gas.co2) || 0;
 
                                         let gasLevel = 1;
                                         if (o2 < 10.0 || h2s >= 100 || co >= 1200 || lel >= 25 || co2 >= 4.0) gasLevel = 4;
