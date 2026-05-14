@@ -748,27 +748,30 @@
                                         </a>
                                         <button
                                             onClick={() => { fileInputRef.current.click(); setIsMobileMenuOpen(false); }}
-                                            className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-b border-gray-100 transition-colors"
+                                            className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 transition-colors"
                                         >
-                                            📁 <span>데이터 불러오기</span>
+                                            <div className="flex items-center gap-3 text-sm text-gray-700 font-bold">📁 <span>파일 불러오기</span></div>
+                                            <div className="text-[11px] text-gray-500 mt-1 ml-7">기존 파일(.json)로 도면까지 완벽 복구</div>
+                                        </button>
+                                        <button
+                                            onClick={() => { handleLoadFromCloud(); setIsMobileMenuOpen(false); }}
+                                            className="w-full text-left px-4 py-3 hover:bg-indigo-50 border-b border-gray-100 transition-colors"
+                                        >
+                                            <div className="flex items-center gap-3 text-sm text-indigo-600 font-bold">☁️ <span>클라우드 동기화</span></div>
+                                            <div className="text-[11px] text-indigo-400 mt-1 ml-7">다른 기기에서 텍스트 정보만 이어받기</div>
+                                        </button>
+                                        <button
+                                            onClick={() => { handleSaveFile(); setIsMobileMenuOpen(false); }}
+                                            className="w-full text-left px-4 py-3 hover:bg-blue-50 border-b border-gray-100 transition-colors"
+                                        >
+                                            <div className="flex items-center gap-3 text-sm text-blue-600 font-bold">💾 <span>데이터 저장</span></div>
+                                            <div className="text-[11px] text-blue-400 mt-1 ml-7">클라우드 저장 + 내 폰에 백업파일 생성</div>
                                         </button>
                                         <button
                                             onClick={() => { handleReset(); setIsMobileMenuOpen(false); }}
                                             className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 border-b border-gray-100 transition-colors"
                                         >
                                             🔄 <span>초기화</span>
-                                        </button>
-                                        <button
-                                            onClick={() => { handleLoadFromCloud(); setIsMobileMenuOpen(false); }}
-                                            className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-indigo-600 font-semibold hover:bg-indigo-50 border-b border-gray-100 transition-colors"
-                                        >
-                                            ☁️ <span>클라우드 동기화</span>
-                                        </button>
-                                        <button
-                                            onClick={() => { handleSaveFile(); setIsMobileMenuOpen(false); }}
-                                            className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-blue-600 font-semibold hover:bg-blue-50 transition-colors"
-                                        >
-                                            💾 <span>데이터 저장</span>
                                         </button>
                                         <button
                                             onClick={() => { handleInstallApp(); setIsMobileMenuOpen(false); }}
@@ -810,10 +813,18 @@
                                         <Icon name="phone-call" size={16} /> 원콜서비스 신청
                                     </a>
                                     <div className="h-px bg-gray-100 my-3"></div>
-                                    <div className="text-xs text-gray-400 font-bold mb-1 uppercase tracking-wider">데이터 관리</div>
+                                    <div className="text-xs text-gray-400 font-bold mb-2 uppercase tracking-wider">데이터 관리</div>
+                                    <div className="bg-blue-50 border border-blue-100 p-2.5 rounded-lg mb-3">
+                                        <p className="text-[11px] text-blue-800 leading-relaxed">
+                                            <strong className="block mb-1 text-xs">💡 저장/불러오기 가이드</strong>
+                                            • <b className="text-blue-600">저장</b>: 클라우드 전송 및 파일(.json) 백업<br/>
+                                            • <b className="text-gray-700">파일 불러오기</b>: 백업 파일로 완벽 복구<br/>
+                                            • <b className="text-indigo-600">동기화</b>: 타 기기에서 텍스트만 이어받기
+                                        </p>
+                                    </div>
                                     <button onClick={handleSaveFile} className="w-full flex gap-2 px-3 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"><Icon name="download" size={16} />데이터 저장</button>
                                     <button onClick={handleLoadFromCloud} className="w-full flex gap-2 px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"><Icon name="cloud-download" size={16} />클라우드 동기화</button>
-                                    <button onClick={() => fileInputRef.current.click()} className="w-full flex gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-slate-700 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">📁 로컬 파일 불러오기</button>
+                                    <button onClick={() => fileInputRef.current.click()} className="w-full flex gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 text-slate-700 rounded-lg text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">📁 파일 불러오기</button>
                                     <input type="file" ref={fileInputRef} onChange={handleLoadFile} className="hidden" accept=".json" />
                                     <div className="h-px bg-gray-200 my-2"></div>
                                     <button onClick={handleReset} className="w-full flex gap-2 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm">🔄 초기화</button>
