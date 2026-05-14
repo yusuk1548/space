@@ -894,12 +894,30 @@
                         </div>
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-2">평가기간 및 일자</label>
-                            <input
-                                type="date"
-                                value={data.period || ""}
-                                onChange={e => setData({ ...data, period: e.target.value })}
-                                className="w-full p-3.5 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                            />
+                            <div className="relative w-full md:w-72 bg-gray-50 border border-gray-300 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:bg-white transition-all overflow-hidden">
+                                <input
+                                    type="date"
+                                    value={data.period || ""}
+                                    onChange={e => setData({ ...data, period: e.target.value })}
+                                    className="w-full p-3.5 pr-10 bg-transparent outline-none cursor-pointer relative z-10"
+                                />
+                                {/* 커스텀 달력 아이콘 (모바일에서도 항상 노출) */}
+                                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 z-0 pointer-events-none">
+                                    <Icon name="calendar" size={20} />
+                                </div>
+                                {/* 네이티브 아이콘을 투명하게 넓혀 어디든 클릭 가능하게 만드는 트릭 */}
+                                <style>{`
+                                    input[type="date"]::-webkit-calendar-picker-indicator {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                        opacity: 0;
+                                        cursor: pointer;
+                                    }
+                                `}</style>
+                            </div>
                         </div>
                         <div className="grid grid-cols-2 gap-6">
                             <div>
@@ -1438,7 +1456,7 @@
             );
         }
 
-        function ConclusionScreen({ reportInfo, spaces, defectSummary, checklistResults, setFinalOpinion, finalOpinion, onAutoGenerate, summary, setSummary }) {
+        function ConclusionScreen({ reportInfo, spaces, defectSummary, checklistResults, setFinalOpinion, finalOpinion, onAutoGenerate, summary, setSummary, onGoToDownload }) {
             const generate = () => {
                 const safeSpaces = spaces || [];
                 if (safeSpaces.length === 0) { setFinalOpinion(""); return; }
@@ -1546,10 +1564,10 @@
                             사고 예방을 위해 아래 버튼을 눌러 필요한 양식들을 지금 바로 확인하세요.
                         </p>
                         <button
-                            onClick={() => props.onGoToDownload && props.onGoToDownload()}
+                            onClick={() => onGoToDownload && onGoToDownload()}
                             className="w-full md:w-auto px-10 py-4 bg-slate-800 text-white text-lg font-bold rounded-xl shadow-lg hover:bg-slate-900 transition-all transform hover:scale-105 flex justify-center items-center gap-2 mx-auto"
                         >
-                            📂 필수 법정 양식 받으러 가기 (순간이동)
+                            📂 필수 법정 양식 받으러 가기
                         </button>
                     </div>
 
@@ -1733,7 +1751,7 @@
                                             </li>
                                         </ul>
                                         <button
-                                            onClick={() => props.onGoToDownload && props.onGoToDownload()}
+                                            onClick={() => onGoToDownload && onGoToDownload()}
                                             className="mt-5 w-full py-3.5 md:py-4 bg-blue-600 text-white text-sm md:text-lg font-bold rounded-xl shadow-md hover:bg-blue-700 transition transform hover:-translate-y-1 flex justify-center items-center gap-2"
                                         >
                                             📄 프로그램 양식 다운로드 화면으로 이동
