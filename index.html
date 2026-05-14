@@ -728,7 +728,7 @@
                                     {activeTab === 'check' && <ChecklistScreen results={checklistResults} setResults={setChecklistResults} defectSummary={defectSummary} />}
                                     {activeTab === 'status' && <StatusScreen spaces={spaces} setSpaces={setSpaces} />}
                                     {activeTab === 'map' && <MapScreen spaces={spaces} mapImage={mapImage} setMapImage={setMapImage} setSpaces={setSpaces} />}
-                                    {activeTab === 'conclusion' && <ConclusionScreen reportInfo={reportInfo} spaces={spaces} defectSummary={defectSummary} checklistResults={checklistResults} setFinalOpinion={setFinalOpinion} finalOpinion={finalOpinion} onAutoGenerate={handleAutoGenerateSummary} summary={summary} setSummary={setSummary} />}
+                                    {activeTab === 'conclusion' && <ConclusionScreen reportInfo={reportInfo} spaces={spaces} defectSummary={defectSummary} checklistResults={checklistResults} setFinalOpinion={setFinalOpinion} finalOpinion={finalOpinion} onAutoGenerate={handleAutoGenerateSummary} summary={summary} setSummary={setSummary} onGoToDownload={() => setActiveTab('download')} />}
                                     {activeTab === 'download' && <DownloadScreen onProgramDownload={handleProgramDownload} />}
 
                                     {activeTab === 'guide' && <GuideScreen onSelect={setSelectedSpaceItem} />}
@@ -895,11 +895,10 @@
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-2">평가기간 및 일자</label>
                             <input
-                                type="text"
+                                type="date"
                                 value={data.period || ""}
                                 onChange={e => setData({ ...data, period: e.target.value })}
                                 className="w-full p-3.5 border border-gray-300 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                                placeholder="예: 2026-05-11"
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-6">
@@ -1520,7 +1519,39 @@
             };
             return (
                 <div className="p-4 md:p-8 h-full flex flex-col overflow-auto">
-                    <div className="mb-4"><button onClick={generate} className="px-4 py-3 md:py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-base transition">📊 초안 자동 작성</button></div>
+                    <div className="mb-4 flex flex-col md:flex-row gap-3">
+                        <button
+                            onClick={generate}
+                            className="flex-1 md:flex-none px-4 py-3 md:py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-base transition flex justify-center items-center gap-2"
+                        >
+                            📊 초안 자동 작성
+                        </button>
+                        <button
+                            onClick={() => window.print()}
+                            className="flex-1 md:flex-none px-4 py-3 md:py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-lg text-base shadow-md hover:shadow-lg hover:from-emerald-700 hover:to-teal-700 transition-all transform hover:-translate-y-1 flex justify-center items-center gap-2 border-b-4 border-emerald-800 active:border-b-0 active:translate-y-0"
+                        >
+                            📄 위험성평가 보고서 다운로드 (PDF)
+                        </button>
+                    </div>
+
+                    {/* 다음 단계 안내 박스 */}
+                    <div className="mt-4 mb-2 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center print:hidden">
+                        <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-600 rounded-full mb-4">
+                            <Icon name="arrow-right-circle" size={28} />
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-800 mb-2">마지막 필수 단계가 남았습니다!</h3>
+                        <p className="text-slate-600 text-sm md:text-base leading-relaxed mb-6">
+                            보고서 작성이 완료되었습니다. 하지만 실제 현장 작업을 위해서는<br className="hidden md:block" />
+                            <strong>'특별안전보건교육 일지', '작업허가서', '긴급구조 훈련'</strong> 등 추가 법정 양식이 반드시 필요합니다.<br />
+                            사고 예방을 위해 아래 버튼을 눌러 필요한 양식들을 지금 바로 확인하세요.
+                        </p>
+                        <button
+                            onClick={() => props.onGoToDownload && props.onGoToDownload()}
+                            className="w-full md:w-auto px-10 py-4 bg-slate-800 text-white text-lg font-bold rounded-xl shadow-lg hover:bg-slate-900 transition-all transform hover:scale-105 flex justify-center items-center gap-2 mx-auto"
+                        >
+                            📂 필수 법정 양식 받으러 가기 (순간이동)
+                        </button>
+                    </div>
 
                     {/* [인쇄 전용] 1-1. 종합 평가 결과표 */}
                     <div className="hidden print:!block w-full mb-8 page-break-inside-avoid">
@@ -1608,7 +1639,7 @@
                             onClick={() => setShowGuideModal(true)}
                             className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full px-5 py-2.5 text-sm font-bold shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-300 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-1 shrink-0"
                         >
-                            💡 밀폐공간 20종류 사진으로 확인하기
+                            💡 밀폐공간 종류 사진으로 확인하기
                         </button>
                     </div>
 
@@ -1734,7 +1765,7 @@
 
                     </div>
 
-                    {/* 밀폐공간 20종류 갤러리 모달 */}
+                    {/* 밀폐공간 종류 갤러리 모달 */}
                     {showGuideModal && (
                         <div
                             className="fixed inset-0 bg-black bg-opacity-75 z-[90] flex justify-center items-end md:items-center p-0 md:p-4 print:hidden"
