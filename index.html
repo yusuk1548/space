@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 <head>
@@ -258,15 +258,15 @@
             {
                 category: "3. 작업 전 필수 확인 사항",
                 items: [
-                    { id: "3-1", question: "향후 내부 작업(외주업체 포함)이 발생할 경우, 진입 전 '산소 18% 이상' 등 유해가스를 측정하고 안전이 확인된 후 작업허가서를 승인해야 함을 인지하고 관련 절차를 갖추고 있는가?", law: "규칙 제619조의2", action: "향후 작업 시 가스농도 측정 결과 확인 전까지 외주업체 출입을 절대 금지하는 지침 마련" },
+                    { id: "3-1", question: "내부 작업(외주업체 포함)이 발생할 경우, 진입 전 '산소 18% 이상' 등 유해가스를 측정하고 안전이 확인된 후 작업허가서를 승인해야 함을 인지하고 관련 절차를 갖추고 있는가?", law: "규칙 제619조의2", action: "향후 작업 시 가스농도 측정 결과 확인 전까지 외주업체 출입을 절대 금지하는 지침 마련" },
                     { id: "3-2", question: "실제 작업 시, '작업 전 체적의 10배 이상(최소 15분) 환기 및 작업 중 지속 환기'가 생명과 직결됨을 작업자에게 교육하고 현장을 확인할 준비가 되어 있는가?", law: "규칙 제620조", action: "향후 작업 시 환기팬 가동 상태 현장 확인 및 TBM(작업 전 미팅) 시 강력히 경고하는 절차 마련" }
                 ]
             },
             {
-                category: "4. \ube44\uc0c1 \ub300\uc751 \ubc0f \uac10\uc2dc \uccb4\uacc4",
+                category: "4. 비상 대응 및 감시 체계",
                 items: [
-                    { id: "4-1", question: "\uc791\uc5c5\uc790\uac00 \ub0b4\ubd80\uc5d0 \uc788\uc744 \ub54c, \ubc16\uc5d0\uc11c \uc0c1\ud0dc\ub97c \uc9c0\ucf1c\ubcf4\uace0 \ube44\uc0c1\uc2dc \uc989\uac01 119\uc5d0 \uc2e0\uace0\ud560 '\uc804\ub2f4 \uac10\uc2dc\uc778'\uc744 \ubcc4\ub3c4\ub85c \ubc30\uce58\ud574\uc57c \ud568\uc744 \uc544\ub294\uac00?", law: "\uaddc\uce59 \uc81c623\uc870", action: "\uac10\uc2dc\uc778 \uc804\ub2f4 \ubc30\uce58 \ubc0f \uc791\uc5c5 \uc911 \ubb34\ub2e8 \uc774\ud0c8 \uc808\ub300 \uae08\uc9c0 \uad50\uc721" },
-                    { id: "4-2", question: "\uc9c8\uc2dd \uc0ac\uace0 \ubc1c\uc0dd \uc2dc, \ub3d9\ub8cc\ub97c \uad6c\ud558\ub7ec \ubb34\uc791\uc815 \ub530\ub77c \ub4e4\uc5b4\uac00\uba74 \uc5f0\uc57c \uc0ac\ub9dd\ud55c\ub2e4\ub294 \uc0ac\uc2e4\uc744 \uc219\uc9c0\ud558\uace0 '\uc790\uccb4 \uad6c\uc870 \uae08\uc9c0 \ubc0f 119 \uc989\uc2dc \uc2e0\uace0'\ub97c \uad50\uc721\ud558\ub294\uac00?", law: "\uc548\uc804\ubcf4\uac74\uc218\uce59", action: "\ubc29\ub3c5\ub9c8\uc2a4\ud06c \ucc29\uc6a9 \ud6c4 \uc790\uccb4 \uc9c4\uc785/\uad6c\uc870 \uc808\ub300 \uae08\uc9c0 \uc6d0\uce59 \ud655\ub9bd \ubc0f 119 \uc989\uc2dc \uc2e0\uace0" }
+                    { id: "4-1", question: "작업자가 내부에 있을 때, 밖에서 상태를 지켜보고 비상시 즉각 119에 신고할 '전담 감시인'을 별도로 배치해야 함을 아는가?", law: "규칙 제623조", action: "감시인 전담 배치 및 작업 중 무단 이탈 절대 금지 교육" },
+                    { id: "4-2", question: "질식 사고 발생 시, 동료를 구하러 무작정 따라 들어가면 '연쇄' 사망한다는 사실을 숙지하고 '자체 구조 금지 및 119 즉시 신고'를 교육하는가?", law: "안전보건수칙", action: "방독마스크 착용 후 자체 진입/구조 절대 금지 원칙 확립 및 119 즉시 신고" }
                 ]
             },
             {
@@ -817,8 +817,8 @@
                                     <div className="bg-blue-50 border border-blue-100 p-2.5 rounded-lg mb-3">
                                         <p className="text-[11px] text-blue-800 leading-relaxed">
                                             <strong className="block mb-1 text-xs">💡 저장/불러오기 가이드</strong>
-                                            • <b className="text-blue-600">저장</b>: 클라우드 전송 및 파일(.json) 백업<br/>
-                                            • <b className="text-gray-700">파일 불러오기</b>: 백업 파일로 완벽 복구<br/>
+                                            • <b className="text-blue-600">저장</b>: 클라우드 전송 및 파일(.json) 백업<br />
+                                            • <b className="text-gray-700">파일 불러오기</b>: 백업 파일로 완벽 복구<br />
                                             • <b className="text-indigo-600">동기화</b>: 타 기기에서 텍스트만 이어받기
                                         </p>
                                     </div>
@@ -1166,9 +1166,9 @@
             const [expanded, setExpanded] = useState(["1. 밀폐공간 인식 및 외주업체 관리"]);
 
             const toggleExpand = (category) => {
-                setExpanded(prev => 
-                    prev.includes(category) 
-                        ? prev.filter(c => c !== category) 
+                setExpanded(prev =>
+                    prev.includes(category)
+                        ? prev.filter(c => c !== category)
                         : [...prev, category]
                 );
             };
@@ -1434,19 +1434,19 @@
                             <div key={s.id} className={`bg-white p-4 rounded-xl shadow-sm border relative ${editingId === s.id ? 'ring-2 ring-blue-400' : 'border-gray-200'}`}>
                                 <div className="absolute top-2 right-2 flex items-center gap-1">
                                     <button onClick={() => {
-                                            setEditingId(s.id);
-                                            setForm({
-                                                name: s.name, location: s.location || '', area: s.area || '', workContent: s.workContent || '',
-                                                gas: { ...s.gas }, photo: s.photo || null,
-                                                cycle: s.cycle || '청소시(비정기)', cycleDirect: s.cycleDirect || '',
-                                                personnel: s.personnel || '2인 1조', personnelDirect: s.personnelDirect || '',
-                                                measureTime: s.measureTime || '환기 전', measureTimeDirect: s.measureTimeDirect || '',
-                                                matrixA: s.matrixA || 1, matrixB: s.matrixB || 1, matrixC: s.matrixC || 1
-                                            });
-                                            setIsCustomWork(!WORK_TYPES.includes(s.workContent) && s.workContent !== '');
-                                            setIsCustomName(!SPACE_TYPES.find(t => t.label === s.name));
-                                        }} className="text-gray-300 hover:text-blue-500 transition-colors p-1" title="수정"><Icon name="edit-3" size={16} /></button>
-                                    <button onClick={() => { if(confirm('삭제하시겠습니까?')) { setSpaces(spaces.filter(x => x.id !== s.id)); if (editingId === s.id) resetForm(); } }} className="text-gray-300 hover:text-red-500 transition-colors p-1" title="삭제"><Icon name="trash-2" size={16} /></button>
+                                        setEditingId(s.id);
+                                        setForm({
+                                            name: s.name, location: s.location || '', area: s.area || '', workContent: s.workContent || '',
+                                            gas: { ...s.gas }, photo: s.photo || null,
+                                            cycle: s.cycle || '청소시(비정기)', cycleDirect: s.cycleDirect || '',
+                                            personnel: s.personnel || '2인 1조', personnelDirect: s.personnelDirect || '',
+                                            measureTime: s.measureTime || '환기 전', measureTimeDirect: s.measureTimeDirect || '',
+                                            matrixA: s.matrixA || 1, matrixB: s.matrixB || 1, matrixC: s.matrixC || 1
+                                        });
+                                        setIsCustomWork(!WORK_TYPES.includes(s.workContent) && s.workContent !== '');
+                                        setIsCustomName(!SPACE_TYPES.find(t => t.label === s.name));
+                                    }} className="text-gray-300 hover:text-blue-500 transition-colors p-1" title="수정"><Icon name="edit-3" size={16} /></button>
+                                    <button onClick={() => { if (confirm('삭제하시겠습니까?')) { setSpaces(spaces.filter(x => x.id !== s.id)); if (editingId === s.id) resetForm(); } }} className="text-gray-300 hover:text-red-500 transition-colors p-1" title="삭제"><Icon name="trash-2" size={16} /></button>
                                 </div>
                                 <div className="flex gap-3">
                                     <div className="w-[60px] h-[60px] shrink-0 rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center border border-gray-100">
