@@ -1500,6 +1500,15 @@
         }
 
         function ConclusionScreen({ reportInfo, spaces, defectSummary, checklistResults, setFinalOpinion, finalOpinion, onAutoGenerate, summary, setSummary, onGoToDownload, onReportDownload }) {
+            // textarea Auto-resize: finalOpinion 변경 시 높이 자동 재계산
+            const textareaRef = React.useRef(null);
+            React.useEffect(() => {
+                if (textareaRef.current) {
+                    textareaRef.current.style.height = 'auto';
+                    textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+                }
+            }, [finalOpinion]);
+
             const generate = () => {
                 const safeSpaces = spaces || [];
                 if (safeSpaces.length === 0) { setFinalOpinion(""); return; }
@@ -1628,7 +1637,13 @@
                         </h3>
                     </div>
 
-                    <textarea className="flex-1 p-4 border rounded resize-none min-h-[300px] text-base mb-6" value={finalOpinion} onChange={e => setFinalOpinion(e.target.value)} />
+                    <textarea 
+                        ref={textareaRef}
+                        className="w-full p-4 border rounded resize-none min-h-[300px] text-base mb-6 overflow-hidden bg-white focus:ring-2 focus:ring-indigo-500 transition-shadow" 
+                        value={finalOpinion} 
+                        onChange={e => setFinalOpinion(e.target.value)} 
+                        placeholder="총평 및 의견을 입력하세요."
+                    />
 
                     {/* 다음 단계 안내 박스 — textarea 완독 후 자연스럽게 노출 */}
                     <div className="shrink-0 mb-8 bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center print:hidden">
