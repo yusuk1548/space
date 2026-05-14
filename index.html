@@ -828,7 +828,7 @@
                                     <MenuBtn active={activeTab === 'map'} onClick={() => setActiveTab('map')} icon="map-pin" text="4. 디지털 배치도" />
                                     <MenuBtn active={activeTab === 'conclusion'} onClick={() => setActiveTab('conclusion')} icon="pen-tool" text="5. 총평 및 의견" />
                                     <div className="h-px bg-gray-100 my-2"></div>
-                                    <MenuBtn active={activeTab === 'download'} onClick={() => setActiveTab('download')} icon="folder-down" text="자료 다운로드" />
+                                    <MenuBtn active={activeTab === 'download'} onClick={() => setActiveTab('download')} icon="folder-down" text="필수 양식함" />
                                 </nav>
                                 <div className="p-4 border-t border-gray-100 space-y-2">
                                     <div className="text-xs text-gray-400 font-bold mb-1 uppercase tracking-wider">안전 지원</div>
@@ -885,7 +885,7 @@
                                             { tab: 'check', icon: 'check-square', label: '체크' },
                                             { tab: 'map', icon: 'map-pin', label: '배치도' },
                                             { tab: 'conclusion', icon: 'pen-tool', label: '총평' },
-                                            { tab: 'download', icon: 'folder-down', label: '다운로드' },
+                                            { tab: 'download', icon: 'folder-down', label: '양식' },
                                         ].map(({ tab, icon, label }) => (
                                             <button
                                                 key={tab}
@@ -1177,17 +1177,26 @@
         );
 
         function ChecklistScreen({ results, setResults, defectSummary, onNext }) {
-            const [expanded, setExpanded] = useState("1. 밀폐공간 인식 및 외주업체 관리");
+            const [expanded, setExpanded] = useState(["1. 밀폐공간 인식 및 외주업체 관리"]);
+
+            const toggleExpand = (category) => {
+                setExpanded(prev => 
+                    prev.includes(category) 
+                        ? prev.filter(c => c !== category) 
+                        : [...prev, category]
+                );
+            };
+
             return (
                 <div className="flex flex-col h-full p-4 md:p-6 gap-6 overflow-auto pb-24">
                     <div className="flex-1 space-y-4">
                         <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2"><Icon name="check-square" className="text-blue-600" /> 체크리스트 점검</h2>
                         {CHECKLIST_MASTER.map((cat, idx) => (
                             <div key={idx} className="bg-white rounded-xl shadow p-4 md:p-6">
-                                <button onClick={() => setExpanded(expanded === cat.category ? null : cat.category)} className="w-full flex justify-between font-bold text-base md:text-lg mb-2 text-slate-700 border-b pb-2 py-3 md:py-2">
-                                    {cat.category} {expanded === cat.category ? <Icon name="chevron-up" /> : <Icon name="chevron-down" />}
+                                <button onClick={() => toggleExpand(cat.category)} className="w-full flex justify-between font-bold text-base md:text-lg mb-2 text-slate-700 border-b pb-2 py-3 md:py-2">
+                                    {cat.category} {expanded.includes(cat.category) ? <Icon name="chevron-up" /> : <Icon name="chevron-down" />}
                                 </button>
-                                {expanded === cat.category && cat.items.map(item => (
+                                {expanded.includes(cat.category) && cat.items.map(item => (
                                     <div key={item.id} className="mb-4 pb-4 border-b last:border-0">
                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-2">
                                             <div className="w-full md:flex-1 pr-0 md:pr-4">
@@ -1666,12 +1675,18 @@
             };
             return (
                 <div className="p-4 md:p-8 h-full flex flex-col overflow-auto">
-                    <div className="mb-4">
+                    <div className="mb-4 flex flex-wrap gap-2">
                         <button
                             onClick={generate}
-                            className="px-4 py-3 md:py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-base transition"
+                            className="flex-1 md:flex-none px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-sm md:text-base transition flex items-center justify-center gap-2"
                         >
                             📊 초안 자동 작성
+                        </button>
+                        <button
+                            onClick={onReportDownload}
+                            className="flex-1 md:flex-none px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-sm md:text-base transition flex items-center justify-center gap-2 shadow-md active:scale-95"
+                        >
+                            <Icon name="download" size={18} /> 보고서 다운로드 (PDF)
                         </button>
                     </div>
 
@@ -1883,7 +1898,7 @@
                                             onClick={() => onGoToDownload && onGoToDownload()}
                                             className="mt-5 w-full py-3.5 md:py-4 bg-blue-600 text-white text-sm md:text-lg font-bold rounded-xl shadow-md hover:bg-blue-700 transition transform hover:-translate-y-1 flex justify-center items-center gap-2"
                                         >
-                                            📄 프로그램 양식 다운로드 화면으로 이동
+                                            📄 필수 양식함으로 이동
                                         </button>
                                     </div>
                                 )}
@@ -2317,7 +2332,7 @@
             return (
                 <div className="p-4 md:p-8 max-w-5xl mx-auto">
                     <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                        <Icon name="folder-down" className="text-blue-600" /> 다운로드 및 안전 지원
+                        <Icon name="folder-down" className="text-blue-600" /> 필수 양식 및 안전 지원
                     </h2>
 
                     <div className="mb-8 bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-2xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-5">
